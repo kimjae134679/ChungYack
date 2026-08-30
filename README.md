@@ -1,6 +1,6 @@
 # ChungYack — 청약2 Project Hub
 
-최종 갱신: 2026-08-30 KST
+최종 갱신: 2026-08-31 KST
 
 이 저장소는 청약2 프로젝트의 **단일 기준점(Single Source of Truth)** 이다.
 새 대화·새 작업자·자동화·인수인계 시 최상단 문서부터 읽고 현재 상태를 확인한다.
@@ -65,13 +65,71 @@
 - 보류는 패스와 다르며 새 정보가 생기면 재평가한다.
 - 공식자료가 없는 가격·주소·개인 결과는 추정하지 않는다.
 
-## 5. 권장 폴더 구조
+## 5. 청약 레이더 Android / PWA
+
+`stock` 저장소의 Market Radar 운영 방식을 참고해 `public/` 웹앱을 Capacitor로 감싸 Android APK를 자동 생성한다.
+
+```text
+public/
+  index.html                 앱 UI
+  assets/app.css             기본 모바일 UI
+  assets/app-v2.css          필터/추적 편집 UI
+  assets/app-v3.css          백업/삭제복원 UI
+  assets/app.js              공고/필터/추적 핵심 로직
+  assets/app-v2-fixes.js     안정성 보정 레이어
+  assets/app-v3.js           백업·되돌리기·native Back 보정
+  assets/app-icon.svg        청약 레이더 전용 아이콘
+  data/app.json              공개 공고 분석/초기 추적 seed
+  data/sh-2026.csv           SH 국민임대 전체 타입 데이터
+  manifest.webmanifest
+  sw.js
+
+.github/workflows/android.yml
+scripts/apply-android-branding.mjs
+scripts/qa-app.mjs
+capacitor.config.json
+VERSION
+```
+
+### 앱 UX 원칙
+
+- `59㎡ 제외`, `북부권 제외` 같은 기준을 앱에 강제하지 않는다.
+- 면적·지역·보증금·공가·경쟁률 분석 여부는 사용자가 직접 필터에서 켜고 끈다.
+- 필터 선택은 기기 로컬에 저장되어 앱 재실행 후에도 유지한다.
+- **추적에는 실제 신청한 공고만 넣는다.** 후보를 보는 것만으로 추적에 자동 등록하지 않는다.
+- 추적 항목은 신청일·타입·현재상태·다음 일정·메모·주소를 수정할 수 있다.
+- `취소/추적중단`은 앱 기록 상태일 뿐 실제 SH/LH 신청 취소 명령이 아니다.
+- 추적 제거는 최근 제거 기록에 임시 보관하고 되돌릴 수 있다.
+- 필터·추적은 JSON 파일로 백업/복원할 수 있다.
+- UI 변경은 기능만 존재하는 상태로 끝내지 않고 모바일 safe-area, 가로밀림, 필터 동작, 로컬 저장, 뒤로가기까지 QA한다.
+
+### Private 저장소 대응
+
+현재 저장소가 Private이어도 APK는 정상 동작하도록 **공고 데이터는 APK에 번들하고 개인 수정 상태는 `localStorage`에 저장**한다.
+저장소를 나중에 Public으로 전환할 경우 개인 신청상태를 공개 저장소 데이터로 내보내면 안 된다. 공개 데이터와 로컬 개인 추적을 분리하는 원칙을 유지한다.
+
+### APK 자동빌드
+
+`.github/workflows/android.yml`은 다음을 수행한다.
+
+`QA → Capacitor Android 생성 → 웹 번들 sync → 전용 아이콘/Native Back 적용 → Gradle APK → Artifact → GitHub Release`
+
+빌드 상태는 성공/실패/진행중을 `ops/android-latest-run.json`에 기록하도록 구성한다.
+
+## 6. 권장 폴더 구조
 
 ```text
 /
 ├─ README.md
 ├─ STATUS.md
 ├─ HANDOFF.md
+├─ VERSION
+├─ capacitor.config.json
+├─ package.json
+├─ public/
+├─ scripts/
+├─ .github/workflows/
+├─ ops/
 ├─ docs/
 │  ├─ MASTER_RULES.md
 │  ├─ USER_OUTPUT_OVERRIDES.md
@@ -89,6 +147,6 @@
 └─ archive/
 ```
 
-## 6. 최종 목표
+## 7. 최종 목표
 
 **많이 찾고 → 공식자료로 걸러내고 → 실제 신청 가능한 것만 남기고 → 입지·가격·당첨가능성까지 비교하고 → 신청 후 결과까지 끝까지 추적한다.**
