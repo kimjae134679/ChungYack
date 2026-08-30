@@ -61,6 +61,8 @@ jobs:
           grep -q 'typeFilter' public/index.html
           grep -q 'app-v2-fixes.js' public/index.html
           grep -q 'app-icon.svg' public/manifest.webmanifest
+          grep -q 'exportLocalBtn' public/index.html
+          grep -q '취소/추적중단' public/index.html
 
       - name: Create Android project
         run: npx cap add android
@@ -77,6 +79,12 @@ jobs:
           test -s android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
           test -s android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
           grep -q '청약 레이더' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
+
+      - name: Restore persistent debug signing key
+        uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: chungyack-radar-debug-keystore-v1
 
       - name: Build debug APK
         run: |
@@ -99,14 +107,14 @@ jobs:
         run: |
           TAG="apk-v${{ steps.ver.outputs.version }}"
           APK="ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "사용자 선택형 필터, 로컬 신청추적 수정/삭제, 새 전용 앱 아이콘을 포함한 APK"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "사용자 선택형 필터, 로컬 신청추적 수정/삭제/백업, 새 전용 앱 아이콘을 포함한 APK"
           gh release upload "$TAG" "$APK" --clobber
 
       - name: Record latest build
         if: success()
         run: |
           mkdir -p ops
-          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "ChungYack-Radar-v%s-debug-apk",\n  "release_tag": "apk-v%s"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
+          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "ChungYack-Radar-v%s-debug-apk",\n  "release_tag": "apk-v%s",\n  "signing_cache": "chungyack-radar-debug-keystore-v1"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git pull --rebase || true
