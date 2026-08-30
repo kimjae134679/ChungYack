@@ -31,6 +31,16 @@ jobs:
         shell: bash
         run: echo "version=$(tr -d '\r\n ' < VERSION)" >> "$GITHUB_OUTPUT"
 
+      - name: Publish build run pointer
+        run: |
+          mkdir -p ops
+          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "building",\n  "artifact": "ChungYack-Radar-v%s-debug-apk",\n  "release_tag": "apk-v%s"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/android-latest-run.json
+          git commit -m "Record ChungYack Android build ${{ github.run_id }} started" || true
+          git push || true
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -115,14 +125,26 @@ jobs:
           gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "면적·지역 자유필터, 신청 추적 수정/상태변경, 삭제 되돌리기, JSON 백업/복원, 전용 앱 아이콘을 포함한 APK"
           gh release upload "$TAG" "$APK" --clobber
 
-      - name: Record latest build
+      - name: Record successful build
         if: success()
         run: |
+          git pull --rebase || true
           mkdir -p ops
           printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "ChungYack-Radar-v%s-debug-apk",\n  "release_tag": "apk-v%s",\n  "signing_cache": "chungyack-radar-debug-keystore-v1"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git pull --rebase || true
           git add ops/android-latest-run.json
-          git commit -m "Record ChungYack Android build ${{ github.run_id }}" || true
+          git commit -m "Record ChungYack Android build ${{ github.run_id }} successful" || true
+          git push || true
+
+      - name: Record failed build
+        if: failure()
+        run: |
+          git pull --rebase || true
+          mkdir -p ops
+          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "failed",\n  "artifact": "ChungYack-Radar-v%s-debug-apk",\n  "release_tag": "apk-v%s"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/android-latest-run.json
+          git commit -m "Record ChungYack Android build ${{ github.run_id }} failed" || true
           git push || true
