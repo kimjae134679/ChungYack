@@ -49,13 +49,17 @@ jobs:
         run: |
           npm run qa
           node --check public/assets/app.js
+          node --check public/assets/app-v2-fixes.js
           node --check public/sw.js
           node --check scripts/qa-app.mjs
           node --check scripts/apply-android-branding.mjs
+          test -s public/assets/app-v2.css
+          test -s public/data/sh-2026.csv
           grep -q 'viewport-fit=cover' public/index.html
           grep -q 'safe-area-inset-bottom' public/assets/app.css
           grep -q 'trackingEditor' public/index.html
           grep -q 'typeFilter' public/index.html
+          grep -q 'app-v2-fixes.js' public/index.html
           grep -q 'app-icon.svg' public/manifest.webmanifest
 
       - name: Create Android project
