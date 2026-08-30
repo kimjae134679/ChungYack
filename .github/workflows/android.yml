@@ -45,13 +45,26 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: UI and data QA
-        run: npm run qa
+        run: |
+          npm run qa
+          node --check public/assets/app.js
+          node --check public/sw.js
+          node --check scripts/qa-app.mjs
+          grep -q 'viewport-fit=cover' public/index.html
+          grep -q 'safe-area-inset-bottom' public/assets/app.css
+          grep -q '센트레빌 웨스트온' public/data/app.json
 
       - name: Create Android project
         run: npx cap add android
 
       - name: Sync web bundle
         run: npx cap sync android
+
+      - name: Verify Android project
+        run: |
+          test -s android/app/src/main/AndroidManifest.xml
+          test -s android/app/build.gradle
+          grep -q '청약 레이더' android/app/src/main/res/values/strings.xml
 
       - name: Build debug APK
         run: |
