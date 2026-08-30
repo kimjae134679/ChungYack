@@ -4,8 +4,10 @@ const mustExist = [
   'public/index.html',
   'public/assets/app.css',
   'public/assets/app-v2.css',
+  'public/assets/app-v3.css',
   'public/assets/app.js',
   'public/assets/app-v2-fixes.js',
+  'public/assets/app-v3.js',
   'public/assets/app-icon.svg',
   'public/data/app.json',
   'public/data/sh-2026.csv',
@@ -29,7 +31,7 @@ if (rows.length !== 80) throw new Error(`SH catalog row count expected 79, got $
 if (!csv.includes(',59,')) throw new Error('59㎡ catalog rows missing: filters must be user-selectable, not hard-excluded');
 if (!csv.includes(',29,') || !csv.includes(',39,') || !csv.includes(',49,')) throw new Error('catalog type coverage missing');
 const html = fs.readFileSync('public/index.html','utf8');
-for (const marker of ['청약 레이더','bottom-nav','recommendList','trackingGrid','trackingEditor','typeFilter','regionFilter','viewport-fit=cover','app-v2.css','app-v2-fixes.js']) {
+for (const marker of ['청약 레이더','bottom-nav','recommendList','trackingGrid','trackingEditor','typeFilter','regionFilter','viewport-fit=cover','app-v2.css','app-v3.css','app-v2-fixes.js','app-v3.js','exportLocalBtn','importLocalBtn','취소/추적중단']) {
   if (!html.includes(marker)) throw new Error(`index marker missing: ${marker}`);
 }
 const js = fs.readFileSync('public/assets/app.js','utf8');
@@ -38,12 +40,18 @@ for (const marker of ['chungyack.filters.v2','chungyack.tracking.v2','localStora
 }
 const fix = fs.readFileSync('public/assets/app-v2-fixes.js','utf8');
 if (!fix.includes('catalog-${id}') || !fix.includes('openTrackEditor')) throw new Error('catalog tracking stability fix missing');
+const v3 = fs.readFileSync('public/assets/app-v3.js','utf8');
+for (const marker of ['chungyack.tracking.trash.v1','cyExportBackup','cyImportBackup','cyRestoreRemoved','되돌리기','취소/추적중단']) {
+  if (!v3.includes(marker)) throw new Error(`v3 recovery marker missing: ${marker}`);
+}
 const css = fs.readFileSync('public/assets/app.css','utf8');
 for (const marker of ['safe-area-inset-top','safe-area-inset-bottom','overflow-x:hidden']) {
   if (!css.includes(marker)) throw new Error(`mobile QA marker missing: ${marker}`);
 }
+const css3 = fs.readFileSync('public/assets/app-v3.css','utf8');
+if (!css3.includes('safe-area-inset-bottom') || !css3.includes('.cy-toast')) throw new Error('v3 mobile recovery UI marker missing');
 const manifest = fs.readFileSync('public/manifest.webmanifest','utf8');
 if (!manifest.includes('assets/app-icon.svg')) throw new Error('manifest icon missing');
 const sw = fs.readFileSync('public/sw.js','utf8');
-for (const marker of ['app-v2-fixes.js','sh-2026.csv','app-icon.svg']) if (!sw.includes(marker)) throw new Error(`service worker asset missing: ${marker}`);
-console.log(`QA OK: trackingSeed=${data.trackingSeed.length}, catalog=79, insights=${data.insights.length}, version=${data.version}`);
+for (const marker of ['app-v2-fixes.js','app-v3.js','app-v3.css','sh-2026.csv','app-icon.svg']) if (!sw.includes(marker)) throw new Error(`service worker asset missing: ${marker}`);
+console.log(`QA OK: trackingSeed=${data.trackingSeed.length}, catalog=79, insights=${data.insights.length}, version=${data.version}, backup+undo=enabled`);
