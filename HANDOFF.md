@@ -1,6 +1,6 @@
 # ChungYack Handoff
 
-최종 갱신: 2026-08-30 KST
+최종 갱신: 2026-08-31 KST
 
 새 대화·새 작업자·자동화가 이 프로젝트를 이어받을 때 이 문서를 먼저 읽는다.
 
@@ -8,10 +8,11 @@
 
 1. `README.md`
 2. `docs/MASTER_RULES.md`
-3. `docs/REPORTING_AND_MAP_RULES.md`
-4. `STATUS.md`
-5. `data/tracking_registry.md`
-6. `docs/SOURCES_AND_COVERAGE.md`
+3. `docs/USER_OUTPUT_OVERRIDES.md`
+4. `docs/REPORTING_AND_MAP_RULES.md`
+5. `STATUS.md`
+6. `data/tracking_registry.md`
+7. `docs/SOURCES_AND_COVERAGE.md`
 
 ## 2. 이 프로젝트의 핵심 착각 금지
 
@@ -121,7 +122,65 @@
 
 상세 규칙은 반드시 `docs/REPORTING_AND_MAP_RULES.md`를 따른다.
 
-## 9. 변경 시 파일 갱신 규칙
+## 9. 청약 레이더 Android 앱 인수인계
+
+현재 APK 앱은 `stock` 저장소의 Market Radar 방식처럼 **웹앱 + Capacitor + GitHub Actions 자동빌드** 구조다.
+
+중요 파일:
+
+- `public/index.html` — 앱 화면 구조
+- `public/assets/app.js` — 공고 필터·추적 핵심
+- `public/assets/app-v2-fixes.js` — 카탈로그→추적 안정성 보정
+- `public/assets/app-v3.js` — 추적 삭제 되돌리기, JSON 백업/복원, Native Back 개선
+- `public/assets/app-icon.svg` — 전용 앱 아이콘
+- `public/data/sh-2026.csv` — SH 국민임대 전체 79개 타입
+- `public/data/app.json` — 경쟁률 분석·초기 추적 seed
+- `scripts/qa-app.mjs` — APK 빌드 전 기능/파일 QA
+- `scripts/apply-android-branding.mjs` — Android 아이콘 + Native Back 적용
+- `.github/workflows/android.yml` — APK 자동빌드 / Release
+- `ops/android-latest-run.json` — Actions가 기록하는 최신 빌드 상태
+
+### 앱 필터 규칙
+
+- 29/39/46/49/59㎡를 데이터에서 강제 삭제하지 않는다.
+- 지역도 강제 삭제하지 않는다.
+- 사용자가 앱에서 각 면적/지역을 직접 켜고 끈다.
+- `북부권 끄기`, `서울만`, 보증금 상한 같은 것은 빠른 필터일 뿐 영구 규칙이 아니다.
+- 필터 선택은 로컬 저장한다.
+
+### 앱 추적 규칙
+
+- **실제 신청한 공고만 추적에 표시한다.**
+- 후보를 열어본 것만으로 추적 등록하면 안 된다.
+- 신청한 경우 `신청했음 → 추적 추가` 또는 직접 추가한다.
+- 신청일/타입/상태/다음 일정/메모/주소를 앱에서 수정 가능하게 유지한다.
+- `취소/추적중단`은 앱의 관리 상태일 뿐 실제 청약사이트 신청을 취소하는 기능이 아니다.
+- 제거는 최근 제거 기록에 넣고 되돌리기를 제공한다.
+- 로컬 데이터는 JSON 백업/복원 가능해야 한다.
+
+### Private/Public 원칙
+
+현재는 **Private 저장소 유지 가능 구조**다.
+공고 데이터는 APK 번들, 사용자의 필터/추적 수정은 기기 `localStorage`에 둔다.
+나중에 저장소를 Public으로 바꾸더라도 개인 신청/결과 상태를 공개 데이터 피드에 넣지 않는다.
+공개 가능 공고 데이터와 개인 추적 상태를 반드시 분리한다.
+
+### APK QA 원칙
+
+다음이 통과하지 않으면 APK 완료로 간주하지 않는다.
+
+- JS syntax check
+- 필수 HTML/CSS/데이터 파일 존재
+- 79개 SH 타입 유지 및 59㎡ 포함 확인
+- 필터 켜기/끄기 마커 확인
+- 추적 수정/삭제/백업/복원 코드 확인
+- Android safe-area / 가로밀림 방지
+- 전용 Android launcher icon 확인
+- Native Back: 편집창 닫기 → 다른 탭에서 홈 → 홈에서 종료 확인
+- 동일 디버그 서명키 재사용
+- GitHub Release APK 생성
+
+## 10. 변경 시 파일 갱신 규칙
 
 ### 새 공고 발견
 - 검증 후 보고에 반영
@@ -130,6 +189,7 @@
 ### 신청 완료
 - 신규추천 목록에서 제거
 - 신청추적 섹션으로 이동
+- 앱 초기 seed가 갱신되어야 하는 경우 `public/data/app.json`도 검토
 
 ### 결과 발표
 - 결과확인 필요 → 당첨/예비/탈락 등 실제 확인 상태로 변경
@@ -143,7 +203,7 @@
 - 삭제 금지
 - 새 정보 시 재평가
 
-## 10. 인수인계 완료 체크
+## 11. 인수인계 완료 체크
 
 새 작업자는 작업 시작 전 다음을 답할 수 있어야 한다.
 
@@ -157,5 +217,8 @@
 - 지도는 일정 그룹별로 분리했는가?
 - 서로 다른 공고 사이 중복신청 제한을 확인했는가?
 - 대출 후 자기자금/월부담을 가능한 범위에서 계산했는가?
+- 앱 필터가 사용자 선택형으로 유지되는가?
+- 앱 추적이 실제 신청 공고만 담고 수정/삭제/백업 가능한가?
+- 최신 APK 빌드 상태와 Release를 확인했는가?
 
 이 질문에 답하지 못하면 탐색/인수인계가 끝난 것이 아니다.
