@@ -15,12 +15,16 @@ const mustExist = [
   'public/sw.js',
   'scripts/apply-android-branding.mjs',
   'capacitor.config.json',
+  'package.json',
   'VERSION'
 ];
 for (const p of mustExist) {
   if (!fs.existsSync(p) || fs.statSync(p).size === 0) throw new Error(`Missing/empty: ${p}`);
 }
 const data = JSON.parse(fs.readFileSync('public/data/app.json','utf8'));
+const pkg = JSON.parse(fs.readFileSync('package.json','utf8'));
+const version = fs.readFileSync('VERSION','utf8').trim();
+if (pkg.version !== version || data.version !== version) throw new Error(`Version mismatch package=${pkg.version} data=${data.version} VERSION=${version}`);
 if (!Array.isArray(data.trackingSeed) || !data.trackingSeed.length) throw new Error('trackingSeed empty');
 if (data.trackingSeed.some(x => !x.id || !x.name || !x.status)) throw new Error('trackingSeed required field missing');
 if (!Array.isArray(data.insights) || !data.insights.length) throw new Error('insights empty');
@@ -41,9 +45,10 @@ for (const marker of ['chungyack.filters.v2','chungyack.tracking.v2','localStora
 const fix = fs.readFileSync('public/assets/app-v2-fixes.js','utf8');
 if (!fix.includes('catalog-${id}') || !fix.includes('openTrackEditor')) throw new Error('catalog tracking stability fix missing');
 const v3 = fs.readFileSync('public/assets/app-v3.js','utf8');
-for (const marker of ['chungyack.tracking.trash.v1','cyExportBackup','cyImportBackup','cyRestoreRemoved','되돌리기','취소/추적중단']) {
+for (const marker of ['CY_APP_VERSION','chungyack.tracking.trash.v1','cyExportBackup','cyImportBackup','cyRestoreRemoved','되돌리기','취소/추적중단']) {
   if (!v3.includes(marker)) throw new Error(`v3 recovery marker missing: ${marker}`);
 }
+if (!v3.includes(`CY_APP_VERSION='${version}'`)) throw new Error('v3 displayed version does not match VERSION');
 const css = fs.readFileSync('public/assets/app.css','utf8');
 for (const marker of ['safe-area-inset-top','safe-area-inset-bottom','overflow-x:hidden']) {
   if (!css.includes(marker)) throw new Error(`mobile QA marker missing: ${marker}`);
@@ -54,4 +59,4 @@ const manifest = fs.readFileSync('public/manifest.webmanifest','utf8');
 if (!manifest.includes('assets/app-icon.svg')) throw new Error('manifest icon missing');
 const sw = fs.readFileSync('public/sw.js','utf8');
 for (const marker of ['app-v2-fixes.js','app-v3.js','app-v3.css','sh-2026.csv','app-icon.svg']) if (!sw.includes(marker)) throw new Error(`service worker asset missing: ${marker}`);
-console.log(`QA OK: trackingSeed=${data.trackingSeed.length}, catalog=79, insights=${data.insights.length}, version=${data.version}, backup+undo=enabled`);
+console.log(`QA OK: trackingSeed=${data.trackingSeed.length}, catalog=79, insights=${data.insights.length}, version=${version}, backup+undo=enabled`);
