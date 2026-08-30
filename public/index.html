@@ -9,6 +9,7 @@
 <link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/app.css">
 <link rel="stylesheet" href="assets/app-v2.css">
+<link rel="stylesheet" href="assets/app-v3.css">
 <title>청약 레이더</title>
 </head>
 <body>
@@ -72,6 +73,7 @@
     <div class="setting"><b>필터 저장</b><p>면적·지역·보증금·정렬 선택은 이 기기에 저장됩니다. 앱을 다시 열어도 유지됩니다.</p></div>
     <div class="setting"><b>내 추적 저장</b><p>신청 추적의 수정·상태변경·삭제는 기기 로컬 저장소에 저장합니다. GitHub 저장소가 Private 상태여도 APK는 동작합니다.</p></div>
     <div class="setting"><b>업데이트/백업</b><p>APK 업데이트 시 로컬 데이터가 유지되도록 동일 디버그 서명키를 재사용합니다. 필요하면 아래에서 필터·추적 데이터를 JSON으로 백업/복원할 수 있습니다.</p></div>
+    <div class="setting"><b>삭제 안전장치</b><p>추적에서 제거한 항목은 최근 제거 기록으로 임시 보관되어 바로 되돌릴 수 있습니다.</p></div>
     <div class="setting"><b>저장소 공개 여부</b><p>현재 구조는 Private 그대로 사용 가능합니다. 나중에 공개하더라도 개인 추적 데이터는 앱 로컬에만 남도록 분리했습니다.</p></div>
     <button class="reload" id="reloadBtn">공고 데이터 다시 불러오기</button>
     <div class="backup-row"><button class="ghost" id="exportLocalBtn">내 설정/추적 백업</button><button class="ghost" id="importLocalBtn">백업 가져오기</button><input type="file" id="importLocalFile" accept="application/json,.json" hidden></div>
@@ -109,5 +111,6 @@
 
 <script src="assets/app.js"></script>
 <script src="assets/app-v2-fixes.js"></script>
+<script src="assets/app-v3.js"></script>
 </body>
 </html>
