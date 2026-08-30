@@ -1,31 +1,28 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "updatedAt": "2026-08-31T02:30:00+09:00",
   "summary": {
-    "urgent": 2,
-    "tracking": 5,
-    "recommendations": 12,
-    "note": "59㎡ 고보증금·서울 북부권 후보는 기본 추천판에서 제외"
+    "urgent": 1,
+    "catalog": 79,
+    "note": "면적·지역은 기본 제외 없이 사용자가 필터에서 직접 켜고 끔"
   },
-  "tracking": [
+  "trackingSeed": [
     {
+      "id": "track-centreville-weston-25",
       "name": "센트레빌 웨스트온 청년형 특별공급 25형",
+      "type": "25형",
+      "appliedAt": "2026-08-31",
       "status": "신청완료",
       "statusIcon": "✅",
       "next": "2026-08-31 16:00 이후 결과 확인",
       "detail": "소득 1순위 / 지역 2순위로 신청 완료",
-      "address": "정확 주소 앱 데이터 보강 필요"
+      "address": "서울특별시 금천구 시흥대로 377"
     },
     {
-      "name": "비바힐스강변",
-      "status": "신청 진행중",
-      "statusIcon": "🟠",
-      "next": "2026-08-31 10:00~16:00 신청",
-      "detail": "사용자 결정: 넣자",
-      "address": "서울특별시 광진구 구의동 593-11"
-    },
-    {
+      "id": "track-unit125-18a",
       "name": "UNIT125 18A",
+      "type": "18A",
+      "appliedAt": "",
       "status": "예비",
       "statusIcon": "✅",
       "next": "추가 연락 / 예비 소진 추적",
@@ -33,15 +30,21 @@
       "address": "서울특별시 동대문구 장안동 418-1"
     },
     {
+      "id": "track-yangcheon-community",
       "name": "2026 양천구 청년협동조합 공동체주택",
+      "type": "",
+      "appliedAt": "2026-08-24",
       "status": "신청완료",
       "statusIcon": "✅",
       "next": "2026-11-25 예정 결과 발표",
-      "detail": "2026-08-24 이메일 제출 / 공식 선정기준 4순위",
+      "detail": "이메일 제출 / 공고상 공식 선정기준 4순위",
       "address": "서울특별시 양천구 오목로23길 25-1 외"
     },
     {
+      "id": "track-hoban-yangjae",
       "name": "호반써밋 양재",
+      "type": "",
+      "appliedAt": "",
       "status": "결과확인 필요",
       "statusIcon": "🎯",
       "next": "사용자 개인 결과 확인",
@@ -49,197 +52,140 @@
       "address": "서울특별시 서초구 양재동 산17-7"
     }
   ],
-  "recommendations": [
+  "insights": [
     {
-      "order": 1,
-      "region": "송파구",
-      "name": "장지지구 · 송파파인타운",
+      "matchName": "장지지구 송파파인타운",
       "type": 39,
-      "units": 42,
-      "deposit": "2,860~2,961만원",
-      "rent": "24.1~24.6만원",
       "competition": "45~90:1",
       "confidence": "중간",
-      "availability": "공가 물량 큼",
-      "reason": "송파권 + 낮은 보증금 + 일반 42호로 입지·가격·물량 균형이 가장 좋음",
-      "warning": "동일 회차 실제 경쟁률 공개 전 추정치",
-      "map": "https://map.naver.com/p/search/%EC%86%A1%ED%8C%8C%ED%8C%8C%EC%9D%B8%ED%83%80%EC%9A%B4%202%EB%8B%A8%EC%A7%80"
+      "label": "🔥 검토가치 높음",
+      "reason": "송파권 + 낮은 보증금 + 큰 모집물량으로 입지·가격·물량 균형이 좋음",
+      "warning": "이번 회차 공식 경쟁률 공개 전 과거사례 기반 추정",
+      "weight": 100
     },
     {
-      "order": 2,
-      "region": "송파구",
-      "name": "오금지구 · 송파레미니스",
+      "matchName": "오금지구 송파레미니스",
       "type": 39,
-      "units": 29,
-      "deposit": "3,857~3,865만원",
-      "rent": "24.7~25.6만원",
       "competition": "60~110:1",
       "confidence": "중간",
-      "availability": "공가 4 + 예비 25",
-      "reason": "송파 입지와 월세가 좋고 일반 29호로 균형이 좋음",
+      "label": "🔥 검토가치 높음",
+      "reason": "송파 입지와 월세가 좋고 물량도 비교적 충분",
       "warning": "동일 39㎡ 직접표본보다 유사사례 비중이 큼",
-      "map": "https://map.naver.com/p/search/%EC%86%A1%ED%8C%8C%EB%A0%88%EB%AF%B8%EB%8B%88%EC%8A%A4"
+      "weight": 95
     },
     {
-      "order": 3,
-      "region": "강동구",
-      "name": "강일지구 · 강일리버파크",
+      "matchName": "강동권역 강일지구 강일리버파크",
       "type": 39,
-      "units": 63,
-      "deposit": "3,052만원",
-      "rent": "23.7만원",
       "competition": "45~100:1",
       "confidence": "중간",
-      "availability": "39㎡ 공가 물량 큼",
-      "reason": "일반공급이 매우 많고 가격이 낮아 확률·가성비 카드로 강함",
-      "warning": "집계 서비스간 공급 숫자 차이는 SH 원문으로 최종 확인",
-      "map": "https://map.naver.com/p/search/%EA%B0%95%EC%9D%BC%EB%A6%AC%EB%B2%84%ED%8C%8C%ED%81%AC%201%EB%8B%A8%EC%A7%80"
+      "label": "🟢 물량·가격 강점",
+      "reason": "공급이 많고 보증금·월세가 낮아 가성비와 확률 측면에서 강함",
+      "warning": "집계 서비스 사이 공급 숫자 차이는 SH 원문으로 최종 확인",
+      "weight": 88
     },
     {
-      "order": 4,
-      "region": "강동구",
-      "name": "고덕강일2지구 · 강동리버스트",
+      "matchName": "고덕강일2지구 강동리버스트",
       "type": 29,
-      "units": 44,
-      "deposit": "1,850~1,921만원",
-      "rent": "18.2~19.1만원",
       "competition": "25~60:1",
       "confidence": "낮음",
-      "availability": "29㎡ 공가 있음",
-      "reason": "보증금 2천만원 아래·월세 10만원대로 현실 비용이 가장 강함",
+      "label": "🟢 비용 강점",
+      "reason": "보증금 2천만원 안팎·월세 10만원대로 비용 부담이 낮음",
       "warning": "29㎡ 공간 크기는 감수해야 함",
-      "map": "https://map.naver.com/p/search/%EA%B0%95%EB%8F%99%EB%A6%AC%EB%B2%84%EC%8A%A4%ED%8A%B84%EB%8B%A8%EC%A7%80"
+      "weight": 84
     },
     {
-      "order": 5,
-      "region": "강남구",
-      "name": "세곡지구 · 강남신동아·세곡리엔파크·강남데시앙",
+      "matchName": "세곡지구 (강남신동아 外)",
       "type": 39,
-      "units": 7,
-      "deposit": "3,089~3,282만원",
-      "rent": "26.2~27.8만원",
       "competition": "100~160:1",
       "confidence": "높음",
-      "availability": "공가 1 + 예비 6",
-      "reason": "입지는 매우 좋고 가격도 낮은 편이라 상향지원 가치가 큼",
-      "warning": "2022 동일지구 39㎡ 실제 130.2:1, 일반 공급 7호",
-      "map": "https://map.naver.com/p/search/%EC%84%B8%EA%B3%A1%EB%A6%AC%EC%97%94%ED%8C%8C%ED%81%AC3%EB%8B%A8%EC%A7%80"
+      "label": "🔥 입지 상향지원",
+      "reason": "강남권 입지와 3천만원대 보증금이 매력적",
+      "warning": "2022 동일지구 39㎡ 실제 130.2:1 수준으로 경쟁이 높았음",
+      "weight": 82
     },
     {
-      "order": 6,
-      "region": "송파구",
-      "name": "위례포레샤인 23단지",
+      "matchName": "위례포레샤인 23단지",
       "type": 39,
-      "units": 28,
-      "deposit": "4,261만원",
-      "rent": "26.1만원",
       "competition": "70~130:1",
       "confidence": "낮음",
-      "availability": "공가·예비 혼합",
-      "reason": "송파·위례 입지와 28호 물량이 장점",
-      "warning": "상위 후보보다 보증금 높음",
-      "map": "https://map.naver.com/p/search/%EC%9C%84%EB%A1%80%ED%8F%AC%EB%A0%88%EC%83%A4%EC%9D%B823%EB%8B%A8%EC%A7%80"
+      "label": "🟢 입지 검토",
+      "reason": "송파·위례 입지와 물량이 장점",
+      "warning": "상위 저보증금 후보보다 보증금이 높음",
+      "weight": 78
     },
     {
-      "order": 7,
-      "region": "구로구",
-      "name": "항동지구 · 항동하버라인",
+      "matchName": "항동지구 항동하버라인",
       "type": 39,
-      "units": 35,
-      "deposit": "3,443~3,789만원",
-      "rent": "25.4~27.0만원",
       "competition": "25~60:1",
       "confidence": "낮음",
-      "availability": "공가 있음",
-      "reason": "물량이 많고 예상 경쟁률이 상대적으로 낮아 확률 우선 카드",
+      "label": "🟢 확률형 검토",
+      "reason": "물량이 많고 예상 경쟁률이 상대적으로 낮은 편",
       "warning": "강남·송파 선호 기준에서는 입지가 밀림",
-      "map": "https://map.naver.com/p/search/%ED%95%AD%EB%8F%99%ED%95%98%EB%B2%84%EB%9D%BC%EC%9D%B83%EB%8B%A8%EC%A7%80"
+      "weight": 75
     },
     {
-      "order": 8,
-      "region": "강동구",
-      "name": "고덕강일2지구 · 강동리버스트",
+      "matchName": "고덕강일2지구 강동리버스트",
       "type": 39,
-      "units": 34,
-      "deposit": "3,589~3,705만원",
-      "rent": "25.2~26.4만원",
       "competition": "40~90:1",
       "confidence": "낮음",
-      "availability": "공가·예비 혼합",
-      "reason": "39㎡ 일반 34호와 현실적인 가격",
-      "warning": "과거 강동권 경쟁률 편차 큼",
-      "map": "https://map.naver.com/p/search/%EA%B0%95%EB%8F%99%EB%A6%AC%EB%B2%84%EC%8A%A4%ED%8A%B84%EB%8B%A8%EC%A7%80"
+      "label": "🟢 현실형 검토",
+      "reason": "39㎡ 물량과 가격이 현실적인 편",
+      "warning": "과거 강동권 경쟁률 편차가 큼",
+      "weight": 73
     },
     {
-      "order": 9,
-      "region": "송파구",
-      "name": "마천지구 · 송파파크데일",
+      "matchName": "마천지구 송파파크데일",
       "type": 39,
-      "units": 4,
-      "deposit": "3,079~3,171만원",
-      "rent": "24.9~25.5만원",
       "competition": "65~100:1",
       "confidence": "높음",
-      "availability": "예비 중심",
-      "reason": "송파 입지·가격은 좋지만 소량 상향지원 후보",
-      "warning": "2023 동일지구 39㎡ 실제 79:1, 이번 일반 4호",
-      "map": "https://map.naver.com/p/search/%EC%86%A1%ED%8C%8C%ED%8C%8C%ED%81%AC%EB%8D%B0%EC%9D%BC1%EB%8B%A8%EC%A7%80"
+      "label": "🟢 소량 상향지원",
+      "reason": "송파 입지와 가격은 좋음",
+      "warning": "2023 동일지구 39㎡ 실제 79:1, 모집호수가 적어 변동 가능",
+      "weight": 70
     },
     {
-      "order": 10,
-      "region": "서초구",
-      "name": "내곡지구 · 서초포레스타",
+      "matchName": "내곡지구 서초포레스타",
       "type": 39,
-      "units": 10,
-      "deposit": "3,506만원",
-      "rent": "30.2만원",
       "competition": "90~140:1",
       "confidence": "높음",
-      "availability": "공가 0 · 예비만",
-      "reason": "서초 입지는 좋지만 빠른 입주보다 장기 대기용",
-      "warning": "2023 내곡39 92.5:1 + 2022 서초포레스타2 135.8:1",
-      "map": "https://map.naver.com/p/search/%EC%84%9C%EC%B4%88%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%83%802%EB%8B%A8%EC%A7%80"
+      "label": "🟠 예비 중심",
+      "reason": "서초 입지는 좋지만 빠른 입주보다 장기 대기 성격",
+      "warning": "과거 내곡39 92.5:1, 서초포레스타2 135.8:1 사례",
+      "weight": 64
     },
     {
-      "order": 11,
-      "region": "구로구",
-      "name": "천왕지구 · 천왕이펜하우스",
+      "matchName": "천왕지구 천왕이펜하우스",
       "type": 39,
-      "units": 4,
-      "deposit": "2,875~3,548만원",
-      "rent": "25.0~28.7만원",
       "competition": "55~80:1",
       "confidence": "높음",
-      "availability": "공가 0 · 예비만",
-      "reason": "과거 경쟁률은 비교적 안정적이지만 이번 물량이 적음",
-      "warning": "2022 66.1:1 + 2023 약 68:1",
-      "map": "https://map.naver.com/p/search/%EC%B2%9C%EC%99%95%EC%9D%B4%ED%8E%9C%ED%95%98%EC%9A%B0%EC%8A%A41%EB%8B%A8%EC%A7%80"
+      "label": "🟠 예비 중심",
+      "reason": "과거 경쟁률은 비교적 안정적",
+      "warning": "공가보다 예비 성격이 강한 후보",
+      "weight": 61
     },
     {
-      "order": 12,
-      "region": "서초구",
-      "name": "우면2지구 · 서초네이처힐",
+      "matchName": "우면2지구 서초네이처힐",
       "type": 39,
-      "units": 18,
-      "deposit": "3,070~4,149만원",
-      "rent": "25.5~27.9만원",
       "competition": "160~260:1",
       "confidence": "높음",
-      "availability": "공가 0 · 예비만",
-      "reason": "입지는 좋지만 경쟁이 압도적으로 높아 입지 올인이 아니면 후순위",
-      "warning": "2023 동일지구 39㎡ 실제 238.17:1",
-      "map": "https://map.naver.com/p/search/%EC%84%9C%EC%B4%88%EB%84%A4%EC%9D%B4%EC%B2%98%ED%9E%902%EB%8B%A8%EC%A7%80"
+      "label": "🟠 입지 올인형",
+      "reason": "서초 입지는 매우 좋음",
+      "warning": "2023 동일지구 39㎡ 실제 238.17:1로 경쟁이 매우 높았음",
+      "weight": 55
     }
   ],
   "history": [
-    {"year": "2022 1차", "average": 14.2},
-    {"year": "2023 1차", "average": 25.0},
-    {"year": "2024 1차", "average": 31.96}
+    {"year": "2022 1차", "average": 14.2, "detail": "2,138호 / 30,448건"},
+    {"year": "2023 1차", "average": 25.0, "detail": "전체 평균 약 25:1"},
+    {"year": "2024 1차", "average": 31.96, "detail": "재공급 1,060호 / 33,877건"}
   ],
   "sources": [
-    {"label": "2026 SH 국민임대 공가·면적별 정리", "url": "https://donbrief.com/sh-gukmin-imdae-2026/"},
-    {"label": "2022 경쟁률 사례", "url": "https://azmicx.tistory.com/2881"},
-    {"label": "2023 경쟁률 사례", "url": "https://azmicx.tistory.com/m/4039"},
-    {"label": "2024 경쟁률 사례", "url": "https://azmicx.tistory.com/m/4753"}
+    {"label": "2026 SH 국민임대 모집 정리", "url": "https://jugeo.co.kr/announcements/a8258069-c10c-4bab-9a2c-2f5421972f9a"},
+    {"label": "2026 SH 공가·예비 분석", "url": "https://donbrief.com/sh-gukmin-imdae-2026/"},
+    {"label": "2026 SH 단지별 임대조건 표", "url": "https://dearmyhealths.com/서울/2026년-서울-국민임대주택-입주자모집-공고-총정리/"},
+    {"label": "센트레빌 웨스트온 공식 홈페이지", "url": "https://www.cvweston.com/"},
+    {"label": "2022 SH 국민임대 경쟁률 참고", "url": "https://azmicx.tistory.com/2881"},
+    {"label": "2023 SH 국민임대 경쟁률 참고", "url": "https://azmicx.tistory.com/m/4039"},
+    {"label": "2024 SH 국민임대 경쟁률 참고", "url": "https://azmicx.tistory.com/m/4753"}
   ]
 }
