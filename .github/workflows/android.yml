@@ -12,13 +12,23 @@ on:
       - 'scripts/apply-android-branding.mjs'
       - '.github/workflows/android.yml'
       - 'ops/android-rebuild.request'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'public/**'
+      - 'package.json'
+      - 'capacitor.config.json'
+      - 'VERSION'
+      - 'scripts/**'
+      - '.github/workflows/android.yml'
+      - 'ops/android-rebuild.request'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: chungyack-android-build
+  group: chungyack-android-build-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
@@ -32,6 +42,7 @@ jobs:
         run: echo "version=$(tr -d '\r\n ' < VERSION)" >> "$GITHUB_OUTPUT"
 
       - name: Publish build run pointer
+        if: github.event_name != 'pull_request'
         run: |
           mkdir -p ops
           printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "building",\n  "artifact": "ChungYack-Radar-v%s-debug-apk",\n  "release_tag": "apk-v%s"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
@@ -117,6 +128,7 @@ jobs:
           retention-days: 90
 
       - name: Publish APK release asset
+        if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -126,7 +138,7 @@ jobs:
           gh release upload "$TAG" "$APK" --clobber
 
       - name: Record successful build
-        if: success()
+        if: success() && github.event_name != 'pull_request'
         run: |
           git pull --rebase || true
           mkdir -p ops
@@ -138,7 +150,7 @@ jobs:
           git push || true
 
       - name: Record failed build
-        if: failure()
+        if: failure() && github.event_name != 'pull_request'
         run: |
           git pull --rebase || true
           mkdir -p ops
