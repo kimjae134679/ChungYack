@@ -50,19 +50,24 @@ jobs:
           npm run qa
           node --check public/assets/app.js
           node --check public/assets/app-v2-fixes.js
+          node --check public/assets/app-v3.js
           node --check public/sw.js
           node --check scripts/qa-app.mjs
           node --check scripts/apply-android-branding.mjs
           test -s public/assets/app-v2.css
+          test -s public/assets/app-v3.css
           test -s public/data/sh-2026.csv
           grep -q 'viewport-fit=cover' public/index.html
           grep -q 'safe-area-inset-bottom' public/assets/app.css
           grep -q 'trackingEditor' public/index.html
           grep -q 'typeFilter' public/index.html
           grep -q 'app-v2-fixes.js' public/index.html
+          grep -q 'app-v3.js' public/index.html
           grep -q 'app-icon.svg' public/manifest.webmanifest
           grep -q 'exportLocalBtn' public/index.html
           grep -q '취소/추적중단' public/index.html
+          grep -q 'cyRestoreRemoved' public/assets/app-v3.js
+          grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
 
       - name: Create Android project
         run: npx cap add android
@@ -107,7 +112,7 @@ jobs:
         run: |
           TAG="apk-v${{ steps.ver.outputs.version }}"
           APK="ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "사용자 선택형 필터, 로컬 신청추적 수정/삭제/백업, 새 전용 앱 아이콘을 포함한 APK"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "면적·지역 자유필터, 신청 추적 수정/상태변경, 삭제 되돌리기, JSON 백업/복원, 전용 앱 아이콘을 포함한 APK"
           gh release upload "$TAG" "$APK" --clobber
 
       - name: Record latest build
