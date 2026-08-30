@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#103d6b">
+<meta name="theme-color" content="#14245c">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/app.css">
 <title>청약 레이더</title>
 </head>
@@ -13,64 +14,65 @@
 <main class="app">
 <section class="hero">
   <div class="hero-top">
-    <div><h1>청약 레이더</h1><p>현재 신청 · 결과추적 · 현실 추천 · 경쟁률 추정을 한 앱에서 확인</p></div>
+    <div class="brand"><img src="assets/app-icon.svg" alt="" class="brand-icon"><div><h1>청약 레이더</h1><p>공고 비교 · 필터 · 내가 신청한 공고 추적</p></div></div>
     <span class="version" id="appVersion">v-</span>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat"><span>긴급/오늘</span><b id="urgentCount">-</b></div>
-    <div class="hero-stat"><span>추적 중</span><b id="trackingCount">-</b></div>
-    <div class="hero-stat"><span>추천 후보</span><b id="recommendCount">-</b></div>
+    <div class="hero-stat"><span>오늘 확인</span><b id="urgentCount">-</b></div>
+    <div class="hero-stat"><span>내 추적</span><b id="trackingCount">-</b></div>
+    <div class="hero-stat"><span>현재 표시</span><b id="recommendCount">-</b></div>
   </div>
 </section>
 <div class="updated" id="updatedAt">데이터 불러오는 중…</div>
 <div id="loadError" class="error" hidden></div>
 
 <section class="page active" data-page="home">
-  <div class="section-head"><h2>지금 확인할 것</h2><small>신청·결과·후속</small></div>
-  <div class="notice">개인 당첨 결과는 공개검색으로 추정하지 않고, 직접 확인된 상태만 표시합니다. SH 경쟁률은 실제 접수결과 전까지 과거사례 기반 추정입니다.</div>
+  <div class="section-head"><h2>내 신청 현황</h2><small>내가 넣은 것만 표시</small></div>
+  <div class="notice">앱의 추적 목록은 실제 청약 사이트와 별개입니다. 여기서 수정·삭제해도 실제 청약 신청이 변경되거나 취소되지는 않습니다.</div>
   <div class="grid" id="trackingGrid"></div>
-  <div class="section-head"><h2>과거 SH 국민임대 평균 경쟁률</h2><small>참고용</small></div>
+  <button class="primary wide" id="homeAddTracking">+ 신청한 공고 직접 추가</button>
+  <div class="section-head"><h2>과거 SH 국민임대 평균 경쟁률</h2><small>비교 참고</small></div>
   <div class="card"><div class="history-bars" id="historyBars"></div></div>
 </section>
 
 <section class="page" data-page="recommend">
-  <div class="section-head"><h2>현실 추천</h2><small>59㎡·서울북부 기본 제외</small></div>
-  <div class="toolbar"><div class="toolbar-inner">
-    <div class="control search"><label>검색</label><input id="recSearch" placeholder="단지·지역 검색"></div>
-    <div class="control"><label>지역</label><select id="recRegion"><option value="">전체</option></select></div>
-    <div class="control"><label>형</label><select id="recType"><option value="">29·39㎡</option><option value="29">29㎡</option><option value="39">39㎡</option></select></div>
-    <div class="control"><label>정렬</label><select id="recSort"><option value="priority">추천 순</option><option value="competition">경쟁률 낮은 순</option><option value="units">공급 많은 순</option><option value="deposit">보증금 낮은 순</option></select></div>
+  <div class="section-head"><h2>SH 국민임대 전체 보기</h2><small>79개 타입 · 필터 자유설정</small></div>
+  <div class="filter-card">
+    <div class="filter-top"><div><b>필터</b><p>59㎡나 북부권도 기본 제외하지 않습니다. 원하는 것만 끄고 켜세요.</p></div><button class="ghost" id="resetFilters">전체 켜기</button></div>
+    <div class="filter-block"><label>면적</label><div class="toggle-row" id="typeFilter"></div></div>
+    <div class="filter-block"><div class="filter-label-row"><label>지역</label><div class="quick-actions"><button class="mini" id="northOff">북부권 끄기</button><button class="mini" id="seoulOnly">서울만</button></div></div><div class="toggle-row region-row" id="regionFilter"></div></div>
+    <div class="filter-grid">
+      <div class="control search"><label>검색</label><input id="recSearch" placeholder="단지·지역·주소"></div>
+      <div class="control"><label>보증금 상한</label><select id="depositCap"><option value="99999">제한 없음</option><option value="3000">3,000만원</option><option value="4000">4,000만원</option><option value="5000">5,000만원</option><option value="6000">6,000만원</option><option value="7000">7,000만원</option></select></div>
+      <div class="control"><label>정렬</label><select id="recSort"><option value="smart">추천 판단</option><option value="units">모집세대수 많은 순</option><option value="deposit">보증금 낮은 순</option><option value="competition">유추 경쟁률 낮은 순</option><option value="region">지역 순</option></select></div>
+    </div>
+    <div class="toggle-switches"><label class="switchline"><input type="checkbox" id="onlyVacancy"><span>공가 언급 후보만</span></label><label class="switchline"><input type="checkbox" id="onlyInsight"><span>과거 경쟁률 분석 있는 후보만</span></label></div>
   </div>
-  <div class="chips">
-    <button class="chip on" data-mode="all">전체</button>
-    <button class="chip" data-mode="top5">TOP 5</button>
-    <button class="chip" data-mode="cheap">보증금 3천 이하</button>
-    <button class="chip" data-mode="lowcomp">추정 60:1 이하</button>
-    <button class="chip" data-mode="vacancy">공가 있음</button>
-  </div></div>
-  <div class="summary"><div class="stat">표시 후보 <b id="visibleRecCount">0</b></div><div class="stat">일반공급 합계 <b id="visibleUnitSum">0</b>호</div></div>
+  <div class="summary"><div class="stat">표시 <b id="visibleRecCount">0</b>개</div><div class="stat">모집세대수 합계 <b id="visibleUnitSum">0</b></div><div class="stat">켜진 면적 <b id="activeTypeCount">0</b>개</div></div>
   <div class="recommend-list" id="recommendList"></div>
 </section>
 
 <section class="page" data-page="tracking">
-  <div class="section-head"><h2>신청 추적</h2><small>신청 → 결과 → 서류 → 계약 → 입주</small></div>
+  <div class="section-head"><h2>내 추적</h2><small>수정 · 상태변경 · 제거</small></div>
+  <div class="tracking-toolbar"><button class="primary" id="addTrackingBtn">+ 신청한 공고 추가</button><span>신청완료 이후 상태만 직접 관리</span></div>
   <div class="grid" id="trackingGridMirror"></div>
-  <div class="notice">홈 화면과 같은 원장 데이터를 사용합니다. 다음 버전에서는 상태별 탭과 종료/패스 기록까지 분리합니다.</div>
 </section>
 
 <section class="page" data-page="schedule">
-  <div class="section-head"><h2>다음 일정</h2><small>결과·신청·후속</small></div>
+  <div class="section-head"><h2>다음 일정</h2><small>내 추적 기준</small></div>
   <div class="grid" id="scheduleList"></div>
 </section>
 
 <section class="page" data-page="settings">
-  <div class="section-head"><h2>앱 정보</h2><small>로컬 번들형</small></div>
+  <div class="section-head"><h2>앱 정보</h2><small>Private 저장소 대응</small></div>
   <div class="settings-list">
     <div class="setting"><b>버전</b><p id="settingsVersion">-</p></div>
     <div class="setting"><b>데이터 갱신</b><p id="settingsUpdated">-</p></div>
-    <div class="setting"><b>업데이트 구조</b><p>현재 v0.1은 private GitHub 저장소의 데이터를 APK에 번들합니다. 데이터 변경 시 GitHub Actions가 새 APK를 자동 생성하도록 구성합니다.</p></div>
-    <div class="setting"><b>외부 링크</b><p>네이버지도·공식 공고·참고사이트는 외부 페이지로 연결됩니다.</p></div>
-    <button class="reload" id="reloadBtn">데이터 다시 불러오기</button>
+    <div class="setting"><b>필터 저장</b><p>면적·지역·보증금·정렬 선택은 이 기기에 저장됩니다. 앱을 다시 열어도 유지됩니다.</p></div>
+    <div class="setting"><b>내 추적 저장</b><p>신청 추적의 수정·상태변경·삭제는 기기 로컬 저장소에만 저장합니다. GitHub 저장소가 Private 상태여도 APK는 동작합니다.</p></div>
+    <div class="setting"><b>저장소 공개 여부</b><p>현재 구조는 Private 그대로 사용 가능하며, 나중에 공개하더라도 개인 추적 데이터는 로컬에만 두도록 분리했습니다.</p></div>
+    <button class="reload" id="reloadBtn">공고 데이터 다시 불러오기</button>
+    <button class="danger-light" id="resetLocalBtn">로컬 설정/추적 초기화</button>
   </div>
   <div class="section-head"><h2>자료 출처</h2></div>
   <div class="source-list" id="sourceList"></div>
@@ -79,11 +81,29 @@
 
 <nav class="bottom-nav"><div class="bottom-inner">
   <button class="nav-btn active" data-page="home"><b>⌂</b>홈</button>
-  <button class="nav-btn" data-page="recommend"><b>⌕</b>추천</button>
+  <button class="nav-btn" data-page="recommend"><b>⌕</b>공고</button>
   <button class="nav-btn" data-page="tracking"><b>✓</b>추적</button>
   <button class="nav-btn" data-page="schedule"><b>◷</b>일정</button>
   <button class="nav-btn" data-page="settings"><b>⚙</b>설정</button>
 </div></nav>
+
+<dialog id="trackingEditor" class="editor">
+<form method="dialog" id="trackingForm">
+  <div class="editor-head"><div><b id="editorTitle">신청한 공고 추가</b><p>실제 신청 취소 기능이 아니라 앱 내부 추적 편집입니다.</p></div><button type="button" class="iconbtn" id="closeEditor">×</button></div>
+  <input type="hidden" id="trackId">
+  <div class="form-grid">
+    <div class="field full"><label>공고/단지명</label><input id="trackName" required></div>
+    <div class="field"><label>형/타입</label><input id="trackType" placeholder="예: 39㎡"></div>
+    <div class="field"><label>신청일</label><input id="trackAppliedAt" type="date"></div>
+    <div class="field full"><label>현재 상태</label><select id="trackStatus"><option>신청완료</option><option>결과확인 필요</option><option>당첨</option><option>예비</option><option>서류</option><option>계약</option><option>입주예정</option><option>입주완료</option></select></div>
+    <div class="field full"><label>다음 확인/일정</label><input id="trackNext" placeholder="예: 9/10 결과 확인"></div>
+    <div class="field full"><label>메모</label><textarea id="trackDetail" rows="3"></textarea></div>
+    <div class="field full"><label>주소</label><input id="trackAddress"></div>
+  </div>
+  <div class="editor-actions"><button type="button" class="ghost" id="cancelEditor">취소</button><button type="submit" class="primary">저장</button></div>
+</form>
+</dialog>
+
 <script src="assets/app.js"></script>
 </body>
 </html>
