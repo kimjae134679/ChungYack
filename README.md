@@ -8,12 +8,15 @@
 ## 1. 지금 바로 볼 것
 
 - **최상위 규칙** → [`docs/MASTER_RULES.md`](docs/MASTER_RULES.md)
+- **사용자 최신 출력 최우선 규칙** → [`docs/USER_OUTPUT_OVERRIDES.md`](docs/USER_OUTPUT_OVERRIDES.md)
 - **상세 보고·지도·통근·대출 규칙** → [`docs/REPORTING_AND_MAP_RULES.md`](docs/REPORTING_AND_MAP_RULES.md)
 - **현재 진행상황 / 신청·관심·결과확인 상태** → [`STATUS.md`](STATUS.md)
 - **인수인계** → [`HANDOFF.md`](HANDOFF.md)
 - **탐색 소스/전수확인 체크리스트** → [`docs/SOURCES_AND_COVERAGE.md`](docs/SOURCES_AND_COVERAGE.md)
 - **공고 검증/보고 템플릿** → [`templates/REPORT_TEMPLATE.md`](templates/REPORT_TEMPLATE.md)
 - **상태 데이터 원장** → [`data/tracking_registry.md`](data/tracking_registry.md)
+
+문서 간 출력 형식이 충돌하면 **사용자가 직접 지정한 최신 규칙인 `docs/USER_OUTPUT_OVERRIDES.md`를 우선 적용**한다.
 
 ## 2. 프로젝트 핵심
 
@@ -37,6 +40,7 @@
 
 `오늘꺼 알려줘`를 실행할 때는 단순 목록형 요약으로 끝내지 않는다.
 
+- **추천 숫자순위/별점은 쓰지 않고 이모티콘으로 상태·중요도를 표시**
 - 일정 그룹별 지도: 오늘·내일 / 2~3일 / 4~7일 / 이후 / 이미 신청
 - 공식자료 기준 정확한 도로명주소 + 건물명
 - 가까운 역/노선/도보
@@ -49,12 +53,12 @@
 - 공고명 바로 아래 공식 공고 / PDF / 신청 / 결과조회 링크
 - 패스 공고 상세·지도·추천 반복 금지
 
-세부 형식은 `docs/REPORTING_AND_MAP_RULES.md`가 기준이다.
+세부 형식은 `docs/USER_OUTPUT_OVERRIDES.md`와 `docs/REPORTING_AND_MAP_RULES.md`를 함께 적용한다.
 
 ## 4. 저장소 운영 원칙
 
 - 최상단은 `README.md`, `STATUS.md`, `HANDOFF.md`만 봐도 전체 상황을 파악할 수 있게 유지한다.
-- 규칙은 `docs/MASTER_RULES.md`를 최우선으로 하고, 실전 출력 세부는 `docs/REPORTING_AND_MAP_RULES.md`를 함께 적용한다.
+- 규칙은 `docs/MASTER_RULES.md`를 최우선으로 하되, 사용자 최신 출력 선호는 `docs/USER_OUTPUT_OVERRIDES.md`를 우선 적용하고 실전 출력 세부는 `docs/REPORTING_AND_MAP_RULES.md`를 함께 적용한다.
 - 공고 상태가 바뀔 때마다 `STATUS.md`와 `data/tracking_registry.md`를 함께 갱신한다.
 - 사용자가 직접 알려준 신청/결과 상태는 공개 웹검색보다 우선한다.
 - 패스 공고는 상세 분석을 반복하지 않는다.
@@ -70,6 +74,7 @@
 ├─ HANDOFF.md
 ├─ docs/
 │  ├─ MASTER_RULES.md
+│  ├─ USER_OUTPUT_OVERRIDES.md
 │  ├─ REPORTING_AND_MAP_RULES.md
 │  ├─ ELIGIBILITY_PROFILE.md
 │  └─ SOURCES_AND_COVERAGE.md
@@ -79,8 +84,8 @@
 │  └─ REPORT_TEMPLATE.md
 ├─ logs/
 │  └─ CHANGELOG.md
-├─ reports/                     # 일별/수시 보고 누적 권장
-├─ coverage/                    # 실제 전수탐색 실행증거 누적 권장
+├─ reports/
+├─ coverage/
 └─ archive/
 ```
 
