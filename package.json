@@ -1,10 +1,11 @@
 {
   "name": "chungyack-radar",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "android:add": "npx cap add android",
     "android:sync": "npx cap sync android",
+    "android:brand": "node scripts/apply-android-branding.mjs",
     "qa": "node scripts/qa-app.mjs"
   },
   "dependencies": {
