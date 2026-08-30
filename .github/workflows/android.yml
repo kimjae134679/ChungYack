@@ -9,6 +9,7 @@ on:
       - 'capacitor.config.json'
       - 'VERSION'
       - 'scripts/qa-app.mjs'
+      - 'scripts/apply-android-branding.mjs'
       - '.github/workflows/android.yml'
       - 'ops/android-rebuild.request'
   workflow_dispatch:
@@ -50,9 +51,12 @@ jobs:
           node --check public/assets/app.js
           node --check public/sw.js
           node --check scripts/qa-app.mjs
+          node --check scripts/apply-android-branding.mjs
           grep -q 'viewport-fit=cover' public/index.html
           grep -q 'safe-area-inset-bottom' public/assets/app.css
-          grep -q '센트레빌 웨스트온' public/data/app.json
+          grep -q 'trackingEditor' public/index.html
+          grep -q 'typeFilter' public/index.html
+          grep -q 'app-icon.svg' public/manifest.webmanifest
 
       - name: Create Android project
         run: npx cap add android
@@ -60,11 +64,15 @@ jobs:
       - name: Sync web bundle
         run: npx cap sync android
 
-      - name: Verify Android project
+      - name: Apply ChungYack icon and native Back behavior
+        run: npm run android:brand
+
+      - name: Verify Android branding
         run: |
-          test -s android/app/src/main/AndroidManifest.xml
-          test -s android/app/build.gradle
-          grep -q '청약 레이더' android/app/src/main/res/values/strings.xml
+          test -s android/app/src/main/res/drawable/chungyack_icon_foreground.xml
+          test -s android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+          test -s android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
+          grep -q '청약 레이더' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
 
       - name: Build debug APK
         run: |
@@ -87,7 +95,7 @@ jobs:
         run: |
           TAG="apk-v${{ steps.ver.outputs.version }}"
           APK="ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "청약 추적 + SH 현실추천 + 과거 경쟁률 추정 모바일 대시보드 초기 APK"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "사용자 선택형 필터, 로컬 신청추적 수정/삭제, 새 전용 앱 아이콘을 포함한 APK"
           gh release upload "$TAG" "$APK" --clobber
 
       - name: Record latest build
