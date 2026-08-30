@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#103d6b">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="assets/app.css">
+<title>청약 레이더</title>
+</head>
+<body>
+<main class="app">
+<section class="hero">
+  <div class="hero-top">
+    <div><h1>청약 레이더</h1><p>현재 신청 · 결과추적 · 현실 추천 · 경쟁률 추정을 한 앱에서 확인</p></div>
+    <span class="version" id="appVersion">v-</span>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><span>긴급/오늘</span><b id="urgentCount">-</b></div>
+    <div class="hero-stat"><span>추적 중</span><b id="trackingCount">-</b></div>
+    <div class="hero-stat"><span>추천 후보</span><b id="recommendCount">-</b></div>
+  </div>
+</section>
+<div class="updated" id="updatedAt">데이터 불러오는 중…</div>
+<div id="loadError" class="error" hidden></div>
+
+<section class="page active" data-page="home">
+  <div class="section-head"><h2>지금 확인할 것</h2><small>신청·결과·후속</small></div>
+  <div class="notice">개인 당첨 결과는 공개검색으로 추정하지 않고, 직접 확인된 상태만 표시합니다. SH 경쟁률은 실제 접수결과 전까지 과거사례 기반 추정입니다.</div>
+  <div class="grid" id="trackingGrid"></div>
+  <div class="section-head"><h2>과거 SH 국민임대 평균 경쟁률</h2><small>참고용</small></div>
+  <div class="card"><div class="history-bars" id="historyBars"></div></div>
+</section>
+
+<section class="page" data-page="recommend">
+  <div class="section-head"><h2>현실 추천</h2><small>59㎡·서울북부 기본 제외</small></div>
+  <div class="toolbar"><div class="toolbar-inner">
+    <div class="control search"><label>검색</label><input id="recSearch" placeholder="단지·지역 검색"></div>
+    <div class="control"><label>지역</label><select id="recRegion"><option value="">전체</option></select></div>
+    <div class="control"><label>형</label><select id="recType"><option value="">29·39㎡</option><option value="29">29㎡</option><option value="39">39㎡</option></select></div>
+    <div class="control"><label>정렬</label><select id="recSort"><option value="priority">추천 순</option><option value="competition">경쟁률 낮은 순</option><option value="units">공급 많은 순</option><option value="deposit">보증금 낮은 순</option></select></div>
+  </div>
+  <div class="chips">
+    <button class="chip on" data-mode="all">전체</button>
+    <button class="chip" data-mode="top5">TOP 5</button>
+    <button class="chip" data-mode="cheap">보증금 3천 이하</button>
+    <button class="chip" data-mode="lowcomp">추정 60:1 이하</button>
+    <button class="chip" data-mode="vacancy">공가 있음</button>
+  </div></div>
+  <div class="summary"><div class="stat">표시 후보 <b id="visibleRecCount">0</b></div><div class="stat">일반공급 합계 <b id="visibleUnitSum">0</b>호</div></div>
+  <div class="recommend-list" id="recommendList"></div>
+</section>
+
+<section class="page" data-page="tracking">
+  <div class="section-head"><h2>신청 추적</h2><small>신청 → 결과 → 서류 → 계약 → 입주</small></div>
+  <div class="grid" id="trackingGridMirror"></div>
+  <div class="notice">홈 화면과 동일한 추적 데이터를 보여주며, 다음 버전에서 상태별 탭과 종료/패스 기록까지 분리합니다.</div>
+</section>
+
+<section class="page" data-page="schedule">
+  <div class="section-head"><h2>다음 일정</h2><small>결과·신청·후속</small></div>
+  <div class="grid" id="scheduleList"></div>
+</section>
+
+<section class="page" data-page="settings">
+  <div class="section-head"><h2>앱 정보</h2><small>로컬 번들형</small></div>
+  <div class="settings-list">
+    <div class="setting"><b>버전</b><p id="settingsVersion">-</p></div>
+    <div class="setting"><b>데이터 갱신</b><p id="settingsUpdated">-</p></div>
+    <div class="setting"><b>업데이트 구조</b><p>현재 v0.1은 private GitHub 저장소의 데이터를 APK에 번들합니다. 데이터 변경 시 GitHub Actions가 새 APK를 자동 생성하도록 구성합니다.</p></div>
+    <div class="setting"><b>외부 링크</b><p>네이버지도·공식 공고·참고사이트는 앱 밖 브라우저로 열립니다.</p></div>
+    <button class="reload" id="reloadBtn">데이터 다시 불러오기</button>
+  </div>
+  <div class="section-head"><h2>자료 출처</h2></div>
+  <div class="source-list" id="sourceList"></div>
+</section>
+</main>
+
+<nav class="bottom-nav"><div class="bottom-inner">
+  <button class="nav-btn active" data-page="home"><b>⌂</b>홈</button>
+  <button class="nav-btn" data-page="recommend"><b>⌕</b>추천</button>
+  <button class="nav-btn" data-page="tracking"><b>✓</b>추적</button>
+  <button class="nav-btn" data-page="schedule"><b>◷</b>일정</button>
+  <button class="nav-btn" data-page="settings"><b>⚙</b>설정</button>
+</div></nav>
+<script src="assets/app.js"></script>
+<script>window.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('trackingGridMirror');const src=document.getElementById('trackingGrid');const sync=()=>{if(src&&t)t.innerHTML=src.innerHTML};setTimeout(sync,300);setInterval(sync,2000)})</script>
+</body>
+</html>
