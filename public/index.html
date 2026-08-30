@@ -29,7 +29,7 @@
 
 <section class="page active" data-page="home">
   <div class="section-head"><h2>내 신청 현황</h2><small>내가 넣은 것만 표시</small></div>
-  <div class="notice">앱의 추적 목록은 실제 청약 사이트와 별개입니다. 여기서 수정·삭제해도 실제 청약 신청이 변경되거나 취소되지는 않습니다.</div>
+  <div class="notice">앱의 추적 목록은 실제 청약 사이트와 별개입니다. 여기서 상태를 바꾸거나 삭제해도 실제 청약 신청이 변경되거나 취소되지는 않습니다.</div>
   <div class="grid" id="trackingGrid"></div>
   <button class="primary wide" id="homeAddTracking">+ 신청한 공고 직접 추가</button>
   <div class="section-head"><h2>과거 SH 국민임대 평균 경쟁률</h2><small>비교 참고</small></div>
@@ -55,7 +55,7 @@
 
 <section class="page" data-page="tracking">
   <div class="section-head"><h2>내 추적</h2><small>수정 · 상태변경 · 제거</small></div>
-  <div class="tracking-toolbar"><button class="primary" id="addTrackingBtn">+ 신청한 공고 추가</button><span>신청완료 이후 상태만 직접 관리</span></div>
+  <div class="tracking-toolbar"><button class="primary" id="addTrackingBtn">+ 신청한 공고 추가</button><span>신청완료 이후 상태를 직접 관리</span></div>
   <div class="grid" id="trackingGridMirror"></div>
 </section>
 
@@ -70,9 +70,11 @@
     <div class="setting"><b>버전</b><p id="settingsVersion">-</p></div>
     <div class="setting"><b>데이터 갱신</b><p id="settingsUpdated">-</p></div>
     <div class="setting"><b>필터 저장</b><p>면적·지역·보증금·정렬 선택은 이 기기에 저장됩니다. 앱을 다시 열어도 유지됩니다.</p></div>
-    <div class="setting"><b>내 추적 저장</b><p>신청 추적의 수정·상태변경·삭제는 기기 로컬 저장소에만 저장합니다. GitHub 저장소가 Private 상태여도 APK는 동작합니다.</p></div>
-    <div class="setting"><b>저장소 공개 여부</b><p>현재 구조는 Private 그대로 사용 가능하며, 나중에 공개하더라도 개인 추적 데이터는 로컬에만 두도록 분리했습니다.</p></div>
+    <div class="setting"><b>내 추적 저장</b><p>신청 추적의 수정·상태변경·삭제는 기기 로컬 저장소에 저장합니다. GitHub 저장소가 Private 상태여도 APK는 동작합니다.</p></div>
+    <div class="setting"><b>업데이트/백업</b><p>APK 업데이트 시 로컬 데이터가 유지되도록 동일 디버그 서명키를 재사용합니다. 필요하면 아래에서 필터·추적 데이터를 JSON으로 백업/복원할 수 있습니다.</p></div>
+    <div class="setting"><b>저장소 공개 여부</b><p>현재 구조는 Private 그대로 사용 가능합니다. 나중에 공개하더라도 개인 추적 데이터는 앱 로컬에만 남도록 분리했습니다.</p></div>
     <button class="reload" id="reloadBtn">공고 데이터 다시 불러오기</button>
+    <div class="backup-row"><button class="ghost" id="exportLocalBtn">내 설정/추적 백업</button><button class="ghost" id="importLocalBtn">백업 가져오기</button><input type="file" id="importLocalFile" accept="application/json,.json" hidden></div>
     <button class="danger-light" id="resetLocalBtn">로컬 설정/추적 초기화</button>
   </div>
   <div class="section-head"><h2>자료 출처</h2></div>
@@ -90,18 +92,18 @@
 
 <dialog id="trackingEditor" class="editor">
 <form method="dialog" id="trackingForm">
-  <div class="editor-head"><div><b id="editorTitle">신청한 공고 추가</b><p>실제 신청 취소 기능이 아니라 앱 내부 추적 편집입니다.</p></div><button type="button" class="iconbtn" id="closeEditor">×</button></div>
+  <div class="editor-head"><div><b id="editorTitle">신청한 공고 추가</b><p>실제 청약 취소 기능이 아니라 앱 내부 추적 편집입니다.</p></div><button type="button" class="iconbtn" id="closeEditor">×</button></div>
   <input type="hidden" id="trackId">
   <div class="form-grid">
     <div class="field full"><label>공고/단지명</label><input id="trackName" required></div>
     <div class="field"><label>형/타입</label><input id="trackType" placeholder="예: 39㎡"></div>
     <div class="field"><label>신청일</label><input id="trackAppliedAt" type="date"></div>
-    <div class="field full"><label>현재 상태</label><select id="trackStatus"><option>신청완료</option><option>결과확인 필요</option><option>당첨</option><option>예비</option><option>서류</option><option>계약</option><option>입주예정</option><option>입주완료</option></select></div>
+    <div class="field full"><label>현재 상태</label><select id="trackStatus"><option>신청완료</option><option>결과확인 필요</option><option>당첨</option><option>예비</option><option>서류</option><option>계약</option><option>입주예정</option><option>입주완료</option><option>취소/추적중단</option></select></div>
     <div class="field full"><label>다음 확인/일정</label><input id="trackNext" placeholder="예: 9/10 결과 확인"></div>
     <div class="field full"><label>메모</label><textarea id="trackDetail" rows="3"></textarea></div>
     <div class="field full"><label>주소</label><input id="trackAddress"></div>
   </div>
-  <div class="editor-actions"><button type="button" class="ghost" id="cancelEditor">취소</button><button type="submit" class="primary">저장</button></div>
+  <div class="editor-actions"><button type="button" class="ghost" id="cancelEditor">닫기</button><button type="submit" class="primary">저장</button></div>
 </form>
 </dialog>
 
