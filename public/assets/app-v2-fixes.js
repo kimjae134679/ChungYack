@@ -1,4 +1,4 @@
-// v0.2.2 targeted safety fixes layered after app.js.
+// v0.3.1 targeted safety/UI fixes layered after app.js.
 // Keep catalog-derived tracking IDs stable so repeated taps edit the existing item.
 STATUS_ICON['취소/추적중단']='⏸';
 
@@ -61,12 +61,27 @@ function hourlyMapUrl(address){
   return 'https://map.naver.com/p/search/'+encodeURIComponent(address||'');
 }
 
+function eligibilityClass(level){
+  if(level==='impossible')return 'eligibility-impossible';
+  if(level==='conditional')return 'eligibility-conditional';
+  if(level==='possible')return 'eligibility-possible';
+  return 'eligibility-review';
+}
+
+function hourlyEligibilityHtml(item){
+  const x=item?.eligibility;
+  if(!x)return '';
+  const title=x.title||({impossible:'❌ 사실상 신청 불가',conditional:'⚠️ 조건 확인 필요',possible:'🟢 현재 조건상 가능',review:'⚠️ 추가 확인 필요'}[x.level]||'⚠️ 내 조건 판정');
+  return `<div class="hourly-item-eligibility ${eligibilityClass(x.level)}"><b>${esc(title)}</b>${x.reason?`<div class="eligibility-reason">${esc(x.reason)}</div>`:''}${x.check?`<div class="eligibility-check"><b>추가 확인:</b> ${esc(x.check)}</div>`:''}</div>`;
+}
+
 function ensureHourlyReportStyles(){
   if(document.getElementById('hourlyReportStyles'))return;
   const style=document.createElement('style');
   style.id='hourlyReportStyles';
   style.textContent=`
     .hourly-report{margin:18px 0 22px}.hourly-report-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px}.hourly-report-head h2{margin:0;font-size:20px}.hourly-report-head small{opacity:.68;text-align:right}.hourly-report-meta{padding:12px 14px;border-radius:14px;background:rgba(20,36,92,.07);margin-bottom:12px;font-size:13px;line-height:1.55}.hourly-groups{display:grid;gap:12px}.hourly-group{border-radius:18px;padding:14px;background:var(--card,#fff);box-shadow:0 8px 22px rgba(17,24,39,.06)}.hourly-group-title{font-weight:800;margin-bottom:9px}.hourly-item{padding:10px 0;border-top:1px solid rgba(17,24,39,.08)}.hourly-item:first-of-type{border-top:0}.hourly-item-name{font-weight:750}.hourly-item-status{font-size:13px;line-height:1.5;margin-top:3px;opacity:.82}.hourly-item-address{font-size:12px;line-height:1.45;margin-top:5px;opacity:.68}.hourly-item-address a{margin-left:6px;font-weight:700}.hourly-empty{font-size:13px;opacity:.65;padding:8px 0}
+    .hourly-item-eligibility{margin-top:8px;padding:10px 11px;border-radius:12px;border:1px solid;line-height:1.5;font-size:12.5px}.hourly-item-eligibility>b{display:block;font-size:13px;margin-bottom:3px}.eligibility-reason{font-weight:650}.eligibility-check{margin-top:4px;font-size:11.5px;opacity:.86}.eligibility-impossible{background:#fff0f0;border-color:#f0a7a0;border-left:5px solid #d92d20;color:#8b1e16;box-shadow:0 3px 12px rgba(217,45,32,.08)}.eligibility-conditional{background:#fff7e8;border-color:#f6c56f;border-left:5px solid #e38b15;color:#7a4a08}.eligibility-possible{background:#edf9f3;border-color:#9fd8bd;border-left:5px solid #1f9d69;color:#176b4a}.eligibility-review{background:#f2f6fb;border-color:#c5d5e7;border-left:5px solid #5b7fa8;color:#36536f}
   `;
   document.head.appendChild(style);
 }
@@ -95,7 +110,7 @@ function renderHourlyReport(report){
   }
   const updated=report?.updatedAt?new Date(report.updatedAt).toLocaleString('ko-KR'):'-';
   const groups=Array.isArray(report?.groups)?report.groups:[];
-  root.innerHTML=`<div class="hourly-report-head"><h2>${esc(report?.title||'청약2 시간별 보고')}</h2><small>최신 갱신 ${esc(updated)}</small></div><div class="hourly-report-meta"><b>${esc(report?.status||'')}</b>${report?.notice?`<br>${esc(report.notice)}`:''}</div><div class="hourly-groups">${groups.map(g=>`<article class="hourly-group"><div class="hourly-group-title">${esc(g.icon||'')} ${esc(g.title||'')}</div>${Array.isArray(g.items)&&g.items.length?g.items.map(x=>`<div class="hourly-item"><div class="hourly-item-name">${esc(x.name||'')}</div><div class="hourly-item-status">${esc(x.status||'')}</div>${x.address?`<div class="hourly-item-address">${esc(x.address)} <a href="${hourlyMapUrl(x.address)}" target="_blank" rel="noopener">지도</a></div>`:''}</div>`).join(''):'<div class="hourly-empty">현재 표시할 공고 없음</div>'}</article>`).join('')}</div>`;
+  root.innerHTML=`<div class="hourly-report-head"><h2>${esc(report?.title||'청약2 시간별 보고')}</h2><small>최신 갱신 ${esc(updated)}</small></div><div class="hourly-report-meta"><b>${esc(report?.status||'')}</b>${report?.notice?`<br>${esc(report.notice)}`:''}</div><div class="hourly-groups">${groups.map(g=>`<article class="hourly-group"><div class="hourly-group-title">${esc(g.icon||'')} ${esc(g.title||'')}</div>${Array.isArray(g.items)&&g.items.length?g.items.map(x=>`<div class="hourly-item"><div class="hourly-item-name">${esc(x.name||'')}</div><div class="hourly-item-status">${esc(x.status||'')}</div>${hourlyEligibilityHtml(x)}${x.address?`<div class="hourly-item-address">${esc(x.address)} <a href="${hourlyMapUrl(x.address)}" target="_blank" rel="noopener">지도</a></div>`:''}</div>`).join(''):'<div class="hourly-empty">현재 표시할 공고 없음</div>'}</article>`).join('')}</div>`;
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
