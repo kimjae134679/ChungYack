@@ -1,0 +1,13 @@
+{
+  "schema": "chungyack-user-state-v1",
+  "updatedAt": null,
+  "appVersion": null,
+  "reportUpdatedAt": null,
+  "noticeSort": {
+    "mode": "time",
+    "updatedAt": "1970-01-01T00:00:00.000Z"
+  },
+  "noticeDecisions": {},
+  "trackingUpdatedAt": "1970-01-01T00:00:00.000Z",
+  "tracking": []
+}
