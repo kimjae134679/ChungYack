@@ -65,8 +65,25 @@ renderRecommendations=function(){
   if(d)list.insertAdjacentHTML('beforeend',d);
 };
 
+function cyV5MergeDiscoveryExtra(extra){
+  if(!CY_OPPORTUNITY_DATA||!Array.isArray(extra?.items))return false;
+  if(!Array.isArray(CY_OPPORTUNITY_DATA.discoveryOnly))CY_OPPORTUNITY_DATA.discoveryOnly=[];
+  const keys=new Set(CY_OPPORTUNITY_DATA.discoveryOnly.map(x=>x.id||x.name));
+  extra.items.forEach(x=>{const k=x.id||x.name;if(k&&!keys.has(k)){CY_OPPORTUNITY_DATA.discoveryOnly.push(x);keys.add(k);}});
+  return true;
+}
+async function cyV5LoadDiscoveryExtra(retry=0){
+  try{
+    if(!CY_OPPORTUNITY_DATA){if(retry<20)setTimeout(()=>cyV5LoadDiscoveryExtra(retry+1),150);return;}
+    const res=await fetch('data/discovery-extra.json?ts='+Date.now(),{cache:'no-store'});
+    if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    const extra=await res.json();
+    if(cyV5MergeDiscoveryExtra(extra))renderRecommendations();
+  }catch(e){console.warn('discovery extra load skipped',e);}
+}
+
 function cyV5RefreshVersion(){
   const a=document.getElementById('appVersion');if(a)a.textContent='v'+CY_V5_VERSION;
   const b=document.getElementById('settingsVersion');if(b)b.textContent=CY_V5_VERSION;
 }
-window.addEventListener('DOMContentLoaded',cyV5RefreshVersion);
+window.addEventListener('DOMContentLoaded',()=>{cyV5RefreshVersion();cyV5LoadDiscoveryExtra();});
