@@ -1,162 +1,19 @@
 name: Build ChungYack Android APK
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'public/**'
-      - 'package.json'
-      - 'capacitor.config.json'
-      - 'VERSION'
-      - 'scripts/qa-app.mjs'
-      - 'scripts/apply-android-branding.mjs'
-      - '.github/workflows/android.yml'
-      - 'ops/android-rebuild.request'
   pull_request:
     branches: [main]
-    paths:
-      - 'public/**'
-      - 'package.json'
-      - 'capacitor.config.json'
-      - 'VERSION'
-      - 'scripts/**'
-      - '.github/workflows/android.yml'
-      - 'ops/android-rebuild.request'
   workflow_dispatch:
 
 permissions:
-  contents: write
-
-concurrency:
-  group: chungyack-android-build-${{ github.event_name }}
-  cancel-in-progress: true
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - id: ver
-        shell: bash
-        run: echo "version=$(tr -d '\r\n ' < VERSION)" >> "$GITHUB_OUTPUT"
-
-      - name: Publish build run pointer
-        if: github.event_name != 'pull_request'
+      - name: Runner probe
         run: |
-          mkdir -p ops
-          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "building",\n  "artifact": "ChungYack-Radar-v%s-debug-apk",\n  "release_tag": "apk-v%s"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add ops/android-latest-run.json
-          git commit -m "Record ChungYack Android build ${{ github.run_id }} started" || true
-          git push || true
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
-
-      - uses: android-actions/setup-android@v3
-
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
-
-      - name: UI and data QA
-        run: |
-          npm run qa
-          node --check public/assets/app.js
-          node --check public/assets/app-v2-fixes.js
-          node --check public/assets/app-v3.js
-          node --check public/sw.js
-          node --check scripts/qa-app.mjs
-          node --check scripts/apply-android-branding.mjs
-          test -s public/assets/app-v2.css
-          test -s public/assets/app-v3.css
-          test -s public/data/sh-2026.csv
-          grep -q 'viewport-fit=cover' public/index.html
-          grep -q 'safe-area-inset-bottom' public/assets/app.css
-          grep -q 'trackingEditor' public/index.html
-          grep -q 'typeFilter' public/index.html
-          grep -q 'app-v2-fixes.js' public/index.html
-          grep -q 'app-v3.js' public/index.html
-          grep -q 'app-icon.svg' public/manifest.webmanifest
-          grep -q 'exportLocalBtn' public/index.html
-          grep -q '취소/추적중단' public/index.html
-          grep -q 'cyRestoreRemoved' public/assets/app-v3.js
-          grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
-
-      - name: Create Android project
-        run: npx cap add android
-
-      - name: Sync web bundle
-        run: npx cap sync android
-
-      - name: Apply ChungYack icon and native Back behavior
-        run: npm run android:brand
-
-      - name: Verify Android branding
-        run: |
-          test -s android/app/src/main/res/drawable/chungyack_icon_foreground.xml
-          test -s android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
-          test -s android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
-          grep -q '청약 레이더' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
-
-      - name: Restore persistent debug signing key
-        uses: actions/cache@v4
-        with:
-          path: ~/.android/debug.keystore
-          key: chungyack-radar-debug-keystore-v1
-
-      - name: Build debug APK
-        run: |
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug
-
-      - name: Rename APK
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk "ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk"
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug-apk
-          path: ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk
-          retention-days: 90
-
-      - name: Publish APK release asset
-        if: github.event_name != 'pull_request'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          TAG="apk-v${{ steps.ver.outputs.version }}"
-          APK="ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "면적·지역 자유필터, 신청 추적 수정/상태변경, 삭제 되돌리기, JSON 백업/복원, 전용 앱 아이콘을 포함한 APK"
-          gh release upload "$TAG" "$APK" --clobber
-
-      - name: Record successful build
-        if: success() && github.event_name != 'pull_request'
-        run: |
-          git pull --rebase || true
-          mkdir -p ops
-          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "ChungYack-Radar-v%s-debug-apk",\n  "release_tag": "apk-v%s",\n  "signing_cache": "chungyack-radar-debug-keystore-v1"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add ops/android-latest-run.json
-          git commit -m "Record ChungYack Android build ${{ github.run_id }} successful" || true
-          git push || true
-
-      - name: Record failed build
-        if: failure() && github.event_name != 'pull_request'
-        run: |
-          git pull --rebase || true
-          mkdir -p ops
-          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "failed",\n  "artifact": "ChungYack-Radar-v%s-debug-apk",\n  "release_tag": "apk-v%s"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add ops/android-latest-run.json
-          git commit -m "Record ChungYack Android build ${{ github.run_id }} failed" || true
-          git push || true
+          echo "CHUNGYACK_ACTIONS_RUNNER_OK"
+          uname -a
+          pwd
