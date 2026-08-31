@@ -12,9 +12,12 @@
 4. `docs/REPORTING_AND_MAP_RULES.md`
 5. `STATUS.md`
 6. `data/tracking_registry.md`
-7. `docs/SOURCES_AND_COVERAGE.md`
-8. `docs/APP_STATE_SYNC.md`
-9. `data/app_user_state.json` — APK GitHub 동기화를 사용한 경우 최신 넘김/복원·정렬·앱 추적 상태
+7. `reports/current_dashboard.html` — 현재 일반/숨은공고·초대형공고·기신청·패스/종료 통합 HTML
+8. `data/current_dashboard_state.js` — HTML의 현재 공고/기신청 상태 데이터
+9. 최신 `coverage/YYYY-MM-DD_local_hidden_scan.md` 및 대응 coverage JS — 서울25개구·경기31개시군 숨은공고 탐색 기록
+10. `docs/SOURCES_AND_COVERAGE.md`
+11. `docs/APP_STATE_SYNC.md`
+12. `data/app_user_state.json` — APK GitHub 동기화를 사용한 경우 최신 넘김/복원·정렬·앱 추적 상태
 
 `data/app_user_state.json`의 `updatedAt`이 null이 아니면 현재 앱 사용자 판단의 SSOT 중 하나로 읽는다. 공고별 `noticeDecisions[id].skipped=true`는 사용자가 앱에서 넘긴 상태이므로 일반 추천·상세·지도에서 다시 강조하지 않고, `skipped=false`는 사용자가 넘김을 취소해 복원한 상태로 본다. 세부 병합·보안 규칙은 `docs/APP_STATE_SYNC.md`를 따른다.
 
@@ -45,6 +48,8 @@
 - 청약 전문 유튜브/콘텐츠를 후보 발견용으로 활용
 
 한 지역도 임의 생략하지 않는다.
+
+숨은공고 탐색에서 검색색인에 결과가 없다는 이유만으로 `공고 없음`이라고 확정하지 않는다. 고시공고 / 청년정책 / 1인가구 / 주거복지 / 도시공사·출자기관 페이지를 겹쳐 확인한다.
 
 ## 4. 공식 검증
 
@@ -127,7 +132,47 @@ APK GitHub 동기화 상태가 있으면 `data/app_user_state.json`의 최신 �
 
 상세 규칙은 반드시 `docs/REPORTING_AND_MAP_RULES.md`를 따른다.
 
-## 9. 청약 레이더 Android 앱 인수인계
+## 9. 통합 HTML 대시보드 인수인계
+
+현재 프로젝트의 사람이 보는 통합 현황판은 `reports/current_dashboard.html`이다.
+
+구조는 반드시 아래 순서를 유지한다.
+
+1. **일반·숨은 현재공고** — 맨 위
+2. **초대형 공고** — 별도 묶음
+3. **초대형 공고 상세표** — 예: SH 국민임대 1,973세대 단지·형 상세
+4. **이미 신청해서 넘긴 공고** — 신규후보와 분리
+5. **패스·탈락·종료** — 활성 후보와 분리
+6. **서울 25개 구 + 경기 31개 시군 숨은공고 탐색 커버리지**
+
+### HTML/상태 동기화 강제 규칙
+
+`STATUS.md`와 `data/tracking_registry.md`만 고치고 작업을 끝내면 안 된다.
+
+다음 중 하나라도 발생하면 **같은 회차에 반드시** 아래 파일을 함께 갱신한다.
+
+- 새 공고 발견
+- 신청 결정/진행/완료
+- 결과/예비/서류/계약/입주 상태 변경
+- 패스/보류/복원/탈락
+- 초대형 공고의 단지·형·가격·주소 데이터 변경
+- 서울25/경기31 숨은공고 탐색 결과 변경
+
+함께 검토/수정할 파일:
+
+- `STATUS.md`
+- `data/tracking_registry.md`
+- `data/current_dashboard_state.js`
+- `reports/current_dashboard.html` — 구조/UI가 바뀌는 경우
+- 대형공고 데이터 파일(예: `data/sh_gukmin_2026_part*.js`)
+- 최신 `coverage/YYYY-MM-DD_local_hidden_scan.md`
+- 최신 coverage JS
+- 필요 시 `logs/CHANGELOG.md`
+
+신청완료 공고는 일반·숨은 현재공고에서 제거하고 **이미 신청해서 넘긴 공고**로 이동한다.
+패스·탈락 공고는 활성표/지도에서 제거하고 아카이브에만 남긴다.
+
+## 10. 청약 레이더 Android 앱 인수인계
 
 현재 APK 앱은 `stock` 저장소의 Market Radar 방식처럼 **웹앱 + Capacitor + GitHub Actions 자동빌드** 구조다.
 
@@ -201,37 +246,52 @@ GitHub token은 repo/HTML/localStorage에 남기지 않고 Android Keystore 암�
 - 동일 디버그 서명키 재사용
 - GitHub Release APK 생성
 
-## 10. 변경 시 파일 갱신 규칙
+## 11. 변경 시 파일 갱신 규칙
 
 ### 새 공고 발견
 - 검증 후 보고에 반영
 - 사용자가 관심/신청 상태를 밝히면 `STATUS.md` 및 `data/tracking_registry.md` 갱신
+- 대시보드 상태/coverage도 같은 회차에 갱신
 
 ### 신청 완료
 - 신규추천 목록에서 제거
 - 신청추적 섹션으로 이동
+- `data/current_dashboard_state.js`의 ordinary에서 제거하고 applied에 추가
 - 앱 초기 seed가 갱신되어야 하는 경우 `public/data/app.json`도 검토
 
 ### 결과 발표
 - 결과확인 필요 → 당첨/예비/탈락 등 실제 확인 상태로 변경
 - 개인 결과는 추정하지 않는다
+- 대시보드/원장도 같은 회차에 동기화
 
 ### 패스
 - 상세/지도/추천에서 제외
 - 원장에는 패스 이력 유지
+- 대시보드 활성목록에서 제거하고 아카이브에 반영
 - APK GitHub 동기화가 활성화되어 있으면 `data/app_user_state.json`의 공고별 넘김 상태도 확인한다.
 
 ### 보류
 - 삭제 금지
 - 새 정보 시 재평가
 
-## 11. 인수인계 완료 체크
+## 12. 현재 비바힐스강변 후속 추적
+
+- 사용자 직접 확인: **2026-08-31 신청완료**
+- 상태: `✅ 신청완료 / 🎯 서류심사 대상자 발표 대기`
+- 다음 확인: **2026-09-01 15:00** 서류심사 대상자 발표
+- 대상자 선정 시: **2026-09-02~09-03** 서류사본 제출
+- 이후: **2026-09-12** 계약 및 원본서류 제출 단계 추적
+- 신규후보 목록으로 다시 올리지 않는다.
+
+## 13. 인수인계 완료 체크
 
 새 작업자는 작업 시작 전 다음을 답할 수 있어야 한다.
 
 - 현재 신청완료 공고가 무엇인가?
 - 어떤 공고가 결과 확인 대상인가?
 - 패스/보류는 무엇인가?
+- `reports/current_dashboard.html`과 `data/current_dashboard_state.js`가 STATUS/tracking과 동기화되어 있는가?
+- 최신 coverage에 서울25개구/경기31개시군 탐색 결과가 반영되어 있는가?
 - APK의 최신 `data/app_user_state.json`에 넘김/복원 판단이 있는가?
 - 오늘 마감 또는 곧 시작하는 공고가 있는가?
 - 서울 25개 구와 경기 전 시군을 실제로 확인했는가?
