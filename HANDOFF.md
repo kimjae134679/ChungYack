@@ -13,6 +13,10 @@
 5. `STATUS.md`
 6. `data/tracking_registry.md`
 7. `docs/SOURCES_AND_COVERAGE.md`
+8. `docs/APP_STATE_SYNC.md`
+9. `data/app_user_state.json` — APK GitHub 동기화를 사용한 경우 최신 넘김/복원·정렬·앱 추적 상태
+
+`data/app_user_state.json`의 `updatedAt`이 null이 아니면 현재 앱 사용자 판단의 SSOT 중 하나로 읽는다. 공고별 `noticeDecisions[id].skipped=true`는 사용자가 앱에서 넘긴 상태이므로 일반 추천·상세·지도에서 다시 강조하지 않고, `skipped=false`는 사용자가 넘김을 취소해 복원한 상태로 본다. 세부 병합·보안 규칙은 `docs/APP_STATE_SYNC.md`를 따른다.
 
 ## 2. 이 프로젝트의 핵심 착각 금지
 
@@ -66,6 +70,7 @@
 
 사용자가 직접 알려준 신청/결과 상태가 공개 웹검색보다 우선한다.
 현재 신청 추적의 시작점은 `STATUS.md`와 `data/tracking_registry.md`를 따른다.
+APK GitHub 동기화 상태가 있으면 `data/app_user_state.json`의 최신 공고별 넘김/복원 판단도 함께 반영한다. 앱의 넘김은 실제 청약 신청 취소가 아니라 보고/UI 판단 상태다.
 
 ## 6. 지도 규칙
 
@@ -132,11 +137,14 @@
 - `public/assets/app.js` — 공고 필터·추적 핵심
 - `public/assets/app-v2-fixes.js` — 카탈로그→추적 안정성 보정
 - `public/assets/app-v3.js` — 추적 삭제 되돌리기, JSON 백업/복원, Native Back 개선
+- `public/assets/app-v4.js` / `app-v4-remote.js` — 최신 일반공고 피드·대형공고 분리·원격 갱신
+- `public/assets/app-v5.js` — 시간순/추천순, 공고별 넘김·복원/접기, 정확시간 override, private GitHub 상태 동기화
+- `public/data/report-overrides.json` — 확인된 공식링크·신청링크·정확주소·시간 보정 레이어
 - `public/assets/app-icon.svg` — 전용 앱 아이콘
 - `public/data/sh-2026.csv` — SH 국민임대 전체 79개 타입
 - `public/data/app.json` — 경쟁률 분석·초기 추적 seed
 - `scripts/qa-app.mjs` — APK 빌드 전 기능/파일 QA
-- `scripts/apply-android-branding.mjs` — Android 아이콘 + Native Back 적용
+- `scripts/apply-android-branding.mjs` — Android 아이콘 + Native Back + GitHubSync native plugin 적용
 - `.github/workflows/android.yml` — APK 자동빌드 / Release
 - `ops/android-latest-run.json` — Actions가 기록하는 최신 빌드 상태
 
@@ -147,6 +155,15 @@
 - 사용자가 앱에서 각 면적/지역을 직접 켜고 끈다.
 - `북부권 끄기`, `서울만`, 보증금 상한 같은 것은 빠른 필터일 뿐 영구 규칙이 아니다.
 - 필터 선택은 로컬 저장한다.
+
+### 앱 일반공고 판단 규칙
+
+- 홈/일정 일반공고는 `시간순` 또는 `추천순`으로 전환 가능하게 유지한다.
+- 공고 카드의 `넘김` 체크는 즉시 저장하고 카드가 `공고명 + 접수시간 + 위치`만 남긴 축약형으로 접히게 한다.
+- 체크 해제/`넘김 취소`로 즉시 원상복구할 수 있어야 한다.
+- 확인된 공식공고·PDF·신청페이지·주택상세·정확주소 지도 링크는 삭제하지 않는다.
+- 실제 마감시각을 찾지 못했으면 `운영기관 공식페이지 모집중`으로 뭉뚱그리지 말고 `종료시각 공고문 본문 미기재`처럼 무엇이 확인되고 무엇이 미확인인지 명시한다. 시간을 추정해서 만들지 않는다.
+- 정확주소가 없는 곳은 지도 링크를 추정 생성하지 않는다.
 
 ### 앱 추적 규칙
 
@@ -160,10 +177,10 @@
 
 ### Private/Public 원칙
 
-현재는 **Private 저장소 유지 가능 구조**다.
-공고 데이터는 APK 번들, 사용자의 필터/추적 수정은 기기 `localStorage`에 둔다.
-나중에 저장소를 Public으로 바꾸더라도 개인 신청/결과 상태를 공개 데이터 피드에 넣지 않는다.
-공개 가능 공고 데이터와 개인 추적 상태를 반드시 분리한다.
+공개 공고 데이터와 개인 판단/추적 상태를 반드시 분리한다.
+공고·주소·공식링크·시간 검증 데이터는 APK/public `stock` 저장소에서 원격 갱신할 수 있다.
+사용자의 넘김·복원·정렬·신청추적 상태는 기본적으로 기기 로컬에 저장하고, 사용자가 APK 설정에서 private GitHub 동기화를 연결한 경우에만 `ChungYack/data/app_user_state.json`으로 저장한다.
+GitHub token은 repo/HTML/localStorage에 남기지 않고 Android Keystore 암호화 저장을 유지한다.
 
 ### APK QA 원칙
 
@@ -173,10 +190,14 @@
 - 필수 HTML/CSS/데이터 파일 존재
 - 79개 SH 타입 유지 및 59㎡ 포함 확인
 - 필터 켜기/끄기 마커 확인
+- 일반공고 시간순/추천순 전환 확인
+- 넘김 체크 → 축약 카드 → 넘김 취소 복원 확인
+- 공식공고/신청/정확주소 지도 링크 보존 확인
 - 추적 수정/삭제/백업/복원 코드 확인
 - Android safe-area / 가로밀림 방지
 - 전용 Android launcher icon 확인
 - Native Back: 편집창 닫기 → 다른 탭에서 홈 → 홈에서 종료 확인
+- GitHubSync token이 Android Keystore를 사용하고 공개 파일/localStorage에 저장되지 않는지 확인
 - 동일 디버그 서명키 재사용
 - GitHub Release APK 생성
 
@@ -198,6 +219,7 @@
 ### 패스
 - 상세/지도/추천에서 제외
 - 원장에는 패스 이력 유지
+- APK GitHub 동기화가 활성화되어 있으면 `data/app_user_state.json`의 공고별 넘김 상태도 확인한다.
 
 ### 보류
 - 삭제 금지
@@ -210,6 +232,7 @@
 - 현재 신청완료 공고가 무엇인가?
 - 어떤 공고가 결과 확인 대상인가?
 - 패스/보류는 무엇인가?
+- APK의 최신 `data/app_user_state.json`에 넘김/복원 판단이 있는가?
 - 오늘 마감 또는 곧 시작하는 공고가 있는가?
 - 서울 25개 구와 경기 전 시군을 실제로 확인했는가?
 - 각 후보의 공식 PDF/이번 회차 가격을 검증했는가?
