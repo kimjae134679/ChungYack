@@ -13,11 +13,12 @@
 5. `STATUS.md`
 6. `data/tracking_registry.md`
 7. `reports/current_dashboard.html` — 현재 일반/숨은공고·초대형공고·기신청·패스/종료 통합 HTML
-8. `data/current_dashboard_state.js` — HTML의 현재 공고/기신청 상태 데이터
-9. 최신 `coverage/YYYY-MM-DD_local_hidden_scan.md` 및 대응 coverage JS — 서울25개구·경기31개시군 숨은공고 탐색 기록
-10. `docs/SOURCES_AND_COVERAGE.md`
-11. `docs/APP_STATE_SYNC.md`
-12. `data/app_user_state.json` — APK GitHub 동기화를 사용한 경우 최신 넘김/복원·정렬·앱 추적 상태
+8. `reports/2026_SH_국민임대_다중필터_한강남북_지도.html` — SH 국민임대 1,973세대 전용 고급 필터/정렬/지도 HTML
+9. `data/current_dashboard_state.js` — HTML의 현재 공고/기신청 상태 데이터
+10. 최신 `coverage/YYYY-MM-DD_local_hidden_scan.md` 및 대응 coverage JS — 서울25개구·경기31개시군 숨은공고 탐색 기록
+11. `docs/SOURCES_AND_COVERAGE.md`
+12. `docs/APP_STATE_SYNC.md`
+13. `data/app_user_state.json` — APK GitHub 동기화를 사용한 경우 최신 넘김/복원·정렬·앱 추적 상태
 
 `data/app_user_state.json`의 `updatedAt`이 null이 아니면 현재 앱 사용자 판단의 SSOT 중 하나로 읽는다. 공고별 `noticeDecisions[id].skipped=true`는 사용자가 앱에서 넘긴 상태이므로 일반 추천·상세·지도에서 다시 강조하지 않고, `skipped=false`는 사용자가 넘김을 취소해 복원한 상태로 본다. 세부 병합·보안 규칙은 `docs/APP_STATE_SYNC.md`를 따른다.
 
@@ -145,6 +146,25 @@ APK GitHub 동기화 상태가 있으면 `data/app_user_state.json`의 최신 �
 5. **패스·탈락·종료** — 활성 후보와 분리
 6. **서울 25개 구 + 경기 31개 시군 숨은공고 탐색 커버리지**
 
+### SH 국민임대 전용 HTML 고정 기능
+
+`reports/2026_SH_국민임대_다중필터_한강남북_지도.html`은 SH 국민임대 1,973세대 전용 상세판이다.
+
+반드시 유지할 기능:
+
+- 지역 다중선택
+- 면적(29/39/46/49/59㎡) 다중선택
+- `한강 남쪽 / 한강 북쪽 / 전체` 필터
+- `형(㎡) / 모집세대수 / 보증금 / 월 임대료` 머리글 클릭 오름차순·내림차순 정렬
+- 보증금·월세 범위는 표시된 낮은 금액 기준 정렬
+- 정확 도로명주소 기반 HTML 지도
+- 각 주소별 HTML 지도 + 네이버지도 링크
+- 지도는 정확주소만 사용하며 주소가 애매하면 임의 좌표 금지
+- 데이터는 `data/sh_gukmin_2026_part1.js` ~ `part4.js`를 읽는다.
+- UI 로직은 `assets/gukmin_dashboard_v2.js`, 스타일은 `assets/gukmin_dashboard_v2.css`에서 관리한다.
+
+SH 국민임대 데이터/주소/가격/모집호수에 변경이 생기면 데이터 파일뿐 아니라 위 전용 HTML이 계속 정상동작하는지 같이 검증한다.
+
 ### HTML/상태 동기화 강제 규칙
 
 `STATUS.md`와 `data/tracking_registry.md`만 고치고 작업을 끝내면 안 된다.
@@ -164,6 +184,7 @@ APK GitHub 동기화 상태가 있으면 `data/app_user_state.json`의 최신 �
 - `data/tracking_registry.md`
 - `data/current_dashboard_state.js`
 - `reports/current_dashboard.html` — 구조/UI가 바뀌는 경우
+- `reports/2026_SH_국민임대_다중필터_한강남북_지도.html` — SH 국민임대 데이터/UI가 바뀌는 경우
 - 대형공고 데이터 파일(예: `data/sh_gukmin_2026_part*.js`)
 - 최신 `coverage/YYYY-MM-DD_local_hidden_scan.md`
 - 최신 coverage JS
@@ -283,7 +304,19 @@ GitHub token은 repo/HTML/localStorage에 남기지 않고 Android Keystore 암�
 - 이후: **2026-09-12** 계약 및 원본서류 제출 단계 추적
 - 신규후보 목록으로 다시 올리지 않는다.
 
-## 13. 인수인계 완료 체크
+## 13. 현재 호반써밋 양재 공공임대 후속 추적
+
+- 사용자 SH 인터넷청약 신청내역 확인: **2026-08-13 신청완료**
+- 실제 공고: **2026년 2차 청년안심주택(공공임대), 2026-07-31 공고**
+- 청약단지: `청년안심주택(호반써밋 양재)`
+- 화면 구분: `23` — 면적 등으로 임의 해석하지 않고 화면값 그대로 유지
+- 과거 원장에 연결됐던 2026-05-26 민간임대 최초모집 6월 일정은 다른 회차이므로 사용 금지
+- 📄⚠️ 서류심사대상자 발표: **2026-08-21 경과**
+- 대상자 서류제출: **2026-08-31~09-02 등기우편**
+- 최종 당첨자 발표: **2026-12-11 예정**
+- 별도 전화/문자만 기다리지 말고 SH 서류심사대상자 조회를 직접 확인한다.
+
+## 14. 인수인계 완료 체크
 
 새 작업자는 작업 시작 전 다음을 답할 수 있어야 한다.
 
@@ -291,6 +324,7 @@ GitHub token은 repo/HTML/localStorage에 남기지 않고 Android Keystore 암�
 - 어떤 공고가 결과 확인 대상인가?
 - 패스/보류는 무엇인가?
 - `reports/current_dashboard.html`과 `data/current_dashboard_state.js`가 STATUS/tracking과 동기화되어 있는가?
+- SH 국민임대 전용 HTML의 다중필터/한강 남북/클릭정렬/정확주소 지도 기능이 유지되는가?
 - 최신 coverage에 서울25개구/경기31개시군 탐색 결과가 반영되어 있는가?
 - APK의 최신 `data/app_user_state.json`에 넘김/복원 판단이 있는가?
 - 오늘 마감 또는 곧 시작하는 공고가 있는가?
