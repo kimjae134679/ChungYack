@@ -1,11 +1,11 @@
 {
-  "version": "0.3.0",
-  "updatedAt": "2026-09-01T02:16:12+09:00",
-  "summary": {"urgent":4,"catalog":79,"note":"면적·지역은 기본 제외 없이 사용자가 필터에서 직접 켜고 끔"},
+  "version": "0.4.0",
+  "updatedAt": "2026-09-01T02:55:00+09:00",
+  "summary": {"urgent":4,"catalog":79,"note":"v0.4부터 기본 공고 화면은 current-opportunities.json의 최신 검토 공고를 사용. SH 국민임대 카탈로그는 이번 회차 패스 처리 후 기본 화면에서 숨김."},
   "trackingSeed": [
     {"id":"track-hoban-yangjae","name":"2026년 2차 청년안심주택(공공임대) — 호반써밋 양재","type":"","appliedAt":"2026-08-13","status":"서류심사 대상자 확인 긴급","statusIcon":"📄⚠️","next":"지금 대상 여부 조회 → 대상이면 2026-09-02까지 등기우편 서류 제출","detail":"서류심사 대상자 발표 2026-08-21 16:00 이후 경과 · 제출기간 내 미제출 시 별도 연락 없이 탈락 · 최종 당첨자 발표 2026-12-11 예정","address":"서울특별시 서초구 양재동 산17-7"},
     {"id":"track-centreville-weston-25","name":"센트레빌 웨스트온 청년형 특별공급 25형","type":"25형","appliedAt":"2026-08-31","status":"결과확인 필요","statusIcon":"🎯","next":"지금 홈페이지에서 당첨/예비/탈락 여부 개인 조회","detail":"공식 결과확인 시각 2026-08-31 16:00 경과 · 소득 1순위 / 지역 2순위 신청완료 · 개인 결과는 임의 추정하지 않음","address":"서울특별시 금천구 시흥대로 377"},
-    {"id":"track-vivahills-river","name":"비바힐스강변","type":"B Type 32.88㎡","appliedAt":"2026-08-31","status":"신청완료 / 오늘 발표","statusIcon":"🔴⏰","next":"2026-09-01 15:00 서류심사 대상자 발표 확인","detail":"사용자 직접 확인 신청완료 · 02:16 KST 기준 발표까지 약 12시간 43분 · 대상자면 2026-09-02~09-03 서류사본 제출","address":"서울특별시 광진구 구의동 593-11"},
+    {"id":"track-vivahills-river","name":"비바힐스강변","type":"B Type 32.88㎡","appliedAt":"2026-08-31","status":"신청완료 / 오늘 발표","statusIcon":"🔴⏰","next":"2026-09-01 15:00 서류심사 대상자 발표 확인","detail":"사용자 직접 확인 신청완료 · 대상자면 2026-09-02~09-03 서류사본 제출","address":"서울특별시 광진구 구의동 593-11"},
     {"id":"track-unit125-18a","name":"UNIT125 18A","type":"18A","appliedAt":"","status":"예비","statusIcon":"✅","next":"추가 연락 / 예비 소진 추적","detail":"예비 80번대","address":"서울특별시 동대문구 장안동 418-1"},
     {"id":"track-yangcheon-community","name":"2026 양천구 청년협동조합 공동체주택","type":"","appliedAt":"2026-08-24","status":"신청완료","statusIcon":"✅","next":"2026-11-25 예정 결과 발표","detail":"이메일 제출 / 공고상 공식 선정기준 4순위","address":"서울특별시 양천구 오목로23길 25-1 외"}
   ],
@@ -29,12 +29,9 @@
     {"year":"2024 1차","average":31.96,"detail":"재공급 1,060호 / 33,877건"}
   ],
   "sources": [
-    {"label":"2026 SH 국민임대 모집 정리","url":"https://jugeo.co.kr/announcements/a8258069-c10c-4bab-9a2c-2f5421972f9a"},
-    {"label":"2026 SH 공가·예비 분석","url":"https://donbrief.com/sh-gukmin-imdae-2026/"},
-    {"label":"2026 SH 단지별 임대조건 표","url":"https://dearmyhealths.com/서울/2026년-서울-국민임대주택-입주자모집-공고-총정리/"},
-    {"label":"센트레빌 웨스트온 공식 홈페이지","url":"https://www.cvweston.com/"},
-    {"label":"2022 SH 국민임대 경쟁률 참고","url":"https://azmicx.tistory.com/2881"},
-    {"label":"2023 SH 국민임대 경쟁률 참고","url":"https://azmicx.tistory.com/m/4039"},
-    {"label":"2024 SH 국민임대 경쟁률 참고","url":"https://azmicx.tistory.com/m/4753"}
+    {"label":"LH 청약플러스","url":"https://apply.lh.or.kr/"},
+    {"label":"서울 청년몽땅정보통 SH 공고","url":"https://youth.seoul.go.kr/api/sh/list.do?key=2309250014"},
+    {"label":"금천구 공식 공고","url":"https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192"},
+    {"label":"센트레빌 웨스트온 공식 홈페이지","url":"https://www.cvweston.com/"}
   ]
 }
