@@ -8,7 +8,6 @@ on:
       - 'public/manifest.webmanifest'
       - 'public/assets/**'
       - 'public/data/app.json'
-      - 'public/data/hourly-report.json'
       - 'public/data/current-opportunities.json'
       - 'public/data/sh-2026.csv'
       - 'public/data/report-overrides.json'
@@ -26,7 +25,6 @@ on:
       - 'public/manifest.webmanifest'
       - 'public/assets/**'
       - 'public/data/app.json'
-      - 'public/data/hourly-report.json'
       - 'public/data/current-opportunities.json'
       - 'public/data/sh-2026.csv'
       - 'public/data/report-overrides.json'
@@ -87,29 +85,33 @@ jobs:
           node --check public/assets/app-v2-fixes.js
           node --check public/assets/app-v3.js
           node --check public/assets/app-v4.js
+          node --check public/assets/app-v5.js
           node --check public/sw.js
           node --check scripts/qa-app.mjs
           node --check scripts/apply-android-branding.mjs
-          node -e "JSON.parse(require('fs').readFileSync('public/data/hourly-report.json','utf8')); JSON.parse(require('fs').readFileSync('public/data/current-opportunities.json','utf8'));"
+          node -e "JSON.parse(require('fs').readFileSync('public/data/hourly-report.json','utf8')); const x=JSON.parse(require('fs').readFileSync('public/data/current-opportunities.json','utf8')); if(!x.items?.some(v=>v.id==='sh-happy-2026-2')) process.exit(2); if(!x.items?.some(v=>v.id==='sh-mirinae-8-2026')) process.exit(3);"
           test -s public/assets/app-v2.css
           test -s public/assets/app-v3.css
           test -s public/assets/app-v4.css
+          test -s public/assets/app-v5.css
           test -s public/data/current-opportunities.json
           test -s public/data/sh-2026.csv
           grep -q 'viewport-fit=cover' public/index.html
           grep -q 'safe-area-inset-bottom' public/assets/app.css
           grep -q 'trackingEditor' public/index.html
-          grep -q 'typeFilter' public/index.html
           grep -q 'app-v2-fixes.js' public/index.html
           grep -q 'app-v3.js' public/index.html
           grep -q 'app-v4.js' public/index.html
-          grep -q 'app-v4.css' public/index.html
+          grep -q 'app-v5.js' public/index.html
+          grep -q 'app-v5.css' public/index.html
           grep -q 'app-icon.svg' public/manifest.webmanifest
           grep -q 'exportLocalBtn' public/index.html
           grep -q '취소/추적중단' public/index.html
           grep -q 'cyRestoreRemoved' public/assets/app-v3.js
           grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
           grep -q 'current-opportunities.json' public/assets/app-v4.js
+          grep -q 'CY_V5_VERSION' public/assets/app-v5.js
+          grep -q '4576036' public/data/current-opportunities.json
           grep -q 'SH 2026년 국민임대주택' public/data/current-opportunities.json
 
       - name: Create Android project
@@ -156,7 +158,7 @@ jobs:
         run: |
           TAG="apk-v${{ steps.ver.outputs.version }}"
           APK="ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "현재 검토 공고·내 조건 판정·공식링크, 시간별 보고, 신청 추적 수정/상태변경, 삭제 되돌리기, JSON 백업/복원, 전용 앱 아이콘을 포함한 APK"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "SH 행복주택 상세후보·소득표 근거, 최신 검토공고·내 조건 판정, 패스/절대불가 분리, 신청 추적 수정/상태변경, 삭제 되돌리기, JSON 백업/복원을 포함한 APK"
           gh release upload "$TAG" "$APK" --clobber
 
       - name: Record successful build
