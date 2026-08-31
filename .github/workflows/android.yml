@@ -4,7 +4,12 @@ on:
   push:
     branches: [main]
     paths:
-      - 'public/**'
+      - 'public/index.html'
+      - 'public/manifest.webmanifest'
+      - 'public/assets/**'
+      - 'public/data/app.json'
+      - 'public/data/sh-2026.csv'
+      - 'public/data/report-overrides.json'
       - 'package.json'
       - 'capacitor.config.json'
       - 'VERSION'
@@ -15,7 +20,12 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'public/**'
+      - 'public/index.html'
+      - 'public/manifest.webmanifest'
+      - 'public/assets/**'
+      - 'public/data/app.json'
+      - 'public/data/sh-2026.csv'
+      - 'public/data/report-overrides.json'
       - 'package.json'
       - 'capacitor.config.json'
       - 'VERSION'
