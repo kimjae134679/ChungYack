@@ -12,6 +12,13 @@ renderSettings=function(){
   const v=document.getElementById('settingsVersion');if(v)v.textContent=CY_V5_VERSION;
 };
 
+const _cyV5EligibilityHtml=cyV4EligibilityHtml;
+cyV4EligibilityHtml=function(item){
+  const x=item?.eligibility;
+  if(x?.level!=='possible')return _cyV5EligibilityHtml(item);
+  return `<div class="cy-v4-eligibility cy-v5-possible"><b>${esc(x.title||'🟢 현재 조건상 신청 가능성 있음')}</b>${x.reason?`<div class="cy-v4-reason">${esc(x.reason)}</div>`:''}${x.check?`<div class="cy-v4-check"><b>다시 볼 조건:</b> ${esc(x.check)}</div>`:''}</div>`;
+};
+
 function cyV5CandidateHtml(x){
   return `<div class="cy-v5-candidate">
     <div class="cy-v5-candidate-head"><b>${esc(x.name||'')}</b><span>${esc(x.district||'')} · ${esc(x.areaPyeong||'')}</span></div>
