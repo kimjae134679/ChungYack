@@ -1,67 +1,13 @@
 {
   "version": "0.3.0",
-  "updatedAt": "2026-08-31T18:20:00+09:00",
-  "summary": {
-    "urgent": 3,
-    "catalog": 79,
-    "note": "면적·지역은 기본 제외 없이 사용자가 필터에서 직접 켜고 끔"
-  },
+  "updatedAt": "2026-08-31T19:16:00+09:00",
+  "summary": {"urgent":3,"catalog":79,"note":"면적·지역은 기본 제외 없이 사용자가 필터에서 직접 켜고 끔"},
   "trackingSeed": [
-    {
-      "id": "track-hoban-yangjae",
-      "name": "2026년 2차 청년안심주택(공공임대) — 호반써밋 양재",
-      "type": "",
-      "appliedAt": "2026-08-13",
-      "status": "서류심사 대상자 확인 긴급",
-      "statusIcon": "📄⚠️",
-      "next": "지금 대상 여부 조회 → 대상이면 2026-08-31~09-02 등기우편 서류 제출",
-      "detail": "서류심사 대상자 발표 2026-08-21 경과 · 최종 당첨자 발표 2026-12-11 예정",
-      "address": "서울특별시 서초구 양재동 산17-7"
-    },
-    {
-      "id": "track-centreville-weston-25",
-      "name": "센트레빌 웨스트온 청년형 특별공급 25형",
-      "type": "25형",
-      "appliedAt": "2026-08-31",
-      "status": "결과확인 필요",
-      "statusIcon": "🎯",
-      "next": "지금 홈페이지에서 당첨/예비/탈락 여부 개인 조회",
-      "detail": "공식 결과확인 시각 2026-08-31 16:00 경과 · 소득 1순위 / 지역 2순위 신청완료 · 개인 결과는 임의 추정하지 않음",
-      "address": "서울특별시 금천구 시흥대로 377"
-    },
-    {
-      "id": "track-vivahills-river",
-      "name": "비바힐스강변",
-      "type": "B Type 32.88㎡",
-      "appliedAt": "2026-08-31",
-      "status": "신청완료",
-      "statusIcon": "✅",
-      "next": "2026-09-01 15:00 서류심사 대상자 발표",
-      "detail": "사용자 직접 확인 신청완료 · 대상자면 2026-09-02~09-03 서류사본 제출",
-      "address": "서울특별시 광진구 구의동 593-11"
-    },
-    {
-      "id": "track-unit125-18a",
-      "name": "UNIT125 18A",
-      "type": "18A",
-      "appliedAt": "",
-      "status": "예비",
-      "statusIcon": "✅",
-      "next": "추가 연락 / 예비 소진 추적",
-      "detail": "예비 80번대",
-      "address": "서울특별시 동대문구 장안동 418-1"
-    },
-    {
-      "id": "track-yangcheon-community",
-      "name": "2026 양천구 청년협동조합 공동체주택",
-      "type": "",
-      "appliedAt": "2026-08-24",
-      "status": "신청완료",
-      "statusIcon": "✅",
-      "next": "2026-11-25 예정 결과 발표",
-      "detail": "이메일 제출 / 공고상 공식 선정기준 4순위",
-      "address": "서울특별시 양천구 오목로23길 25-1 외"
-    }
+    {"id":"track-hoban-yangjae","name":"2026년 2차 청년안심주택(공공임대) — 호반써밋 양재","type":"","appliedAt":"2026-08-13","status":"서류심사 대상자 확인 긴급","statusIcon":"📄⚠️","next":"지금 대상 여부 조회 → 대상이면 2026-08-31~09-02 등기우편 서류 제출","detail":"서류심사 대상자 발표 2026-08-21 경과 · 최종 당첨자 발표 2026-12-11 예정","address":"서울특별시 서초구 양재동 산17-7"},
+    {"id":"track-centreville-weston-25","name":"센트레빌 웨스트온 청년형 특별공급 25형","type":"25형","appliedAt":"2026-08-31","status":"결과확인 필요","statusIcon":"🎯","next":"지금 홈페이지에서 당첨/예비/탈락 여부 개인 조회","detail":"공식 결과확인 시각 2026-08-31 16:00 경과 · 소득 1순위 / 지역 2순위 신청완료 · 개인 결과는 임의 추정하지 않음","address":"서울특별시 금천구 시흥대로 377"},
+    {"id":"track-vivahills-river","name":"비바힐스강변","type":"B Type 32.88㎡","appliedAt":"2026-08-31","status":"신청완료","statusIcon":"✅","next":"2026-09-01 15:00 서류심사 대상자 발표","detail":"사용자 직접 확인 신청완료 · 대상자면 2026-09-02~09-03 서류사본 제출","address":"서울특별시 광진구 구의동 593-11"},
+    {"id":"track-unit125-18a","name":"UNIT125 18A","type":"18A","appliedAt":"","status":"예비","statusIcon":"✅","next":"추가 연락 / 예비 소진 추적","detail":"예비 80번대","address":"서울특별시 동대문구 장안동 418-1"},
+    {"id":"track-yangcheon-community","name":"2026 양천구 청년협동조합 공동체주택","type":"","appliedAt":"2026-08-24","status":"신청완료","statusIcon":"✅","next":"2026-11-25 예정 결과 발표","detail":"이메일 제출 / 공고상 공식 선정기준 4순위","address":"서울특별시 양천구 오목로23길 25-1 외"}
   ],
   "insights": [
     {"matchName":"장지지구 송파파인타운","type":39,"competition":"45~90:1","confidence":"중간","label":"🔥 검토가치 높음","reason":"송파권 + 낮은 보증금 + 큰 모집물량으로 입지·가격·물량 균형이 좋음","warning":"이번 회차 공식 경쟁률 공개 전 과거사례 기반 추정","weight":100},
