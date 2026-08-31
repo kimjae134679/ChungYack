@@ -12,9 +12,8 @@
 - `build` job도 생성됨
 - 수 초 내 `completed / failure`
 - job `steps`가 `null` 또는 빈 배열
-- `runner_id: 0`, `runner_name: ""`
 - checkout조차 실행되지 않음
-- 따라서 npm / Node syntax QA / Capacitor / Android SDK / Gradle 단계에 진입하지 못함
+- npm / Node syntax QA / Capacitor / Android SDK / Gradle 단계에 진입하지 못함
 - 이 유형의 실패에서는 첫 workflow step 이후 생성될 `ops/android-latest-run.json`도 생성되지 않음
 
 즉 현재 확인된 실패를 **앱 JS, Capacitor 또는 Gradle 오류로 판단할 근거가 없다.** GitHub-hosted runner가 실제 job step을 시작하기 전 Actions 실행/할당 단계에서 차단되는 패턴이다.
@@ -32,22 +31,23 @@
 
 최신 확인 실행:
 
-- run `33425904982`
-- run number `116`
-- head SHA `8e98e8da65e4eda0c962cbf760fc9dbf6b0878d2`
-- display title `Align app metadata and sources with v0.5.0`
+- run `33452767439`
+- run number `123`
+- head SHA `b357c244c68a3b6f34413fda60a48dd6d5a0abd4`
+- display title `Validate extra discovery data in Android build`
 - status `completed / failure`
-- 시작 `2026-08-31T18:35:56Z`
-- 종료 `2026-08-31T18:35:59Z`
-- job `99599273931`
+- 시작 `2026-08-31T23:56:41Z`
+- 종료 `2026-08-31T23:56:44Z`
+- job `99686113773`
 - job status `completed / failure`
 - `steps: null`
 - `logs_url: null`
 
-따라서 이 실행에서도 checkout/QA/Gradle이 한 줄도 실행되지 않았다.
+따라서 이번 실행에서도 checkout/QA/Gradle이 한 줄도 실행되지 않았다.
 
 이전 동일 패턴:
 
+- v0.5 run `33425904982` / job `99599273931` — steps null
 - v0.4 run `33422907827` / job `99589401528` — steps 0
 - v0.4 run `33422986539` / job `99589659925` — steps 0
 - run `33394955861` 등 이전 재시도도 동일
@@ -73,11 +73,20 @@
 - 공식 청년 공급여부·공급수·보증금·월세는 SH 공급표/임대조건표 재검증 전 확정하지 않음
 - Zibble/SNS 자료는 후보 발견용으로 별도 표시
 
+### 추가 SNS 국민임대 자료 분류
+
+- `public/data/discovery-extra.json` 추가
+- `보증금 3,200만원 / 월 25만원 / 1,973세대` SNS 게시물은 새 공고가 아니라 이미 패스한 SH 국민임대 홍보자료로 기록
+- 앱에서 `후보 발견용 자료`에만 병합
+- 기존 국민임대 패스를 자동 복원하거나 행동후보로 재승격하지 않음
+- SNS 평균 임대조건 문구를 개별 단지 확정가격으로 사용하지 않음
+
 ### 앱 파일
 
 - `public/assets/app-v5.js`
 - `public/assets/app-v5.css`
 - `public/data/current-opportunities.json` schema v2
+- `public/data/discovery-extra.json`
 - `public/index.html` v5 레이어 연결
 - `public/sw.js` cache `chungyack-radar-v0.5.0`
 - `public/data/app.json` version 0.5.0
@@ -90,14 +99,13 @@ runner가 실제 시작되면 다음을 검사하도록 구성됨:
 
 - app.js / app-v2-fixes.js / app-v3.js / app-v4.js / app-v5.js syntax
 - sw.js syntax
-- current-opportunities.json JSON parse
+- current-opportunities.json / discovery-extra.json JSON parse
 - SH 행복주택 및 미리내집 항목 존재 확인
 - 이번 회차 행복주택 소득표 값 `4576036` 존재 확인
+- SNS 국민임대 중복자료 ID 존재 확인
 - app-v5.css 존재
 - index.html app-v5.js / app-v5.css 연결 확인
 - 이후 Capacitor Android 생성 → branding → Gradle assembleDebug → artifact/release
-
-시간별 `public/data/hourly-report.json` 단독 갱신은 APK 재빌드를 반복 발생시키지 않도록 push trigger에서 제외했다.
 
 ## APK가 아직 없는 이유
 
@@ -118,4 +126,3 @@ runner가 실제 시작되면 다음을 검사하도록 구성됨:
 5. `./gradlew assembleDebug` 성공
 6. `ChungYack-Radar-v0.5.0-debug.apk` artifact 확인
 7. `apk-v0.5.0` release asset 확인
-8. 실제 폰에서 행복주택 상세, 녹색 가능판정, 하드불가 빨강, 추적 추가/수정, 로컬 데이터 유지 확인
