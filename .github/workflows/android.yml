@@ -8,6 +8,8 @@ on:
       - 'public/manifest.webmanifest'
       - 'public/assets/**'
       - 'public/data/app.json'
+      - 'public/data/hourly-report.json'
+      - 'public/data/current-opportunities.json'
       - 'public/data/sh-2026.csv'
       - 'public/data/report-overrides.json'
       - 'package.json'
@@ -24,6 +26,8 @@ on:
       - 'public/manifest.webmanifest'
       - 'public/assets/**'
       - 'public/data/app.json'
+      - 'public/data/hourly-report.json'
+      - 'public/data/current-opportunities.json'
       - 'public/data/sh-2026.csv'
       - 'public/data/report-overrides.json'
       - 'package.json'
@@ -82,11 +86,15 @@ jobs:
           node --check public/assets/app.js
           node --check public/assets/app-v2-fixes.js
           node --check public/assets/app-v3.js
+          node --check public/assets/app-v4.js
           node --check public/sw.js
           node --check scripts/qa-app.mjs
           node --check scripts/apply-android-branding.mjs
+          node -e "JSON.parse(require('fs').readFileSync('public/data/hourly-report.json','utf8')); JSON.parse(require('fs').readFileSync('public/data/current-opportunities.json','utf8'));"
           test -s public/assets/app-v2.css
           test -s public/assets/app-v3.css
+          test -s public/assets/app-v4.css
+          test -s public/data/current-opportunities.json
           test -s public/data/sh-2026.csv
           grep -q 'viewport-fit=cover' public/index.html
           grep -q 'safe-area-inset-bottom' public/assets/app.css
@@ -94,11 +102,15 @@ jobs:
           grep -q 'typeFilter' public/index.html
           grep -q 'app-v2-fixes.js' public/index.html
           grep -q 'app-v3.js' public/index.html
+          grep -q 'app-v4.js' public/index.html
+          grep -q 'app-v4.css' public/index.html
           grep -q 'app-icon.svg' public/manifest.webmanifest
           grep -q 'exportLocalBtn' public/index.html
           grep -q '취소/추적중단' public/index.html
           grep -q 'cyRestoreRemoved' public/assets/app-v3.js
           grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
+          grep -q 'current-opportunities.json' public/assets/app-v4.js
+          grep -q 'SH 2026년 국민임대주택' public/data/current-opportunities.json
 
       - name: Create Android project
         run: npx cap add android
@@ -144,7 +156,7 @@ jobs:
         run: |
           TAG="apk-v${{ steps.ver.outputs.version }}"
           APK="ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "면적·지역 자유필터, 신청 추적 수정/상태변경, 삭제 되돌리기, JSON 백업/복원, 전용 앱 아이콘을 포함한 APK"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "현재 검토 공고·내 조건 판정·공식링크, 시간별 보고, 신청 추적 수정/상태변경, 삭제 되돌리기, JSON 백업/복원, 전용 앱 아이콘을 포함한 APK"
           gh release upload "$TAG" "$APK" --clobber
 
       - name: Record successful build
