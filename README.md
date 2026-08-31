@@ -1,29 +1,39 @@
 # ChungYack — 청약2 Project Hub
 
-최종 갱신: 2026-08-31 KST
+최종 갱신: 2026-09-01 KST
 
-이 저장소는 청약2 프로젝트의 **단일 기준점(Single Source of Truth)** 이다.
-새 대화·새 작업자·자동화·인수인계 시 최상단 문서부터 읽고 현재 상태를 확인한다.
+이 저장소는 청약2 프로젝트의 **단일 기준점(Single Source of Truth)** 이다. 새 대화·새 작업자·자동화·인수인계 시 이 저장소의 최신 상태를 우선 확인한다.
 
-## 1. 지금 바로 볼 것
+## 1. 가장 먼저 읽을 것
 
-- **최상위 규칙** → [`docs/MASTER_RULES.md`](docs/MASTER_RULES.md)
-- **사용자 최신 출력 최우선 규칙** → [`docs/USER_OUTPUT_OVERRIDES.md`](docs/USER_OUTPUT_OVERRIDES.md)
-- **사용자 조건 판정 표시 규칙** → [`docs/USER_ELIGIBILITY_ANNOTATION_RULES.md`](docs/USER_ELIGIBILITY_ANNOTATION_RULES.md)
-- **상세 보고·지도·통근·대출 규칙** → [`docs/REPORTING_AND_MAP_RULES.md`](docs/REPORTING_AND_MAP_RULES.md)
-- **현재 진행상황 / 신청·관심·결과확인 상태** → [`STATUS.md`](STATUS.md)
-- **인수인계** → [`HANDOFF.md`](HANDOFF.md)
-- **탐색 소스/전수확인 체크리스트** → [`docs/SOURCES_AND_COVERAGE.md`](docs/SOURCES_AND_COVERAGE.md)
-- **공고 검증/보고 템플릿** → [`templates/REPORT_TEMPLATE.md`](templates/REPORT_TEMPLATE.md)
-- **상태 데이터 원장** → [`data/tracking_registry.md`](data/tracking_registry.md)
+- 최상위 규칙 → `docs/MASTER_RULES.md`
+- 사용자 최신 출력 우선규칙 → `docs/USER_OUTPUT_OVERRIDES.md`
+- 사용자 조건 판정 표시규칙 → `docs/USER_ELIGIBILITY_ANNOTATION_RULES.md`
+- 지도·통근·가격·대출·중복신청 규칙 → `docs/REPORTING_AND_MAP_RULES.md`
+- 현재 진행상태 → `STATUS.md`
+- 인수인계 → `HANDOFF.md`
+- 신청/패스/결과 상태 원장 → `data/tracking_registry.md`
+- 현재 앱 공고 데이터 → `public/data/current-opportunities.json`
+- 현재 통합 HTML → `reports/current_dashboard.html`
 
-문서 간 출력 형식이 충돌하면 **사용자가 직접 지정한 최신 규칙인 `docs/USER_OUTPUT_OVERRIDES.md`를 우선 적용**한다. 사용자별 실제 신청 가능성 표시는 `docs/USER_ELIGIBILITY_ANNOTATION_RULES.md`를 반드시 함께 적용한다.
+문서 간 출력 형식이 충돌하면 사용자가 직접 지정한 최신 규칙을 우선한다.
 
-## 2. 프로젝트 핵심
+## 2. 현재 프로젝트 핵심 상태
 
-`오늘꺼 알려줘`는 오늘 올라온 공고만 찾는 요청이 아니다.
+2026-09-01 기준:
 
-항상 다음을 함께 관리한다.
+- `SH 2026년 국민임대주택` — 사용자 판단으로 **이번 회차 패스**. 상세추천·지도·행동후보에서 제외.
+- `SH 2026년 2차 행복주택` — **현재 메인 검토축**. 전체 1,484호, 2026-09-09 10:00 ~ 09-11 17:00 접수.
+- 사용자 제공 이번 회차 공고문 캡처의 1인가구(+20%p) 월평균소득 100% 값 `4,576,036원`을 이번 공고 판단 기준으로 기록.
+- 사용자 제공 집지켜 캡처에서 행복주택 8개 후보를 발견했으나, 민간 화면의 가격·단지정보는 후보발견용으로만 보존하고 이번 회차 `청년` 공급여부/공급수/임대조건은 공식 공급표로 재검증.
+- `제8차 장기전세주택2(미리내집)` — 현재 프로젝트 프로필과 신혼/예비신혼 하드요건이 맞지 않아 행동후보 제외.
+- Zibble·집지켜·SNS·유튜브·민간 집계는 발견용. 공식 공고/PDF/공급표/임대조건표가 최종 기준.
+
+상세 현재상태는 `STATUS.md`를 따른다.
+
+## 3. `오늘꺼 알려줘`의 의미
+
+오늘 올라온 공고만 찾는 요청이 아니다. 항상 동시에 관리한다.
 
 1. 현재 신청 가능
 2. 곧 신청 시작
@@ -34,125 +44,93 @@
 7. 계약
 8. 입주
 
-탐색은 **LH/SH/GH 등 메이저 기관만으로 종료하지 않는다.**
-서울 25개 자치구와 경기 전 시·군·구를 전수 탐색하고, 민간 집계·일반 웹검색·청약 관련 유튜브까지 후보 발견용으로 이용한 뒤 반드시 공식자료로 재검증한다.
+탐색은 LH/SH/GH 등 메이저 기관만으로 끝내지 않는다. 서울 25개 자치구와 경기 전 시·군·구를 전수 탐색하고, 민간 집계·일반 웹검색·SNS·청약 관련 콘텐츠를 후보 발견용으로 이용한 뒤 공식자료로 재검증한다.
 
-## 3. 보고 강제 규칙
+## 4. 보고 강제 규칙
 
-`오늘꺼 알려줘`를 실행할 때는 단순 목록형 요약으로 끝내지 않는다.
-
-- **추천 숫자순위/별점은 쓰지 않고 이모티콘으로 상태·중요도를 표시**
-- 일정 그룹별 지도: 오늘·내일 / 2~3일 / 4~7일 / 이후 / 이미 신청
-- 공식자료 기준 정확한 도로명주소 + 건물명
-- 가까운 역/노선/도보
-- 가능하면 평일 낮 네이버지도 지하철 기준 강남·판교 이동시간
-- 이번 회차 공급표/임대조건표 기준 가격
-- 최소/기본/최대 보증금 전환 조건
-- 실제 자격 판정
-- **발견된 공고는 자격이 안 맞는다고 탐색 단계에서 숨기지 않고 `내 조건 판정 | 판정 근거 | 추가 확인할 것`을 표시**
-- **`❌ 절대 불가`는 신혼전용·특정직종·필수거주기간 등 공식 하드자격이 사용자 현재 조건과 명확히 충돌할 때만 사용**
-- 경쟁률·거리·가격이 불리하다는 이유만으로 `❌ 절대 불가` 처리 금지
-- 대출 가능성, 예상 자기자금, 월이자, 월세, 관리비, 총 월 주거비
-- 서로 다른 공고 사이 중복신청 가능 여부 및 택1 경고
-- 공고명 바로 아래 공식 공고 / PDF / 신청 / 결과조회 링크
-- 패스 공고 상세·지도·추천 반복 금지
-
-세부 형식은 `docs/USER_OUTPUT_OVERRIDES.md`, `docs/USER_ELIGIBILITY_ANNOTATION_RULES.md`, `docs/REPORTING_AND_MAP_RULES.md`를 함께 적용한다.
-
-## 4. 저장소 운영 원칙
-
-- 최상단은 `README.md`, `STATUS.md`, `HANDOFF.md`만 봐도 전체 상황을 파악할 수 있게 유지한다.
-- 규칙은 `docs/MASTER_RULES.md`를 최우선으로 하되, 사용자 최신 출력 선호는 `docs/USER_OUTPUT_OVERRIDES.md`를 우선 적용하고 실전 출력 세부는 `docs/REPORTING_AND_MAP_RULES.md`를 함께 적용한다.
-- 사용자별 신청 가능성 판정은 `docs/USER_ELIGIBILITY_ANNOTATION_RULES.md`를 적용한다.
-- 공고 상태가 바뀔 때마다 `STATUS.md`와 `data/tracking_registry.md`를 함께 갱신한다.
-- 사용자가 직접 알려준 신청/결과 상태는 공개 웹검색보다 우선한다.
-- 패스 공고는 상세 분석을 반복하지 않는다.
-- 보류는 패스와 다르며 새 정보가 생기면 재평가한다.
-- 공식자료가 없는 가격·주소·개인 결과는 추정하지 않는다.
+- 사용자 추천 숫자순위/별점 기본 금지. 상태·긴급도는 지정 이모티콘 사용.
+- 일정 그룹별 지도: 오늘·내일 / 2~3일 / 4~7일 / 이후 / 이미 신청.
+- 공식자료에서 확인한 정확 도로명주소만 지도핀으로 사용. 추정핀 금지.
+- 공고마다 `내 조건 판정 | 판정 근거 | 다시 볼 조건` 표시.
+- `❌ 절대 불가`는 신혼전용·특정직종·필수거주기간 등 하드자격이 명확히 충돌할 때만 사용.
+- 경쟁률·위치·가격 불리만으로 절대불가 처리 금지.
+- 이번 회차 공급표/임대조건표 기준의 모집호수·공가/예비·보증금·월세 사용.
+- 민간 화면의 금액은 공식 임대조건표 확인 전 확정값으로 쓰지 않음.
+- 서로 다른 공고의 중복신청/택1 여부 확인.
+- 패스 공고 상세·지도·추천 반복 금지.
+- 이미 신청한 공고는 결과→서류→계약→입주까지 추적.
 
 ## 5. 청약 레이더 Android / PWA
 
-`stock` 저장소의 Market Radar 운영 방식을 참고해 `public/` 웹앱을 Capacitor로 감싸 Android APK를 자동 생성한다.
+현재 목표 버전: **v0.5.0**
 
 ```text
 public/
-  index.html                 앱 UI
-  assets/app.css             기본 모바일 UI
-  assets/app-v2.css          필터/추적 편집 UI
-  assets/app-v3.css          백업/삭제복원 UI
-  assets/app.js              공고/필터/추적 핵심 로직
-  assets/app-v2-fixes.js     안정성 보정 레이어
-  assets/app-v3.js           백업·되돌리기·native Back 보정
-  assets/app-icon.svg        청약 레이더 전용 아이콘
-  data/app.json              공개 공고 분석/초기 추적 seed
-  data/sh-2026.csv           SH 국민임대 전체 타입 데이터
+  index.html
+  assets/
+    app.css
+    app-v2.css
+    app-v3.css
+    app-v4.css
+    app-v5.css
+    app.js
+    app-v2-fixes.js
+    app-v3.js
+    app-v4.js
+    app-v5.js
+    app-icon.svg
+  data/
+    app.json
+    hourly-report.json
+    current-opportunities.json
+    sh-2026.csv
   manifest.webmanifest
   sw.js
-
-.github/workflows/android.yml
-scripts/apply-android-branding.mjs
-scripts/qa-app.mjs
-capacitor.config.json
-VERSION
 ```
+
+### 현재 앱 레이어
+
+- `app.js` — 로컬 추적/기존 카탈로그 핵심 기반.
+- `app-v2-fixes.js` — 추적 안정성, 시간별 보고, 사용자 조건 판정 박스.
+- `app-v3.js` — 삭제 되돌리기, JSON 백업/복원, Native Back 보정.
+- `app-v4.js` — 기본 공고화면을 국민임대 카탈로그에서 `current-opportunities.json` 최신 공고 중심으로 전환.
+- `app-v5.js` — SH 2차 행복주택 소득표 근거·8개 발견후보 상세·민간자료 경고·미리내집 하드불가·앱 버전 v0.5 보정.
+- `app-v5.css` — 위 상세 후보/근거 UI.
 
 ### 앱 UX 원칙
 
-- `59㎡ 제외`, `북부권 제외` 같은 기준을 앱에 강제하지 않는다.
-- 면적·지역·보증금·공가·경쟁률 분석 여부는 사용자가 직접 필터에서 켜고 끈다.
-- 필터 선택은 기기 로컬에 저장되어 앱 재실행 후에도 유지한다.
-- **추적에는 실제 신청한 공고만 넣는다.** 후보를 보는 것만으로 추적에 자동 등록하지 않는다.
-- 추적 항목은 신청일·타입·현재상태·다음 일정·메모·주소를 수정할 수 있다.
-- `취소/추적중단`은 앱 기록 상태일 뿐 실제 SH/LH 신청 취소 명령이 아니다.
-- 추적 제거는 최근 제거 기록에 임시 보관하고 되돌릴 수 있다.
-- 필터·추적은 JSON 파일로 백업/복원할 수 있다.
-- UI 변경은 기능만 존재하는 상태로 끝내지 않고 모바일 safe-area, 가로밀림, 필터 동작, 로컬 저장, 뒤로가기까지 QA한다.
+- 후보를 보는 것만으로 추적에 자동 등록하지 않는다.
+- `신청했음 → 추적 추가`를 눌러야 로컬 추적에 들어간다.
+- 추적의 수정/상태변경/삭제는 실제 SH/LH 청약을 변경하지 않는다.
+- 삭제한 추적은 되돌릴 수 있다.
+- 로컬 추적은 JSON으로 백업/복원한다.
+- 하드불가·조건부·가능 판정은 기존 판정 영역을 색상으로 구분하며 중복 배지를 남발하지 않는다.
+- 민간 집계/SNS는 앱에서도 `후보 발견용`임을 명시한다.
 
 ### Private 저장소 대응
 
-현재 저장소가 Private이어도 APK는 정상 동작하도록 **공고 데이터는 APK에 번들하고 개인 수정 상태는 `localStorage`에 저장**한다.
-저장소를 나중에 Public으로 전환할 경우 개인 신청상태를 공개 저장소 데이터로 내보내면 안 된다. 공개 데이터와 로컬 개인 추적을 분리하는 원칙을 유지한다.
+공고 데이터는 APK에 번들하고 개인 추적 상태는 기기 `localStorage`에 저장한다. 저장소가 나중에 공개돼도 개인 신청상태를 공개 저장소에 자동 업로드하지 않는 원칙을 유지한다.
 
-### APK 자동빌드
+## 6. APK 자동빌드
 
-`.github/workflows/android.yml`은 다음을 수행한다.
+`.github/workflows/android.yml` 흐름:
 
-`QA → Capacitor Android 생성 → 웹 번들 sync → 전용 아이콘/Native Back 적용 → Gradle APK → Artifact → GitHub Release`
+`QA → Capacitor Android 생성 → 웹 번들 sync → 전용 아이콘/Native Back → Gradle assembleDebug → Artifact → GitHub Release`
 
-빌드 상태는 성공/실패/진행중을 `ops/android-latest-run.json`에 기록하도록 구성한다.
+- 현재 `VERSION`, `package.json`, Service Worker cache는 v0.5.0 기준.
+- 시간별 보고 `hourly-report.json`만 바뀌는 경우 Android 재빌드가 자동 트리거되지 않도록 함.
+- 앱 번들/현재공고 데이터가 바뀌면 빌드 트리거.
+- 현재 GitHub Actions는 runner가 step 실행 전에 실패하는 장애가 반복 중. 자세한 내용은 `ops/ANDROID_BUILD_BLOCKER.md`.
 
-## 6. 권장 폴더 구조
+## 7. 현재 우선 작업
 
-```text
-/
-├─ README.md
-├─ STATUS.md
-├─ HANDOFF.md
-├─ VERSION
-├─ capacitor.config.json
-├─ package.json
-├─ public/
-├─ scripts/
-├─ .github/workflows/
-├─ ops/
-├─ docs/
-│  ├─ MASTER_RULES.md
-│  ├─ USER_OUTPUT_OVERRIDES.md
-│  ├─ USER_ELIGIBILITY_ANNOTATION_RULES.md
-│  ├─ REPORTING_AND_MAP_RULES.md
-│  ├─ ELIGIBILITY_PROFILE.md
-│  └─ SOURCES_AND_COVERAGE.md
-├─ data/
-│  └─ tracking_registry.md
-├─ templates/
-│  └─ REPORT_TEMPLATE.md
-├─ logs/
-│  └─ CHANGELOG.md
-├─ reports/
-├─ coverage/
-└─ archive/
-```
+1. SH 2026년 2차 행복주택 공식 공급표에서 청년 물량 전체 추출.
+2. 사용자 제공 8개 행복주택 후보의 이번 회차 청년 공급여부/공급수/정확주소/임대조건 재검증.
+3. LH 경기남부 549명, 인천·부천 269명 공급주택 XLSX 실제 주택 단위 비교.
+4. SH 2차 장기미임대 476호 실제 주소·가격·면적 펼치기.
+5. 이미 신청한 비바힐스/센트레빌/호반써밋/UNIT125/양천 공동체주택 결과·서류 추적.
+6. Actions runner 정상화 후 v0.5.0 APK 생성/Release 확인.
 
-## 7. 최종 목표
+## 8. 최종 목표
 
 **많이 찾고 → 공식자료로 걸러내고 → 실제 신청 가능한 것과 불가능한 것을 사용자 조건 기준으로 명확히 표시하고 → 입지·가격·당첨가능성까지 비교하고 → 신청 후 결과까지 끝까지 추적한다.**
