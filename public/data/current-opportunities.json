@@ -1,0 +1,191 @@
+{
+  "schema": "chungyack-current-opportunities-v1",
+  "updatedAt": "2026-09-01T02:55:00+09:00",
+  "title": "현재 검토 공고",
+  "notice": "SH 2026년 국민임대주택은 사용자 판단으로 이번 회차 패스 처리했습니다. 상세 추천·지도·행동후보에서는 제외하고 패스 기록만 유지합니다.",
+  "passes": [
+    {
+      "name": "SH 2026년 국민임대주택",
+      "period": "2026-08-31~09-03",
+      "reason": "사용자 판단으로 이번 회차 패스"
+    }
+  ],
+  "items": [
+    {
+      "id": "lh-youth-south-gyeonggi-2026-3",
+      "status": "🔥🔵",
+      "agency": "LH",
+      "category": "청년 매입임대",
+      "region": "성남·수원·시흥·안산·오산·용인·이천",
+      "name": "LH 경기남부 26년 3차 청년 매입임대주택 예비입주자 모집",
+      "period": "2026-09-07~09-09",
+      "units": "예비입주자 549명",
+      "eligibility": {
+        "level": "review",
+        "title": "⚠️ 비벼볼 만함",
+        "reason": "청년 매입임대 기본축은 검토 가능. 실제 신청 가능 여부는 소득·자산·공급주택별 세부자격을 공식 공고문과 주택목록으로 최종 확인해야 합니다.",
+        "check": "성남·용인 등 실제 공급주택 주소·전용면적·보증금·월세와 타지역 청년 매입임대 중복신청 제한"
+      },
+      "next": "공급주택 XLSX를 실제 주소·가격 단위로 펼쳐 비교",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13",
+      "addresses": []
+    },
+    {
+      "id": "lh-youth-incheon-bucheon-2026-6",
+      "status": "🟢🔵",
+      "agency": "LH",
+      "category": "청년 매입임대",
+      "region": "인천·부천",
+      "name": "LH 인천지역본부 26년 6차 청년 매입임대주택 예비입주자 모집",
+      "period": "2026-09-07~09-09",
+      "units": "예비입주자 269명",
+      "eligibility": {
+        "level": "review",
+        "title": "⚠️ 비벼볼 만함",
+        "reason": "청년 매입임대 기본축은 검토 가능. 정정공고와 공급주택별 자격·가격을 다시 확인해야 합니다.",
+        "check": "경기남부 공고와 중복신청 제한, 최신 정정공고, 공급주택별 임대조건"
+      },
+      "next": "정정공고와 공급주택 XLSX 확인",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020630&uppAisTpCd=13",
+      "addresses": []
+    },
+    {
+      "id": "lh-youth-dorm-anseong-2026-2",
+      "status": "🔵",
+      "agency": "LH",
+      "category": "기숙사형 청년주택",
+      "region": "안성시",
+      "name": "LH 경기 안성시 26년 2차 기숙사형 청년주택 예비입주자 모집",
+      "period": "2026-09-07~09-09",
+      "units": "공급 3호 · 예비 15명",
+      "eligibility": {
+        "level": "conditional",
+        "title": "⚠️ 조건에 따라 신청 가능",
+        "reason": "청년계층 공고지만 최신 정정공고·신청계층·소득·자산 조건을 확인해야 합니다.",
+        "check": "최신 정정공고와 신청계층, 실제 공급호수·임대조건"
+      },
+      "next": "최신 공고문과 공급대상주택 목록 확인",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020618&uppAisTpCd=13",
+      "addresses": []
+    },
+    {
+      "id": "sh-happy-2026-2",
+      "status": "🔥🔵",
+      "agency": "SH",
+      "category": "행복주택",
+      "region": "서울 다지역",
+      "name": "SH 2026년 2차 행복주택 입주자 모집",
+      "period": "2026-09-09 10:00~09-11 17:00",
+      "units": "전체 1,484호",
+      "eligibility": {
+        "level": "review",
+        "title": "⚠️ 비벼볼 만함",
+        "reason": "청년계층이 포함된 대형 공고입니다. 전체 1,484호가 전부 청년 물량은 아니므로 청년 공급분만 따로 골라야 합니다.",
+        "check": "청년 공급호수, 단지·형, 소득·자산·세대구성, 실제 임대조건"
+      },
+      "next": "청년 물량만 분리해 단지·형·공가/예비·가격 비교",
+      "source": "https://youth.seoul.go.kr/api/sh/list.do?key=2309250014",
+      "addresses": []
+    },
+    {
+      "id": "sh-long-unsold-2026-2",
+      "status": "🟢🔵",
+      "agency": "SH",
+      "category": "장기미임대 매입임대",
+      "region": "서울 다지역",
+      "name": "SH 2026년 2차 장기미임대 매입임대주택",
+      "period": "2026-09-28 10:00~09-30 17:00",
+      "units": "476호",
+      "eligibility": {
+        "level": "review",
+        "title": "⚠️ 비벼볼 만함",
+        "reason": "서울 무주택 성년 기본축은 검토 가능하지만 개별주택마다 가격·면적·신청자격을 다시 봐야 합니다.",
+        "check": "476호 주택목록에서 정확주소·보증금·월세·관리비·면적을 펼쳐 비교"
+      },
+      "next": "개별 주택목록을 강남 접근성·가격·면적으로 필터링",
+      "source": "https://youth.seoul.go.kr/api/sh/view.do?key=2309250014&orderBy=regYmd+desc&pageIndex=1&recordCountPerPage=10&sn=1",
+      "addresses": []
+    },
+    {
+      "id": "geumcheon-youth-custom-2026-h2",
+      "status": "⏸",
+      "agency": "금천구 + SH",
+      "category": "수요자맞춤형",
+      "region": "금천구",
+      "name": "2026년 하반기 금천구 청년 맞춤형주택",
+      "period": "2026-08-19~09-17 18:00",
+      "units": "12세대",
+      "eligibility": {
+        "level": "review",
+        "title": "⏸ 사용자 보류",
+        "reason": "자격 불가 판정이 아니라 사용자가 현재 보류한 공고입니다.",
+        "check": "보류 해제 시 소득·세대·제출방식 재확인"
+      },
+      "next": "사용자가 다시 보겠다고 할 때만 재검토",
+      "source": "https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192",
+      "addresses": [
+        "서울특별시 금천구 시흥대로145길 67",
+        "서울특별시 금천구 시흥대로145길 71",
+        "서울특별시 금천구 시흥대로149가길 26",
+        "서울특별시 금천구 시흥대로149가길 28"
+      ]
+    },
+    {
+      "id": "paju-fine-2026",
+      "status": "🔵",
+      "agency": "파주시",
+      "category": "매입형 청년주택",
+      "region": "파주시",
+      "name": "2026년 파인(FINE)주택 매입형",
+      "period": "2026-09-14~09-18 방문접수",
+      "units": "청년 4호 + 예비 8명",
+      "eligibility": {
+        "level": "conditional",
+        "title": "⚠️ 조건에 따라 신청 가능",
+        "reason": "청년 물량은 있으나 파주시 2년 계속거주 요건이 핵심입니다.",
+        "check": "주민등록상 파주시 2년 계속거주 여부"
+      },
+      "next": "거주기간 확인 후 주택 현황·임대조건 검토",
+      "source": "https://dong.paju.go.kr/dong/user/board/BD_board.view.do?bbsCd=1022&q_ctgCd=4063&seq=20260828170928839",
+      "addresses": []
+    },
+    {
+      "id": "seongdong-majang-social-economy",
+      "status": "❌",
+      "agency": "성동구 + SH",
+      "category": "맞춤형",
+      "region": "성동구",
+      "name": "마장 행복마을 사회적경제조직 종사자 전형",
+      "period": "2026-08-31~09-04 18:00",
+      "units": "6세대",
+      "eligibility": {
+        "level": "impossible",
+        "title": "❌ 현재 조건상 사실상 신청 불가",
+        "reason": "사회적경제조직 종사자 전용 하드자격과 현재 프로젝트 조건이 명확히 맞지 않습니다.",
+        "check": "사회적경제조직 종사 사실이 새로 확인되는 경우에만 다시 검토"
+      },
+      "next": "행동후보 제외",
+      "source": "https://bogunso.sd.go.kr/main/selectBbsNttView.do?bbsNo=184&key=3654&nttNo=360711&nttShowPd=60&pageIndex=1&pageUnit=10",
+      "addresses": []
+    },
+    {
+      "id": "jongno-chungsin-theater-2026-3",
+      "status": "❌",
+      "agency": "SH 맞춤주택공급부",
+      "category": "맞춤형",
+      "region": "종로구",
+      "name": "2026-3차 충신동 연극인 두레주택 잔여세대",
+      "period": "2026-09-01~09-03",
+      "units": "5호",
+      "eligibility": {
+        "level": "impossible",
+        "title": "❌ 현재 조건상 사실상 신청 불가",
+        "reason": "연극분야 종사자 전용 하드자격과 현재 프로젝트 조건이 명확히 맞지 않습니다.",
+        "check": "연극분야 종사 사실이 새로 확인되는 경우에만 다시 검토"
+      },
+      "next": "행동후보 제외",
+      "source": "https://youth.seoul.go.kr/api/sh/list.do?key=2309250014",
+      "addresses": []
+    }
+  ]
+}
