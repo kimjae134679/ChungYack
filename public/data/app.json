@@ -1,37 +1,85 @@
 {
-  "version": "0.4.0",
-  "updatedAt": "2026-09-01T03:17:10+09:00",
-  "summary": {"urgent":4,"catalog":79,"note":"v0.4부터 기본 공고 화면은 current-opportunities.json의 최신 검토 공고를 사용. SH 국민임대 카탈로그는 이번 회차 패스 처리 후 기본 화면에서 숨김."},
+  "version": "0.5.0",
+  "updatedAt": "2026-09-01T03:32:00+09:00",
+  "summary": {
+    "urgent": 4,
+    "catalog": 79,
+    "note": "v0.5 기본 공고 화면은 current-opportunities.json v2를 사용. SH 국민임대는 이번 회차 패스, SH 2차 행복주택이 메인 검토축."
+  },
   "trackingSeed": [
-    {"id":"track-hoban-yangjae","name":"2026년 2차 청년안심주택(공공임대) — 호반써밋 양재","type":"","appliedAt":"2026-08-13","status":"서류심사 대상자 확인 긴급","statusIcon":"📄⚠️","next":"지금 대상 여부 조회 → 대상이면 2026-09-02까지 등기우편 서류 제출","detail":"서류심사 대상자 발표 2026-08-21 16:00 이후 경과 · 제출기간 내 미제출 시 별도 연락 없이 탈락 · 최종 당첨자 발표 2026-12-11 예정","address":"서울특별시 서초구 양재동 산17-7"},
-    {"id":"track-centreville-weston-25","name":"센트레빌 웨스트온 청년형 특별공급 25형","type":"25형","appliedAt":"2026-08-31","status":"결과확인 필요","statusIcon":"🎯","next":"지금 홈페이지에서 당첨/예비/탈락 여부 개인 조회","detail":"공식 결과확인 시각 2026-08-31 16:00 경과 · 소득 1순위 / 지역 2순위 신청완료 · 개인 결과는 임의 추정하지 않음","address":"서울특별시 금천구 시흥대로 377"},
-    {"id":"track-vivahills-river","name":"비바힐스강변","type":"B Type 32.88㎡","appliedAt":"2026-08-31","status":"신청완료 / 오늘 발표","statusIcon":"🔴⏰","next":"2026-09-01 15:00 서류심사 대상자 발표 확인","detail":"2026-09-01 03:17 KST 기준 발표까지 약 11시간 43분 · 사용자 직접 확인 신청완료 · 대상자면 2026-09-02~09-03 서류사본 제출","address":"서울특별시 광진구 구의동 593-11"},
-    {"id":"track-unit125-18a","name":"UNIT125 18A","type":"18A","appliedAt":"","status":"예비","statusIcon":"✅","next":"추가 연락 / 예비 소진 추적","detail":"예비 80번대","address":"서울특별시 동대문구 장안동 418-1"},
-    {"id":"track-yangcheon-community","name":"2026 양천구 청년협동조합 공동체주택","type":"","appliedAt":"2026-08-24","status":"신청완료","statusIcon":"✅","next":"2026-11-25 예정 결과 발표","detail":"이메일 제출 / 공고상 공식 선정기준 4순위","address":"서울특별시 양천구 오목로23길 25-1 외"}
+    {
+      "id": "track-hoban-yangjae",
+      "name": "2026년 2차 청년안심주택(공공임대) — 호반써밋 양재",
+      "type": "",
+      "appliedAt": "2026-08-13",
+      "status": "서류심사 대상자 확인 긴급",
+      "statusIcon": "📄⚠️",
+      "next": "지금 대상 여부 조회 → 대상이면 2026-09-02까지 등기우편 서류 제출",
+      "detail": "서류심사 대상자 발표 2026-08-21 경과 · 제출기간 내 미제출 주의 · 최종 당첨자 발표 2026-12-11 예정",
+      "address": "서울특별시 서초구 양재동 산17-7"
+    },
+    {
+      "id": "track-centreville-weston-25",
+      "name": "센트레빌 웨스트온 청년형 특별공급 25형",
+      "type": "25형",
+      "appliedAt": "2026-08-31",
+      "status": "결과확인 필요",
+      "statusIcon": "🎯",
+      "next": "홈페이지에서 당첨/예비/탈락 여부 개인 조회",
+      "detail": "공식 결과확인 시각 2026-08-31 16:00 경과 · 소득 1순위 / 지역 2순위 신청완료 · 개인 결과는 임의 추정하지 않음",
+      "address": "서울특별시 금천구 시흥대로 377"
+    },
+    {
+      "id": "track-vivahills-river",
+      "name": "비바힐스강변",
+      "type": "B Type 32.88㎡",
+      "appliedAt": "2026-08-31",
+      "status": "신청완료 / 오늘 발표",
+      "statusIcon": "🔴⏰",
+      "next": "2026-09-01 15:00 서류심사 대상자 발표 확인",
+      "detail": "사용자 직접 확인 신청완료 · 대상자면 2026-09-02~09-03 서류사본 제출",
+      "address": "서울특별시 광진구 구의동 593-11"
+    },
+    {
+      "id": "track-unit125-18a",
+      "name": "UNIT125 18A",
+      "type": "18A",
+      "appliedAt": "",
+      "status": "예비",
+      "statusIcon": "✅",
+      "next": "추가 연락 / 예비 소진 추적",
+      "detail": "예비 80번대",
+      "address": "서울특별시 동대문구 장안동 418-1"
+    },
+    {
+      "id": "track-yangcheon-community",
+      "name": "2026 양천구 청년협동조합 공동체주택",
+      "type": "",
+      "appliedAt": "2026-08-24",
+      "status": "신청완료",
+      "statusIcon": "✅",
+      "next": "2026-11-25 예정 결과 발표",
+      "detail": "이메일 제출 / 공고상 공식 선정기준 4순위",
+      "address": "서울특별시 양천구 오목로23길 25-1 외"
+    }
   ],
   "insights": [
-    {"matchName":"장지지구 송파파인타운","type":39,"competition":"45~90:1","confidence":"중간","label":"🔥 검토가치 높음","reason":"송파권 + 낮은 보증금 + 큰 모집물량으로 입지·가격·물량 균형이 좋음","warning":"이번 회차 공식 경쟁률 공개 전 과거사례 기반 추정","weight":100},
-    {"matchName":"오금지구 송파레미니스","type":39,"competition":"60~110:1","confidence":"중간","label":"🔥 검토가치 높음","reason":"송파 입지와 월세가 좋고 물량도 비교적 충분","warning":"동일 39㎡ 직접표본보다 유사사례 비중이 큼","weight":95},
-    {"matchName":"강동권역 강일지구 강일리버파크","type":39,"competition":"45~100:1","confidence":"중간","label":"🟢 물량·가격 강점","reason":"공급이 많고 보증금·월세가 낮아 가성비와 확률 측면에서 강함","warning":"집계 서비스 사이 공급 숫자 차이는 SH 원문으로 최종 확인","weight":88},
-    {"matchName":"고덕강일2지구 강동리버스트","type":29,"competition":"25~60:1","confidence":"낮음","label":"🟢 비용 강점","reason":"보증금 2천만원 안팎·월세 10만원대로 비용 부담이 낮음","warning":"29㎡ 공간 크기는 감수해야 함","weight":84},
-    {"matchName":"세곡지구 (강남신동아 外)","type":39,"competition":"100~160:1","confidence":"높음","label":"🔥 입지 상향지원","reason":"강남권 입지와 3천만원대 보증금이 매력적","warning":"2022 동일지구 39㎡ 실제 130.2:1 수준으로 경쟁이 높았음","weight":82},
-    {"matchName":"위례포레샤인 23단지","type":39,"competition":"70~130:1","confidence":"낮음","label":"🟢 입지 검토","reason":"송파·위례 입지와 물량이 장점","warning":"상위 저보증금 후보보다 보증금이 높음","weight":78},
-    {"matchName":"항동지구 항동하버라인","type":39,"competition":"25~60:1","confidence":"낮음","label":"🟢 확률형 검토","reason":"물량이 많고 예상 경쟁률이 상대적으로 낮은 편","warning":"강남·송파 선호 기준에서는 입지가 밀림","weight":75},
-    {"matchName":"고덕강일2지구 강동리버스트","type":39,"competition":"40~90:1","confidence":"낮음","label":"🟢 현실형 검토","reason":"39㎡ 물량과 가격이 현실적인 편","warning":"과거 강동권 경쟁률 편차가 큼","weight":73},
-    {"matchName":"마천지구 송파파크데일","type":39,"competition":"65~100:1","confidence":"높음","label":"🟢 소량 상향지원","reason":"송파 입지와 가격은 좋음","warning":"2023 동일지구 39㎡ 실제 79:1, 모집호수가 적어 변동 가능","weight":70},
-    {"matchName":"내곡지구 서초포레스타","type":39,"competition":"90~140:1","confidence":"높음","label":"🟠 예비 중심","reason":"서초 입지는 좋지만 빠른 입주보다 장기 대기 성격","warning":"과거 내곡39 92.5:1, 서초포레스타2 135.8:1 사례","weight":64},
-    {"matchName":"천왕지구 천왕이펜하우스","type":39,"competition":"55~80:1","confidence":"높음","label":"🟠 예비 중심","reason":"과거 경쟁률은 비교적 안정적","warning":"공가보다 예비 성격이 강한 후보","weight":61},
-    {"matchName":"우면2지구 서초네이처힐","type":39,"competition":"160~260:1","confidence":"높음","label":"🟠 입지 올인형","reason":"서초 입지는 매우 좋음","warning":"2023 동일지구 39㎡ 실제 238.17:1로 경쟁이 매우 높았음","weight":55}
+    {"matchName":"장지지구 송파파인타운","type":39,"competition":"45~90:1","confidence":"중간","label":"🔥 검토가치 높음","reason":"과거 국민임대 비교 참고용 레거시 데이터","warning":"SH 국민임대는 2026-09-01 사용자 판단으로 이번 회차 패스","weight":100},
+    {"matchName":"오금지구 송파레미니스","type":39,"competition":"60~110:1","confidence":"중간","label":"과거 참고","reason":"과거 국민임대 비교 참고용 레거시 데이터","warning":"현재 행동후보에서 사용하지 않음","weight":95},
+    {"matchName":"강동권역 강일지구 강일리버파크","type":39,"competition":"45~100:1","confidence":"중간","label":"과거 참고","reason":"과거 국민임대 비교 참고용 레거시 데이터","warning":"현재 행동후보에서 사용하지 않음","weight":88},
+    {"matchName":"고덕강일2지구 강동리버스트","type":29,"competition":"25~60:1","confidence":"낮음","label":"과거 참고","reason":"과거 국민임대 비교 참고용 레거시 데이터","warning":"현재 행동후보에서 사용하지 않음","weight":84},
+    {"matchName":"세곡지구 (강남신동아 外)","type":39,"competition":"100~160:1","confidence":"높음","label":"과거 참고","reason":"과거 국민임대 비교 참고용 레거시 데이터","warning":"현재 행동후보에서 사용하지 않음","weight":82}
   ],
   "history": [
-    {"year":"2022 1차","average":14.2,"detail":"2,138호 / 30,448건"},
-    {"year":"2023 1차","average":25.0,"detail":"전체 평균 약 25:1"},
-    {"year":"2024 1차","average":31.96,"detail":"재공급 1,060호 / 33,877건"}
+    {"year":"2022 1차","average":14.2,"detail":"과거 SH 국민임대 비교 참고"},
+    {"year":"2023 1차","average":25.0,"detail":"과거 SH 국민임대 비교 참고"},
+    {"year":"2024 1차","average":31.96,"detail":"과거 SH 국민임대 비교 참고"}
   ],
   "sources": [
-    {"label":"LH 청약플러스","url":"https://apply.lh.or.kr/"},
-    {"label":"서울 청년몽땅정보통 SH 공고","url":"https://youth.seoul.go.kr/api/sh/list.do?key=2309250014"},
-    {"label":"금천구 공식 공고","url":"https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192"},
-    {"label":"센트레빌 웨스트온 공식 홈페이지","url":"https://www.cvweston.com/"}
+    {"label":"서울 청년몽땅정보통 SH 공공임대 목록","url":"https://youth.seoul.go.kr/api/sh/list.do?key=2309250014"},
+    {"label":"서울주거포털 행복주택 안내","url":"https://housing.seoul.go.kr/site/main/content/sh01_030500"},
+    {"label":"LH 경기남부 26년 3차 청년 매입임대 공식공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13"},
+    {"label":"LH 인천·부천 26년 6차 청년 매입임대 공식공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020630&uppAisTpCd=13"},
+    {"label":"금천구 청년 맞춤형주택 공식공고","url":"https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192"}
   ]
 }
