@@ -9,6 +9,7 @@
 
 - **최상위 규칙** → [`docs/MASTER_RULES.md`](docs/MASTER_RULES.md)
 - **사용자 최신 출력 최우선 규칙** → [`docs/USER_OUTPUT_OVERRIDES.md`](docs/USER_OUTPUT_OVERRIDES.md)
+- **사용자 조건 판정 표시 규칙** → [`docs/USER_ELIGIBILITY_ANNOTATION_RULES.md`](docs/USER_ELIGIBILITY_ANNOTATION_RULES.md)
 - **상세 보고·지도·통근·대출 규칙** → [`docs/REPORTING_AND_MAP_RULES.md`](docs/REPORTING_AND_MAP_RULES.md)
 - **현재 진행상황 / 신청·관심·결과확인 상태** → [`STATUS.md`](STATUS.md)
 - **인수인계** → [`HANDOFF.md`](HANDOFF.md)
@@ -16,7 +17,7 @@
 - **공고 검증/보고 템플릿** → [`templates/REPORT_TEMPLATE.md`](templates/REPORT_TEMPLATE.md)
 - **상태 데이터 원장** → [`data/tracking_registry.md`](data/tracking_registry.md)
 
-문서 간 출력 형식이 충돌하면 **사용자가 직접 지정한 최신 규칙인 `docs/USER_OUTPUT_OVERRIDES.md`를 우선 적용**한다.
+문서 간 출력 형식이 충돌하면 **사용자가 직접 지정한 최신 규칙인 `docs/USER_OUTPUT_OVERRIDES.md`를 우선 적용**한다. 사용자별 실제 신청 가능성 표시는 `docs/USER_ELIGIBILITY_ANNOTATION_RULES.md`를 반드시 함께 적용한다.
 
 ## 2. 프로젝트 핵심
 
@@ -48,17 +49,21 @@
 - 이번 회차 공급표/임대조건표 기준 가격
 - 최소/기본/최대 보증금 전환 조건
 - 실제 자격 판정
+- **발견된 공고는 자격이 안 맞는다고 탐색 단계에서 숨기지 않고 `내 조건 판정 | 판정 근거 | 추가 확인할 것`을 표시**
+- **`❌ 절대 불가`는 신혼전용·특정직종·필수거주기간 등 공식 하드자격이 사용자 현재 조건과 명확히 충돌할 때만 사용**
+- 경쟁률·거리·가격이 불리하다는 이유만으로 `❌ 절대 불가` 처리 금지
 - 대출 가능성, 예상 자기자금, 월이자, 월세, 관리비, 총 월 주거비
 - 서로 다른 공고 사이 중복신청 가능 여부 및 택1 경고
 - 공고명 바로 아래 공식 공고 / PDF / 신청 / 결과조회 링크
 - 패스 공고 상세·지도·추천 반복 금지
 
-세부 형식은 `docs/USER_OUTPUT_OVERRIDES.md`와 `docs/REPORTING_AND_MAP_RULES.md`를 함께 적용한다.
+세부 형식은 `docs/USER_OUTPUT_OVERRIDES.md`, `docs/USER_ELIGIBILITY_ANNOTATION_RULES.md`, `docs/REPORTING_AND_MAP_RULES.md`를 함께 적용한다.
 
 ## 4. 저장소 운영 원칙
 
 - 최상단은 `README.md`, `STATUS.md`, `HANDOFF.md`만 봐도 전체 상황을 파악할 수 있게 유지한다.
 - 규칙은 `docs/MASTER_RULES.md`를 최우선으로 하되, 사용자 최신 출력 선호는 `docs/USER_OUTPUT_OVERRIDES.md`를 우선 적용하고 실전 출력 세부는 `docs/REPORTING_AND_MAP_RULES.md`를 함께 적용한다.
+- 사용자별 신청 가능성 판정은 `docs/USER_ELIGIBILITY_ANNOTATION_RULES.md`를 적용한다.
 - 공고 상태가 바뀔 때마다 `STATUS.md`와 `data/tracking_registry.md`를 함께 갱신한다.
 - 사용자가 직접 알려준 신청/결과 상태는 공개 웹검색보다 우선한다.
 - 패스 공고는 상세 분석을 반복하지 않는다.
@@ -133,6 +138,7 @@ VERSION
 ├─ docs/
 │  ├─ MASTER_RULES.md
 │  ├─ USER_OUTPUT_OVERRIDES.md
+│  ├─ USER_ELIGIBILITY_ANNOTATION_RULES.md
 │  ├─ REPORTING_AND_MAP_RULES.md
 │  ├─ ELIGIBILITY_PROFILE.md
 │  └─ SOURCES_AND_COVERAGE.md
@@ -149,4 +155,4 @@ VERSION
 
 ## 7. 최종 목표
 
-**많이 찾고 → 공식자료로 걸러내고 → 실제 신청 가능한 것만 남기고 → 입지·가격·당첨가능성까지 비교하고 → 신청 후 결과까지 끝까지 추적한다.**
+**많이 찾고 → 공식자료로 걸러내고 → 실제 신청 가능한 것과 불가능한 것을 사용자 조건 기준으로 명확히 표시하고 → 입지·가격·당첨가능성까지 비교하고 → 신청 후 결과까지 끝까지 추적한다.**
