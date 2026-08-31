@@ -11,13 +11,14 @@
 <link rel="stylesheet" href="assets/app-v2.css">
 <link rel="stylesheet" href="assets/app-v3.css">
 <link rel="stylesheet" href="assets/app-v4.css">
+<link rel="stylesheet" href="assets/app-v5.css">
 <title>청약 레이더</title>
 </head>
 <body>
 <main class="app">
 <section class="hero">
   <div class="hero-top">
-    <div class="brand"><img src="assets/app-icon.svg" alt="" class="brand-icon"><div><h1>청약 레이더</h1><p>공고 비교 · 필터 · 내가 신청한 공고 추적</p></div></div>
+    <div class="brand"><img src="assets/app-icon.svg" alt="" class="brand-icon"><div><h1>청약 레이더</h1><p>공고 비교 · 내 조건 판정 · 내가 신청한 공고 추적</p></div></div>
     <span class="version" id="appVersion">v-</span>
   </div>
   <div class="hero-stats">
@@ -71,11 +72,11 @@
   <div class="settings-list">
     <div class="setting"><b>버전</b><p id="settingsVersion">-</p></div>
     <div class="setting"><b>데이터 갱신</b><p id="settingsUpdated">-</p></div>
-    <div class="setting"><b>필터 저장</b><p>면적·지역·보증금·정렬 선택은 이 기기에 저장됩니다. 앱을 다시 열어도 유지됩니다.</p></div>
+    <div class="setting"><b>필터 저장</b><p>과거 카탈로그 필터 설정은 기기에 유지되며, 현재 공고 화면은 최신 공고·자격판정 중심으로 표시됩니다.</p></div>
     <div class="setting"><b>내 추적 저장</b><p>신청 추적의 수정·상태변경·삭제는 기기 로컬 저장소에 저장합니다. GitHub 저장소가 Private 상태여도 APK는 동작합니다.</p></div>
-    <div class="setting"><b>업데이트/백업</b><p>APK 업데이트 시 로컬 데이터가 유지되도록 동일 디버그 서명키를 재사용합니다. 필요하면 아래에서 필터·추적 데이터를 JSON으로 백업/복원할 수 있습니다.</p></div>
+    <div class="setting"><b>업데이트/백업</b><p>APK 업데이트 시 로컬 데이터가 유지되도록 동일 디버그 서명키를 재사용합니다. 필요하면 아래에서 추적 데이터를 JSON으로 백업/복원할 수 있습니다.</p></div>
     <div class="setting"><b>삭제 안전장치</b><p>추적에서 제거한 항목은 최근 제거 기록으로 임시 보관되어 바로 되돌릴 수 있습니다.</p></div>
-    <div class="setting"><b>저장소 공개 여부</b><p>현재 구조는 Private 그대로 사용 가능합니다. 나중에 공개하더라도 개인 추적 데이터는 앱 로컬에만 남도록 분리했습니다.</p></div>
+    <div class="setting"><b>자료 구분</b><p>민간 집계·SNS·일정 이미지는 후보 발견용으로 표시하며, 최종 신청 판단은 공식 공고·공급표·임대조건표를 기준으로 합니다.</p></div>
     <button class="reload" id="reloadBtn">공고 데이터 다시 불러오기</button>
     <div class="backup-row"><button class="ghost" id="exportLocalBtn">내 설정/추적 백업</button><button class="ghost" id="importLocalBtn">백업 가져오기</button><input type="file" id="importLocalFile" accept="application/json,.json" hidden></div>
     <button class="danger-light" id="resetLocalBtn">로컬 설정/추적 초기화</button>
@@ -114,5 +115,6 @@
 <script src="assets/app-v2-fixes.js"></script>
 <script src="assets/app-v3.js"></script>
 <script src="assets/app-v4.js"></script>
+<script src="assets/app-v5.js"></script>
 </body>
 </html>
