@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026 SH 국민임대 — 다중필터·정렬·지도</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<link rel="stylesheet" href="../assets/gukmin_dashboard_v2.css">
+</head>
+<body><div class="wrap">
+<section class="hero"><h1>2026 SH 국민임대 — 다중필터·정렬·지도</h1><p>총 1,973세대. 지역과 면적을 여러 개 동시에 선택하고, 한강 남/북 필터와 숫자열 클릭 정렬을 지원합니다. 정확 주소만 지도에 표시합니다.</p><div class="sub">지도: OpenStreetMap + Nominatim. 표/필터는 오프라인에서도 동작하지만 지도·주소좌표 변환은 인터넷 연결이 필요합니다.</div></section>
+
+<div class="toolbar">
+  <div class="control search"><label>검색</label><input id="q" placeholder="단지명·지역·주소 검색"></div>
+  <div class="control"><label>지역 · 다중선택</label><details class="multi-select" id="regionSelect"><summary id="regionSummary">전체 지역</summary><div class="multi-pop"><div class="multi-actions"><button class="mini-btn" id="regionAll" type="button">전체</button><button class="mini-btn" id="regionClear" type="button">해제</button></div><div id="regionChecks"></div></div></details></div>
+  <div class="control"><label>형(㎡) · 다중선택</label><details class="multi-select" id="typeSelect"><summary id="typeSummary">전체 형</summary><div class="multi-pop"><div class="multi-actions"><button class="mini-btn" id="typeAll" type="button">전체</button><button class="mini-btn" id="typeClear" type="button">해제</button></div><div id="typeChecks"></div></div></details></div>
+  <div class="control"><label>한강 기준</label><select id="river"><option value="">전체</option><option value="south">한강 남쪽</option><option value="north">한강 북쪽</option></select></div>
+  <div class="control"><label>최소 모집세대수</label><input id="minUnits" type="number" min="0" value="0"></div>
+  <div class="control"><label>빠른 정렬</label><select id="sort"><option value="units_desc">모집세대수 ↓</option><option value="units_asc">모집세대수 ↑</option><option value="type_asc">면적 ↑</option><option value="type_desc">면적 ↓</option><option value="deposit_asc">보증금 ↑</option><option value="deposit_desc">보증금 ↓</option><option value="rent_asc">월세 ↑</option><option value="rent_desc">월세 ↓</option><option value="region_asc">지역 가나다</option></select></div>
+</div>
+
+<div class="quick" id="chips"></div>
+<div class="summary"><div class="stat">표시 항목 <b id="count">0</b>개</div><div class="stat">표시 모집세대 <b id="sum">0</b>세대</div><div class="stat">선택 지역 <b id="regionCount">전체</b></div><div class="stat">선택 형 <b id="typeCount">전체</b></div></div>
+<div class="note"><b>정렬:</b> `형(㎡)`, `모집세대수`, `보증금`, `월 임대료` 머리글을 누르면 오름차순/내림차순이 바뀝니다. 금액 범위는 <b>표시된 범위의 낮은 금액</b>을 기준으로 정렬합니다. <b>한강 남쪽</b>은 이번 데이터에서 강남·강동·강서·구로·서초·송파·양천, 나머지 서울 북측 구와 의정부는 <b>한강 북쪽</b>으로 분류합니다.</div>
+
+<section class="mapbox"><div class="maphead"><h2>현재 필터 결과 지도</h2><div class="maptools"><span class="mapstatus" id="mapStatus">필터를 좁힌 뒤 지도 표시를 누르세요.</span><button class="map-action" id="clearMap" type="button">지도 비우기</button><button class="map-action primary" id="mapVisible" type="button">현재 결과 지도에 표시</button></div></div><div id="map"></div></section>
+
+<div class="tablebox"><table><thead><tr>
+<th class="sortable" data-key="지역">지역<span class="sortmark">↕</span></th>
+<th>단지 / 지구</th>
+<th class="sortable" data-key="형">형(㎡)<span class="sortmark">↕</span></th>
+<th class="sortable" data-key="모집세대수">모집세대수<span class="sortmark">↕</span></th>
+<th class="sortable" data-key="보증금">보증금<span class="sortmark">↕</span></th>
+<th class="sortable" data-key="월임대료">월 임대료<span class="sortmark">↕</span></th>
+<th style="min-width:380px">정확 주소 / 실제 단지</th>
+</tr></thead><tbody id="tbody"></tbody></table></div>
+
+<div class="footer"><b>자료 기준:</b> 2026-08-20 SH 국민임대 1,973세대 정리표. 지구 단위 행은 실제 포함 단지가 여러 곳일 수 있으므로 신청 직전 SH 공고문/청약화면에서 최종 범위를 재확인하세요. 지도 좌표는 표에 저장된 정확 도로명주소를 Nominatim으로 변환하며, 주소가 불명확하면 임의 좌표를 만들지 않습니다.</div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="../data/sh_gukmin_2026_part1.js"></script>
+<script src="../data/sh_gukmin_2026_part2.js"></script>
+<script src="../data/sh_gukmin_2026_part3.js"></script>
+<script src="../data/sh_gukmin_2026_part4.js"></script>
+<script src="../assets/gukmin_dashboard_v2.js"></script>
+</body></html>
