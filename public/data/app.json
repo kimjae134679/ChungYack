@@ -1,10 +1,10 @@
 {
   "version": "0.5.0",
-  "updatedAt": "2026-09-01T07:17:35+09:00",
+  "updatedAt": "2026-09-01T08:17:04+09:00",
   "summary": {
     "urgent": 4,
     "catalog": 79,
-    "note": "v0.5 기본 공고 화면은 current-opportunities.json v2를 사용. SH 국민임대는 이번 회차 패스, SH 2차 행복주택이 메인 검토축."
+    "note": "v0.5 기본 공고 화면은 current-opportunities.json v2를 사용. SH 국민임대는 이번 회차 패스, SH 2차 행복주택이 메인 검토축. SH 제51차 장기전세주택은 2026-08-31 신규 공식 게시 확인 후 세부 공급표·자격·임대조건 검증 대기."
   },
   "trackingSeed": [
     {
