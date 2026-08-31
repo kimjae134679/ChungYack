@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>청약 — 다른 공고 검토 대시보드 2026-09-01</title>
+<style>
+:root {
+  --bg:#f4f7fb; --card:#fff; --text:#17212b; --muted:#667085; --line:#dfe6ee;
+  --blue:#1f5f99; --green:#087443; --orange:#a15c00; --red:#b42318; --gray:#59636e;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI","Noto Sans KR",sans-serif;color:var(--text)}
+.wrap{max-width:1380px;margin:0 auto;padding:18px}
+.hero{background:linear-gradient(135deg,#173f69,#24699e);color:#fff;border-radius:18px;padding:20px 22px;box-shadow:0 10px 30px rgba(24,62,100,.16)}
+.hero h1{margin:0 0 7px;font-size:24px}
+.hero p{margin:0;opacity:.9;font-size:13px;line-height:1.55}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}
+.stat span{font-size:11px;color:var(--muted)} .stat b{display:block;margin-top:4px;font-size:18px;color:#173f69}
+.pass{margin:12px 0;background:#f1f3f5;border:1px solid #d8dde2;border-radius:12px;padding:11px 13px;font-size:12px;color:#59636e}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;margin:12px 0}
+.toolbar button,.toolbar select,.toolbar input{border:1px solid #ccd6e0;background:#fff;border-radius:9px;padding:8px 10px;font-size:12px}
+.toolbar button{cursor:pointer;font-weight:800} .toolbar button.active{background:#173f69;color:#fff;border-color:#173f69}
+#search{min-width:240px;flex:1}
+.notice{background:#fff7e8;border:1px solid #f0cc8f;color:#795000;border-radius:12px;padding:11px 13px;margin:10px 0;font-size:12px;line-height:1.55}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:0 5px 15px rgba(27,53,76,.05);position:relative}
+.card.impossible{opacity:.72;background:#fff8f7} .card.hold{background:#fbfbfc}
+.top{display:flex;gap:10px;align-items:flex-start}
+.status{font-size:22px;line-height:1}
+.titlebox{flex:1} .agency{display:inline-block;font-size:10px;font-weight:900;color:#fff;background:#5e7185;border-radius:999px;padding:3px 7px;margin-bottom:5px}
+.title{font-size:16px;font-weight:950;line-height:1.32} .region{font-size:11px;color:var(--muted);margin-top:4px}
+.judge{margin:11px 0;border-radius:10px;padding:10px 11px;font-size:12px;font-weight:900}
+.judge.review{background:#fff4d8;color:#7f5300;border-left:5px solid #e7a61a}
+.judge.conditional{background:#fff0e6;color:#8b4800;border-left:5px solid #dc7b1b}
+.judge.hold{background:#f0f2f5;color:#535c66;border-left:5px solid #98a2b3}
+.judge.impossible{background:#ffe9e7;color:#a61b12;border-left:5px solid #d92d20}
+.meta{display:grid;grid-template-columns:120px 1fr;gap:6px 10px;font-size:12px;line-height:1.45}
+.meta .k{color:var(--muted);font-weight:800} .meta .v{font-weight:650}
+.next{margin-top:10px;background:#f4f8fc;border-radius:10px;padding:9px 10px;font-size:11px;line-height:1.55}
+.links{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+.links a{text-decoration:none;background:#173f69;color:#fff;border-radius:9px;padding:8px 10px;font-size:11px;font-weight:900}
+.links a.secondary{background:#eef3f8;color:#244b72;border:1px solid #cbd9e7}
+.small{font-size:10px;color:var(--muted);margin-top:8px;line-height:1.45}
+.section-title{font-size:16px;font-weight:950;margin:22px 0 9px}
+.footer{margin:20px 0 5px;color:#7b8794;font-size:10px;line-height:1.6}
+@media(max-width:900px){.grid{grid-template-columns:1fr} .summary{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.wrap{padding:10px} .hero h1{font-size:20px} .meta{grid-template-columns:92px 1fr} .summary{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>🏠 다른 공고 검토 대시보드</h1>
+    <p>2026-09-01 기준 · 국민임대는 이번 회차 패스 처리하고, 지금부터 볼 다른 공고만 다시 정리.<br>
+    숫자는 전체 공고 물량과 실제 청년/예비 물량을 가능한 범위에서 분리해 표시합니다.</p>
+  </section>
+
+  <section class="summary">
+    <div class="stat"><span>우선 상세검토</span><b>LH 경기남부</b></div>
+    <div class="stat"><span>대형 다음 일정</span><b>SH 행복 1,484호</b></div>
+    <div class="stat"><span>서울 매입임대</span><b>SH 476호</b></div>
+    <div class="stat"><span>국민임대</span><b>❌ 이번 회차 패스</b></div>
+  </section>
+
+  <div class="pass">❌ <b>SH 2026년 국민임대주택</b> — 사용자 판단으로 이번 회차 패스. 상세표·지도·행동후보에서는 제외.</div>
+
+  <div class="notice">
+    <b>중요:</b> LH 경기남부/인천·부천은 공급주택 XLSX를 아직 개별 주소·가격 단위로 펼치지 않은 상태입니다.
+    따라서 이 HTML에서는 추정 위치를 찍지 않고, 공식 주택목록을 추출한 뒤 정확주소 기준으로 지도를 붙이는 방식으로 표시합니다.
+  </div>
+
+  <div class="toolbar">
+    <button class="active" data-filter="all">전체</button>
+    <button data-filter="action">검토 후보</button>
+    <button data-filter="conditional">조건부</button>
+    <button data-filter="hold">보류</button>
+    <button data-filter="impossible">절대 불가</button>
+    <select id="agency">
+      <option value="">기관 전체</option>
+      <option>LH</option><option>SH</option><option>파주시</option><option>금천구+SH</option><option>성동구+SH</option>
+    </select>
+    <input id="search" placeholder="공고명·지역 검색">
+  </div>
+
+  <div class="section-title">현재/예정 공고</div>
+  <main class="grid" id="cards"></main>
+
+  <div class="footer">
+    공식 확인 기준: LH청약플러스 공고 페이지, 서울 청년몽땅정보통 SH 공고, 해당 지자체 공식 고시공고.
+    최종 신청 전에는 반드시 최신 정정공고·공급주택목록·신청순위·소득·자산 기준을 다시 확인합니다.
+  </div>
+</div>
+
+<script>
+const DATA=[{"status": "🔥", "decision": "⚠️ 비벼볼 만함", "decisionClass": "review", "group": "09.09 마감", "agency": "LH", "title": "경기남부 26년 3차 청년 매입임대주택 예비입주자 모집", "region": "성남·수원·시흥·안산·오산·용인·이천", "period": "공고중 · 2026-09-09 마감", "units": "예비입주자 549명", "supplyBreak": "LH 공식 공급정보 모집인원 합계 549명", "eligibility": "청년 매입임대 기본축은 검토 가능. 소득·자산·주택별 세부자격은 공급주택목록과 공고문으로 최종 판정.", "caution": "인천·부천 청년 매입임대와 같은 시기 공고이므로 중복신청 제한을 최종 공고문에서 확인하고 택1 판단.", "next": "공급대상주택 XLSX를 열어 성남·용인 등 실제 주소, 전용면적, 보증금·월세부터 비교.", "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13", "sourceLabel": "LH 공식 공고", "map": "공급주택별 정확주소 추출 전 — 추정 지도핀 표시하지 않음"}, {"status": "🟢", "decision": "⚠️ 비벼볼 만함", "decisionClass": "review", "group": "09.09 마감", "agency": "LH", "title": "인천지역본부 26년 6차 청년 매입임대주택 예비입주자 모집(인천·부천)", "region": "인천·부천", "period": "공고중 · 2026-09-09 마감", "units": "예비입주자 269명", "supplyBreak": "LH 공식 공급정보 모집인원 합계 269명", "eligibility": "청년 매입임대 기본축은 검토 가능. 소득·자산·공급주택별 세부자격 확인 필요.", "caution": "LH 공식 페이지에 정정공고 존재 안내가 있음. 반드시 정정된 공고문을 최종 기준으로 확인.", "next": "정정공고 + 공급주택목록 XLSX 기준으로 부천/인천 실제 주택의 가격·면적 비교.", "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020630&uppAisTpCd=13", "sourceLabel": "LH 공식 공고", "map": "공급주택별 정확주소 추출 전 — 추정 지도핀 표시하지 않음"}, {"status": "🟢", "decision": "🟠 조건부", "decisionClass": "conditional", "group": "09.09 마감", "agency": "LH", "title": "경기 안성시 26년 2차 기숙사형 청년주택 예비입주자 모집", "region": "안성시", "period": "공고중 · 2026-09-09 마감", "units": "공급목록 확인 필요", "supplyBreak": "LH 청년 공고 목록에 현재 공고중으로 확인", "eligibility": "청년계층 공고이나 신청계층·소득·자산·정정공고 여부를 다시 확인해야 함.", "caution": "통근·입지까지 고려하면 우선 검토도는 경기남부/서울 후보보다 낮음.", "next": "최신 공고문과 공급대상주택 목록을 열어 자격과 실제 호수를 확인.", "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026&panNm=%EC%B2%AD%EB%85%84&viewType=srch", "sourceLabel": "LH 청년 공고목록", "map": "정확한 공급주택 주소 확인 전"}, {"status": "🔥", "decision": "⚠️ 비벼볼 만함", "decisionClass": "review", "group": "09.09~09.11", "agency": "SH", "title": "2026년 2차 행복주택 입주자 모집", "region": "서울 전역", "period": "2026-09-09 10:00 ~ 09-11 17:00", "units": "총 1,484호", "supplyBreak": "신규 154호 + 잔여 공가 391호 + 예비입주자 939호", "eligibility": "청년계층 포함. 실제 청년 물량·단지·형별 소득·자산·세대구성 조건을 공식 공급표에서 골라야 함.", "caution": "전체 1,484호가 전부 청년 물량은 아님. 반드시 '청년' 공급구분으로 다시 필터링해야 함.", "next": "청년 물량만 추출해서 단지·형·보증금·월세·공가/예비를 별도 HTML로 펼쳐보기.", "source": "https://youth.seoul.go.kr/api/sh/list.do?key=2309250014", "sourceLabel": "서울 청년몽땅정보통 SH 공고목록", "map": "서울 전역 다수 단지 — 정확주소별 분리 후 지도 표시 예정"}, {"status": "🟢", "decision": "⚠️ 비벼볼 만함", "decisionClass": "review", "group": "09.28~09.30", "agency": "SH", "title": "2026년 2차 장기미임대 매입임대주택", "region": "서울 전역", "period": "2026-09-28 10:00 ~ 09-30 17:00", "units": "총 476호", "supplyBreak": "SH 공식 공고 기준 공급호수 476호", "eligibility": "공고일 현재 서울시에 주민등록이 등재된 성년 무주택세대구성원이 기본축. 신청순위·소득·자산·개별주택 조건은 최종 확인.", "caution": "476호를 하나로 보면 안 됨. 개별 주택마다 주소·전용면적·보증금·월세·관리비가 다름.", "next": "주택목록을 통째로 펼쳐 강남 접근성·면적·가격 기준으로 필터링.", "source": "https://youth.seoul.go.kr/api/sh/view.do?key=2309250014&sn=1", "sourceLabel": "서울 청년몽땅정보통 상세공고", "map": "개별 주택 정확주소 목록 추출 전 — 추정 지도핀 표시하지 않음"}, {"status": "🔵", "decision": "🟠 조건부", "decisionClass": "conditional", "group": "09.14~09.18", "agency": "파주시", "title": "2026년 파인(FINE)주택 매입형", "region": "파주시", "period": "2026-09-14 ~ 09-18 방문접수", "units": "청년 4호 + 예비 8명", "supplyBreak": "청년 물량 4호, 예비 8명", "eligibility": "청년 물량은 있으나 파주시 2년 계속거주 요건이 핵심.", "caution": "거주기간 요건이 맞지 않으면 하드 탈락. 거주이력 확인 전에는 조건부로 유지.", "next": "주민등록상 파주시 2년 계속거주 여부 확인 → 맞으면 주택·가격 검토.", "source": "https://dong.paju.go.kr/dong/user/board/BD_board.view.do?bbsCd=1022&q_ctgCd=4063&seq=20260828170928839", "sourceLabel": "파주시 공식 공고", "map": "정확한 공급주택 주소 확인 전"}, {"status": "⏸", "decision": "⏸ 사용자 보류", "decisionClass": "hold", "group": "~09.17", "agency": "금천구+SH", "title": "2026년 하반기 금천구 청년 맞춤형주택", "region": "금천구", "period": "2026-08-19 ~ 09-17 18:00", "units": "12세대", "supplyBreak": "공급 12세대", "eligibility": "자격불가 판정이 아니라 사용자 보류 상태.", "caution": "보류를 풀기 전까지 행동후보에서는 낮게 표시.", "next": "다시 보고 싶을 때만 소득·세대·제출방식 재검증.", "source": "https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192", "sourceLabel": "금천구 공식 공고", "map": "서울특별시 금천구 시흥대로145길 67 / 71, 시흥대로149가길 26 / 28"}, {"status": "❌", "decision": "❌ 절대 불가", "decisionClass": "impossible", "group": "~09.04", "agency": "성동구+SH", "title": "마장 행복마을 사회적경제조직 종사자 전형", "region": "성동구", "period": "2026-08-31 ~ 09-04 18:00", "units": "6세대", "supplyBreak": "6세대", "eligibility": "사회적경제조직 종사자 전용 하드자격.", "caution": "현재 프로젝트 조건과 명확히 충돌해 실제 신청후보에서는 제외.", "next": "없음", "source": "https://bogunso.sd.go.kr/main/selectBbsNttView.do?bbsNo=184&key=3654&nttNo=360711&nttShowPd=60&pageIndex=1&pageUnit=10", "sourceLabel": "성동구 공식 공고", "map": "상세 행동후보 제외"}, {"status": "❌", "decision": "❌ 절대 불가", "decisionClass": "impossible", "group": "09.01~09.03", "agency": "SH", "title": "2026-3차 충신동 연극인 두레주택 잔여세대", "region": "종로구", "period": "2026-09-01 ~ 09-03", "units": "5호", "supplyBreak": "5호", "eligibility": "연극분야 종사자 전용 하드자격.", "caution": "현재 프로젝트 조건과 명확히 충돌해 실제 신청후보에서는 제외.", "next": "없음", "source": "https://youth.seoul.go.kr/api/sh/list.do?key=2309250014", "sourceLabel": "서울 청년몽땅정보통 SH 공고목록", "map": "상세 행동후보 제외"}];
+const cards=document.getElementById('cards');
+const search=document.getElementById('search');
+const agency=document.getElementById('agency');
+let filter='all';
+
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+function bucket(r){
+  if(r.decisionClass==='impossible') return 'impossible';
+  if(r.decisionClass==='hold') return 'hold';
+  if(r.decisionClass==='conditional') return 'conditional';
+  return 'action';
+}
+
+function render(){
+  const q=search.value.trim().toLowerCase();
+  const ag=agency.value;
+  const rows=DATA.filter(r=>{
+    const okFilter=filter==='all'||bucket(r)===filter;
+    const okAgency=!ag||r.agency===ag;
+    const hay=(r.title+' '+r.region+' '+r.agency+' '+r.decision).toLowerCase();
+    return okFilter&&okAgency&&(!q||hay.includes(q));
+  });
+  cards.innerHTML=rows.map(r=>`
+    <article class="card ${esc(r.decisionClass)}">
+      <div class="top">
+        <div class="status">${esc(r.status)}</div>
+        <div class="titlebox">
+          <div class="agency">${esc(r.agency)}</div>
+          <div class="title">${esc(r.title)}</div>
+          <div class="region">${esc(r.region)} · ${esc(r.group)}</div>
+        </div>
+      </div>
+      <div class="judge ${esc(r.decisionClass)}">${esc(r.decision)}</div>
+      <div class="meta">
+        <div class="k">접수/마감</div><div class="v">${esc(r.period)}</div>
+        <div class="k">모집</div><div class="v">${esc(r.units)}</div>
+        <div class="k">실제 물량 구분</div><div class="v">${esc(r.supplyBreak)}</div>
+        <div class="k">내 조건 판정</div><div class="v">${esc(r.eligibility)}</div>
+        <div class="k">주의</div><div class="v">${esc(r.caution)}</div>
+        <div class="k">지도</div><div class="v">${esc(r.map)}</div>
+      </div>
+      <div class="next"><b>다음 확인:</b> ${esc(r.next)}</div>
+      <div class="links">
+        <a href="${esc(r.source)}" target="_blank" rel="noopener">${esc(r.sourceLabel)}</a>
+      </div>
+    </article>
+  `).join('');
+}
+
+document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); filter=b.dataset.filter; render();
+}));
+search.addEventListener('input',render);
+agency.addEventListener('change',render);
+render();
+</script>
+</body>
+</html>
