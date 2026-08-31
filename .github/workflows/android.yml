@@ -9,6 +9,7 @@ on:
       - 'public/assets/**'
       - 'public/data/app.json'
       - 'public/data/current-opportunities.json'
+      - 'public/data/discovery-extra.json'
       - 'public/data/sh-2026.csv'
       - 'public/data/report-overrides.json'
       - 'package.json'
@@ -26,6 +27,7 @@ on:
       - 'public/assets/**'
       - 'public/data/app.json'
       - 'public/data/current-opportunities.json'
+      - 'public/data/discovery-extra.json'
       - 'public/data/sh-2026.csv'
       - 'public/data/report-overrides.json'
       - 'package.json'
@@ -89,12 +91,13 @@ jobs:
           node --check public/sw.js
           node --check scripts/qa-app.mjs
           node --check scripts/apply-android-branding.mjs
-          node -e "JSON.parse(require('fs').readFileSync('public/data/hourly-report.json','utf8')); const x=JSON.parse(require('fs').readFileSync('public/data/current-opportunities.json','utf8')); if(!x.items?.some(v=>v.id==='sh-happy-2026-2')) process.exit(2); if(!x.items?.some(v=>v.id==='sh-mirinae-8-2026')) process.exit(3);"
+          node -e "JSON.parse(require('fs').readFileSync('public/data/hourly-report.json','utf8')); const x=JSON.parse(require('fs').readFileSync('public/data/current-opportunities.json','utf8')); const d=JSON.parse(require('fs').readFileSync('public/data/discovery-extra.json','utf8')); if(!x.items?.some(v=>v.id==='sh-happy-2026-2')) process.exit(2); if(!x.items?.some(v=>v.id==='sh-mirinae-8-2026')) process.exit(3); if(!d.items?.some(v=>v.id==='sns-gukmin-1973-duplicate-20260901')) process.exit(4);"
           test -s public/assets/app-v2.css
           test -s public/assets/app-v3.css
           test -s public/assets/app-v4.css
           test -s public/assets/app-v5.css
           test -s public/data/current-opportunities.json
+          test -s public/data/discovery-extra.json
           test -s public/data/sh-2026.csv
           grep -q 'viewport-fit=cover' public/index.html
           grep -q 'safe-area-inset-bottom' public/assets/app.css
@@ -110,9 +113,11 @@ jobs:
           grep -q 'cyRestoreRemoved' public/assets/app-v3.js
           grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
           grep -q 'current-opportunities.json' public/assets/app-v4.js
+          grep -q 'discovery-extra.json' public/assets/app-v5.js
           grep -q 'CY_V5_VERSION' public/assets/app-v5.js
           grep -q '4576036' public/data/current-opportunities.json
           grep -q 'SH 2026년 국민임대주택' public/data/current-opportunities.json
+          grep -q '1,973세대' public/data/discovery-extra.json
 
       - name: Create Android project
         run: npx cap add android
