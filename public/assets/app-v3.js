@@ -1,5 +1,5 @@
 // v0.3 usability/safety layer: backup+restore, undo removal, better native Back.
-const CY_APP_VERSION='0.4.0';
+const CY_APP_VERSION='0.6.0';
 const CY_TRASH_KEY='chungyack.tracking.trash.v1';
 function cyStatusIcon(status){return {'신청완료':'✅','결과확인 필요':'🎯','당첨':'🎯','예비':'✅','서류':'📄','계약':'🏠','입주예정':'🏠','입주완료':'🏠','취소/추적중단':'⏸'}[status]||'✅'}
 function cyTrash(){try{const x=JSON.parse(localStorage.getItem(CY_TRASH_KEY)||'[]');return Array.isArray(x)?x:[]}catch{return[]}}
@@ -18,7 +18,7 @@ renderSchedule=function(){const arr=TRACKING.filter(x=>x.next&&x.status!=='취�
 function cyBackupObject(){return {format:'chungyack-local-backup-v1',appVersion:CY_APP_VERSION,exportedAt:new Date().toISOString(),filters:FILTERS,tracking:TRACKING,trash:cyTrash()}}
 function cyExportBackup(){const raw=JSON.stringify(cyBackupObject(),null,2);const blob=new Blob([raw],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`ChungYack_backup_${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);cyToast('필터·추적 백업 파일을 만들었습니다.')}
 async function cyImportBackup(file){if(!file)return;let obj;try{obj=JSON.parse(await file.text())}catch{alert('백업 JSON을 읽을 수 없습니다.');return}if(obj?.format!=='chungyack-local-backup-v1'||!Array.isArray(obj.tracking)||!obj.filters){alert('청약 레이더 백업 파일 형식이 아닙니다.');return}if(!confirm(`백업을 불러올까요?\n추적 ${obj.tracking.length}건과 필터 설정이 현재 로컬 데이터를 대체합니다.`))return;localStorage.setItem(FILTER_KEY,JSON.stringify(obj.filters));localStorage.setItem(TRACK_KEY,JSON.stringify(obj.tracking));cySaveTrash(Array.isArray(obj.trash)?obj.trash:[]);location.reload()}
-function cyRenderRestoreButton(){const host=document.querySelector('.backup-row');if(!host)return;let b=document.getElementById('restoreRemovedBtn');if(!b){b=document.createElement('button');b.id='restoreRemovedBtn';b.className='ghost';host.appendChild(b)}const t=cyTrash();b.textContent=t.length?`최근 제거 복원 (${t.length})`:'최근 제거 없음';b.disabled=!t.length;b.onclick=()=>{const item=cyTrash()[0];if(item)cyRestoreRemoved(item.id)}}
+function cyRenderRestoreButton(){const host=document.querySelector('.backup-row');if(!host)return;let b=document.getElementById('restoreRemovedBtn');if(!b){b.id='restoreRemovedBtn';b.className='ghost';host.appendChild(b)}const t=cyTrash();b.textContent=t.length?`최근 제거 복원 (${t.length})`:'최근 제거 없음';b.disabled=!t.length;b.onclick=()=>{const item=cyTrash()[0];if(item)cyRestoreRemoved(item.id)}}
 function cyWireV3(){
   const ex=$('#exportLocalBtn');if(ex)ex.addEventListener('click',cyExportBackup);
   const im=$('#importLocalBtn'),file=$('#importLocalFile');if(im&&file){im.addEventListener('click',()=>file.click());file.addEventListener('change',async()=>{await cyImportBackup(file.files?.[0]);file.value=''})}
