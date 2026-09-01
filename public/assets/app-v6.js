@@ -1,5 +1,5 @@
 // v0.6: 관심/북마크/신청추적 상태 + 전용 필터.
-const CY_V6_VERSION='0.6.0';
+const CY_V6_VERSION='0.6.1';
 const CY_V6_FLAGS_KEY='chungyack.opportunity.flags.v1';
 const CY_V6_VIEW_KEY='chungyack.opportunity.savedview.v1';
 
