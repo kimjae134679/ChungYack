@@ -79,6 +79,8 @@ renderRecommendations=function(){
   _cyV6RenderRecommendations();
   document.querySelectorAll('[data-cy-saved]').forEach(b=>b.addEventListener('click',()=>{
     CY_V6_VIEW=b.dataset.cySaved||'all';
+    // 관심/북마크/추적 필터는 모든 자격그룹에서 찾아야 하므로 분류 필터를 전체로 연다.
+    if(CY_V6_VIEW!=='all')CY_OPPORTUNITY_FILTER.level='all';
     localStorage.setItem(CY_V6_VIEW_KEY,CY_V6_VIEW);
     renderRecommendations();
   }));
