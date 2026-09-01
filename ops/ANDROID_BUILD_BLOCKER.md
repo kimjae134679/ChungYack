@@ -18,6 +18,11 @@
 - Android `versionName 0.6.0`, `versionCode 600` 자동 적용
 - 로컬 Gradle `assembleDebug` 성공
 - 최종 로컬 APK: `dist/ChungYack-Radar-v0.6.0-debug.apk`
+- 수정 커밋 반영 후 GitHub Actions run `33471150407` 전체 성공
+- `apk-v0.6.0` Release 및 최종 APK 자산 생성 완료
+- Actions artifact의 신규 runner debug 키는 기존 로컬 설치키와 달랐으므로 Release 자산은 기존 로컬 debug 키 연속성을 유지한 검증 APK로 교체
+- 최종 Release APK SHA-256: `FE125E7FA3F64183EF02BC3EBE46D9B0CCA5A88A8E56243562252331E667DB25`
+- 최종 Release APK 인증서 SHA-256: `00908CB5CBFD5B94C841AC8FC028AE28B329CB7B0A0101345FCD3453574A13EA`
 
 아래 v0.5 내용은 과거 장애 기록으로 보존한다.
 

@@ -32,8 +32,13 @@
 - Gradle `assembleDebug` 통과
 - APK 내부 버전 `0.6.0 (600)` 확인
 - APK Signature Scheme v2 검증 통과
+- GitHub Actions run `33471150407` 전체 성공
+- GitHub Release `apk-v0.6.0` 생성 및 최종 APK 업로드 완료
+- 기존 로컬 설치본과 동일한 debug 인증서 연속성 확인
 
 ## 생성물
 
 - `dist/ChungYack-Radar-v0.6.0-debug.apk`
 - `reports/local-android-build-v0.6.0-2026-09-01.log`
+- Release: `https://github.com/kimjae134679/ChungYack/releases/tag/apk-v0.6.0`
+- SHA-256: `FE125E7FA3F64183EF02BC3EBE46D9B0CCA5A88A8E56243562252331E667DB25`

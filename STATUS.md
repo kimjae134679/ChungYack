@@ -82,6 +82,10 @@
 - 로컬 `assembleDebug` 성공
 - `ChungYack-Radar-v0.6.0-debug.apk` 생성
 - 내부 `versionName 0.6.0`, `versionCode 600`, APK v2 서명 검증 완료
+- GitHub Actions run `33471150407` 전체 성공 및 artifact 생성
+- `apk-v0.6.0` Release 생성 완료
+- Release 자산은 기존 로컬 설치본과 같은 debug 인증서 SHA-256 `00908CB5CBFD5B94C841AC8FC028AE28B329CB7B0A0101345FCD3453574A13EA`로 서명된 APK로 교체·검증
+- 최종 APK SHA-256 `FE125E7FA3F64183EF02BC3EBE46D9B0CCA5A88A8E56243562252331E667DB25`
 
 ## 7. 탐색 운영 규칙
 
@@ -99,4 +103,4 @@
 3. 비바힐스강변 2026-09-01 15:00 결과
 4. SH 2차 행복주택 공식 청년 공급표/임대조건표 추출
 5. LH 경기남부·인천부천 공급주택 XLSX 펼치기
-6. v0.6.0 수정본 main 반영 및 `apk-v0.6.0` Release 자산 확인
+6. 다음 앱 변경 시 관심·북마크·추적 필터와 서명키 연속성 회귀검사

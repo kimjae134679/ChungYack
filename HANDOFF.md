@@ -145,6 +145,10 @@ SH 국민임대 전용 HTML은 과거 검토 자료로 보존하되, 이번 회�
 - 생성물: `dist/ChungYack-Radar-v0.6.0-debug.apk`
 - Android 내부 버전: `versionName 0.6.0`, `versionCode 600`
 - 관심·북마크·신청추적·전용필터·재실행 후 유지 동작을 로컬 브라우저에서 직접 확인했다.
+- GitHub Actions run `33471150407`도 전체 24단계 성공 및 artifact 생성을 확인했다.
+- 최종 배포: `apk-v0.6.0` Release의 `ChungYack-Radar-v0.6.0-debug.apk`.
+- Release APK는 이전 로컬 설치본과의 업데이트 연속성을 위해 기존 로컬 debug 인증서 SHA-256 `00908CB5CBFD5B94C841AC8FC028AE28B329CB7B0A0101345FCD3453574A13EA`로 서명된 검증본이다.
+- Release APK SHA-256: `FE125E7FA3F64183EF02BC3EBE46D9B0CCA5A88A8E56243562252331E667DB25`.
 
 ## 10. 다음 작업자가 바로 할 일
 
@@ -155,4 +159,4 @@ SH 국민임대 전용 HTML은 과거 검토 자료로 보존하되, 이번 회�
 5. 강남/판교 통근까지 비교
 6. LH 경기남부/인천부천 XLSX 실제 주택 단위 펼치기
 7. 신청완료 5건의 결과/서류 상태 갱신
-8. v0.6.0 수정본 main 반영 및 `apk-v0.6.0` Release 자산 확인
+8. 다음 앱 변경 시 강화된 `npm run qa`와 실제 관심·북마크·추적 회귀검사를 유지
