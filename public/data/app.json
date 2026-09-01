@@ -1,15 +1,15 @@
 {
-  "version": "0.6.0",
-  "updatedAt": "2026-09-02T00:18:25+09:00",
+  "version": "0.6.1",
+  "updatedAt": "2026-09-01T22:05:00+09:00",
   "summary": {
     "urgent": 4,
     "catalog": 80,
-    "note": "v0.6 기본 공고 화면은 current-opportunities.json v2를 사용하며, 관심·북마크·신청추적 상태를 기기 로컬에 저장하고 각각 필터해서 볼 수 있다. SH 국민임대는 이번 회차 패스, SH 2차 행복주택이 메인 검토축. 2026-09-02 00:18 KST 재검증에서 새로 활성 후보로 공식 확정할 공고는 추가되지 않았다. SH 2026년 2차 행복주택은 09-09 10:00~09-11 17:00, 전체 1,484호(신규 154호 + 잔여공가 391호 + 예비 939호) 일정이 유지된다. 인천검단 AA19블록 국민임대는 총 991호(29형 298호·37형 277호·46형 416호) 공식 재검증값을 유지하며 오늘 09-02 16:00 마감까지 약 15시간 41분 남았다. 공식 도로명주소를 확인하지 못해 해당 공고의 지도용 address는 비워둔다. LH 경기북부 2026년 3차 비분양전환형 든든전세는 09-03 16:00 마감까지 약 39시간 41분 남았고 정정공고 확인 경고를 유지한다. 비바힐스강변은 공식 09-01 15:00 발표시각이 약 9시간 18분 경과해 개인 결과확인 필요 상태를 유지하며 대상자라면 오늘 09-02부터 09-03까지 서류사본 제출이다. 호반써밋 양재는 대상자라면 오늘 09-02까지 등기우편 서류 제출, 센트레빌 웨스트온도 개인 결과확인 필요 상태를 유지한다. 세이지움 태릉입구역은 09-11 09:00~09-14 23:00 청약 일정의 신규 공식공고 상태를 유지한다."
+    "note": "v0.6.1은 기존 관심·북마크·신청추적 기능을 유지하면서 SH 2026년 2차 행복주택 청년 현재회차 검증자료를 별도 데이터로 표시한다. 사용자 제공 8개 후보는 현재회차 청년행과 대조하고, 추가로 확인된 청년 후보도 공급·예비·우선/일반·임대조건을 C단계로 표시한다. SH 공식 PDF/공급표 대조 전에는 확정값이나 지도핀으로 승격하지 않는다. SH 국민임대는 이번 회차 패스 상태를 유지한다. 세이지움 태릉입구역 9월 1일 신규 공식공고는 유지하며 청약은 09-11 09:00~09-14 23:00이다. 비바힐스강변은 개인 결과확인 필요, 호반써밋 양재는 대상자라면 09-02까지 등기우편 서류 제출, 센트레빌 웨스트온도 개인 결과확인 필요 상태를 유지한다."
   },
   "trackingSeed": [
-    {"id":"track-hoban-yangjae","name":"2026년 2차 청년안심주택(공공임대) — 호반써밋 양재","type":"","appliedAt":"2026-08-13","status":"서류심사 대상자 확인 긴급","statusIcon":"📄⚠️","next":"지금 대상 여부 조회 → 대상이면 오늘 2026-09-02까지 등기우편 서류 제출","detail":"서류심사 대상자 발표 2026-08-21 경과 · 제출기간 내 미제출 주의 · 최종 당첨자 발표 2026-12-11 예정","address":"서울특별시 서초구 양재동 산17-7"},
+    {"id":"track-hoban-yangjae","name":"2026년 2차 청년안심주택(공공임대) — 호반써밋 양재","type":"","appliedAt":"2026-08-13","status":"서류심사 대상자 확인 긴급","statusIcon":"📄⚠️","next":"지금 대상 여부 조회 → 대상이면 2026-09-02까지 등기우편 서류 제출","detail":"서류심사 대상자 발표 2026-08-21 경과 · 제출기간 내 미제출 주의 · 최종 당첨자 발표 2026-12-11 예정","address":"서울특별시 서초구 양재동 산17-7"},
     {"id":"track-centreville-weston-25","name":"센트레빌 웨스트온 청년형 특별공급 25형","type":"25형","appliedAt":"2026-08-31","status":"결과확인 필요","statusIcon":"🎯","next":"홈페이지에서 당첨/예비/탈락 여부 개인 조회","detail":"공식 결과확인 시각 2026-08-31 16:00 경과 · 소득 1순위 / 지역 2순위 신청완료 · 개인 결과는 임의 추정하지 않음","address":"서울특별시 금천구 시흥대로 377"},
-    {"id":"track-vivahills-river","name":"비바힐스강변","type":"B Type 32.88㎡","appliedAt":"2026-08-31","status":"결과확인 필요","statusIcon":"🎯","next":"지금 서류심사 대상자 여부 개인 확인 → 대상이면 오늘 2026-09-02~09-03 이메일 서류사본 제출","detail":"사용자 직접 확인 신청완료 · 공식 발표시각 2026-09-01 15:00 경과 · 개인 결과는 임의 추정하지 않음","address":"서울특별시 광진구 구의동 593-11"},
+    {"id":"track-vivahills-river","name":"비바힐스강변","type":"B Type 32.88㎡","appliedAt":"2026-08-31","status":"결과확인 필요","statusIcon":"🎯","next":"지금 서류심사 대상자 여부 개인 확인 → 대상이면 2026-09-02~09-03 이메일 서류사본 제출","detail":"사용자 직접 확인 신청완료 · 공식 발표시각 2026-09-01 15:00 경과 · 개인 결과는 임의 추정하지 않음","address":"서울특별시 광진구 구의동 593-11"},
     {"id":"track-unit125-18a","name":"UNIT125 18A","type":"18A","appliedAt":"","status":"예비","statusIcon":"✅","next":"추가 연락 / 예비 소진 추적","detail":"예비 80번대","address":"서울특별시 동대문구 장안동 418-1"},
     {"id":"track-yangcheon-community","name":"2026 양천구 청년협동조합 공동체주택","type":"","appliedAt":"2026-08-24","status":"신청완료","statusIcon":"✅","next":"2026-11-25 예정 결과 발표","detail":"이메일 제출 / 공고상 공식 선정기준 4순위","address":"서울특별시 양천구 오목로23길 25-1 외"}
   ],
@@ -29,7 +29,7 @@
     {"label":"서울 청년몽땅정보통 SH 공공임대 목록","url":"https://youth.seoul.go.kr/api/sh/list.do?key=2309250014"},
     {"label":"서울주거포털 행복주택 안내","url":"https://housing.seoul.go.kr/site/main/content/sh01_030500"},
     {"label":"청년안심주택 세이지움 태릉입구역 2026-09-01 최초모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6645&menuNo=400008&optn1=2026-09-01"},
-    {"label":"LH 경기북부 2026년 3차 비분양전환형 든든전세 공식공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020553&uppAisTpCd=13"},
+    {"label":"LH 경기북부 2026년 3차 비분양전환형 든든전세 공식공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&panId=2015122300020553&uppAisTpCd=13"},
     {"label":"LH 경기남부 26년 3차 청년 매입임대 공식공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13"},
     {"label":"LH 인천·부천 26년 6차 청년 매입임대 공식공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020630&uppAisTpCd=13"},
     {"label":"금천구 청년 맞춤형주택 공식공고","url":"https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192"},
