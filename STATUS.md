@@ -11,7 +11,7 @@
 - 사용자 제공 이번 회차 공고문 캡처의 소득표: `1인 가구(+20%p) / 가구당 월평균소득 100% = 4,576,036원`. 이번 회차 행복주택 판단에서는 이 공고문 표를 범용 포털 표보다 우선.
 - 사용자 제공 집지켜 캡처에서 행복주택 후보 8곳 발견: 래미안장위퍼스트하이, 장위자이레디언트(장위4), 보문파크뷰자이, 창경궁롯데캐슬시그니처, DMC SK VIEW, 힐스테이트녹번역, 은뜨락, 래미안베라힐즈. 캡처의 가격표시는 후보 발견용으로 보존하되 **이번 회차 청년 공급 여부·공급수·공식 임대조건은 SH 공급표/임대조건표로 재검증**.
 - `제8차 장기전세주택2(미리내집)` — 현재 프로젝트 프로필의 혼인 상태와 신혼/예비신혼 하드요건이 맞지 않아 **❌ 사실상 신청 불가**, 행동후보 제외.
-- Zibble 주간 청약일정 이미지 — 무순위·임의공급·오피스텔·일반분양 등이 섞인 **후보 발견용**. 실제 행동후보 편입 전 공식 공고 재검증.
+- Zibble/집지켜/SNS 일정·홍보 이미지는 **후보 발견용**. 실제 행동후보 편입 전 공식 공고 재검증.
 
 ## 2. 현재 추적 중 — 신청완료 / 결과·후속
 
@@ -52,29 +52,34 @@
 
 ## 5. 앱 상태
 
-현재 앱 목표 버전: **v0.5.0**
+현재 앱 목표 버전: **v0.6.0**
 
 - `public/data/current-opportunities.json` v2 — 최신 행동후보, 패스, 하드불가, 후보발견 자료 구분
 - `public/assets/app-v4.js/css` — 기존 국민임대 카탈로그 대신 최신 검토공고 중심 화면
 - `public/assets/app-v5.js/css` — SH 행복주택 소득표 근거 + 사용자 제공 8개 후보 상세 + 민간자료 검증경고 + 미리내집 불가근거 표시
-- `public/index.html` — v5 레이어 로드
-- `public/sw.js` — v0.5.0 캐시
-- `VERSION`, `package.json` — 0.5.0
-- 추적 수정/삭제/되돌리기/JSON 백업/Native Back 기능은 유지
+- `public/assets/app-v6.js/css` — 공고별 `관심`, `북마크`, `신청함/추적` 버튼 + `관심만`, `북마크만`, `추적중만` 필터
+- 관심/북마크는 각각 독립 상태이며 `chungyack.opportunity.flags.v1` 로컬 저장소에 보존
+- 신청함/추적은 기존 tracking registry 구조를 사용하고 공고 카드에서 즉시 추적 편집기로 연결
+- 관심/북마크/추적 상태는 JSON 백업/복원에 포함
+- 로컬 초기화 시 관심/북마크 상태도 함께 정리
+- `public/index.html` — v6 레이어 로드
+- `public/sw.js` — v0.6.0 캐시
+- `VERSION`, `package.json`, `public/data/app.json` — 0.6.0
 
 ## 6. APK 빌드 상태
 
-GitHub Actions Android 빌드는 이전부터 **runner step 시작 전 실패** 상태가 반복되고 있다.
+2026-09-01 v0.6 변경 후 GitHub Actions가 이전의 step-0 실패 패턴을 벗어나 **실제 runner에서 실행되기 시작함**.
 
-관찰 패턴:
-- workflow run 생성
-- build job 생성
-- 수 초 내 failure
-- `steps=[]`
-- `runner_id=0`, `runner_name=""`
-- checkout/Node/QA/Gradle 어떤 step도 시작되지 않음
+확인된 run:
+- run `33457896504`
+- job `99701669847`
+- checkout 성공
+- VERSION 읽기 성공
+- build run pointer 기록 성공
+- Node/Java setup 성공
+- Android SDK setup 진행 확인
 
-따라서 현재까지 확인된 실패는 앱 JS/Capacitor/Gradle 실행 후 오류가 아니라 runner가 job step을 시작하지 못하는 단계의 문제다. v0.5.0 변경 후에도 Actions 상태를 다시 확인하고 `ops/ANDROID_BUILD_BLOCKER.md`에 기록한다.
+따라서 기존 `runner_id=0 / steps=null` 고정 실패 상태는 적어도 이번 실행에서는 해소된 상태다. 최종 QA/Gradle/APK 결과는 해당 run 완료 후 확인한다.
 
 ## 7. 탐색 운영 규칙
 
@@ -92,4 +97,4 @@ GitHub Actions Android 빌드는 이전부터 **runner step 시작 전 실패** 
 3. 비바힐스강변 2026-09-01 15:00 결과
 4. SH 2차 행복주택 공식 청년 공급표/임대조건표 추출
 5. LH 경기남부·인천부천 공급주택 XLSX 펼치기
-6. GitHub Actions runner 정상화 여부 및 v0.5.0 APK 재빌드
+6. v0.6.0 Android build run `33457896504` 최종 결과와 APK artifact 확인
