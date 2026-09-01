@@ -12,13 +12,14 @@
 <link rel="stylesheet" href="assets/app-v3.css">
 <link rel="stylesheet" href="assets/app-v4.css">
 <link rel="stylesheet" href="assets/app-v5.css">
+<link rel="stylesheet" href="assets/app-v6.css">
 <title>청약 레이더</title>
 </head>
 <body>
 <main class="app">
 <section class="hero">
   <div class="hero-top">
-    <div class="brand"><img src="assets/app-icon.svg" alt="" class="brand-icon"><div><h1>청약 레이더</h1><p>공고 비교 · 내 조건 판정 · 내가 신청한 공고 추적</p></div></div>
+    <div class="brand"><img src="assets/app-icon.svg" alt="" class="brand-icon"><div><h1>청약 레이더</h1><p>공고 비교 · 내 조건 판정 · 관심/북마크 · 신청 추적</p></div></div>
     <span class="version" id="appVersion">v-</span>
   </div>
   <div class="hero-stats">
@@ -40,7 +41,7 @@
 </section>
 
 <section class="page" data-page="recommend">
-  <div class="section-head"><h2>현재 검토 공고</h2><small>내 조건 판정 · 일정 · 공식링크</small></div>
+  <div class="section-head"><h2>현재 검토 공고</h2><small>내 조건 판정 · 관심/북마크 · 신청추적 · 공식링크</small></div>
   <div class="filter-card">
     <div class="filter-top"><div><b>필터</b><p>59㎡나 북부권도 기본 제외하지 않습니다. 원하는 것만 끄고 켜세요.</p></div><button class="ghost" id="resetFilters">전체 켜기</button></div>
     <div class="filter-block"><label>면적</label><div class="toggle-row" id="typeFilter"></div></div>
@@ -57,7 +58,7 @@
 </section>
 
 <section class="page" data-page="tracking">
-  <div class="section-head"><h2>내 추적</h2><small>수정 · 상태변경 · 제거</small></div>
+  <div class="section-head"><h2>내 추적</h2><small>신청한 공고 · 수정 · 상태변경 · 제거</small></div>
   <div class="tracking-toolbar"><button class="primary" id="addTrackingBtn">+ 신청한 공고 추가</button><span>신청완료 이후 상태를 직접 관리</span></div>
   <div class="grid" id="trackingGridMirror"></div>
 </section>
@@ -72,9 +73,9 @@
   <div class="settings-list">
     <div class="setting"><b>버전</b><p id="settingsVersion">-</p></div>
     <div class="setting"><b>데이터 갱신</b><p id="settingsUpdated">-</p></div>
-    <div class="setting"><b>필터 저장</b><p>과거 카탈로그 필터 설정은 기기에 유지되며, 현재 공고 화면은 최신 공고·자격판정 중심으로 표시됩니다.</p></div>
-    <div class="setting"><b>내 추적 저장</b><p>신청 추적의 수정·상태변경·삭제는 기기 로컬 저장소에 저장합니다. GitHub 저장소가 Private 상태여도 APK는 동작합니다.</p></div>
-    <div class="setting"><b>업데이트/백업</b><p>APK 업데이트 시 로컬 데이터가 유지되도록 동일 디버그 서명키를 재사용합니다. 필요하면 아래에서 추적 데이터를 JSON으로 백업/복원할 수 있습니다.</p></div>
+    <div class="setting"><b>공고 저장</b><p>각 공고에서 관심과 북마크를 따로 저장할 수 있고, 관심만·북마크만·추적중만 필터로 다시 볼 수 있습니다. 이 상태는 기기에 저장됩니다.</p></div>
+    <div class="setting"><b>내 추적 저장</b><p>공고의 ‘신청함 / 추적’ 버튼으로 실제 신청한 공고를 추적에 넣고 결과·예비·서류·계약 상태를 계속 관리합니다.</p></div>
+    <div class="setting"><b>업데이트/백업</b><p>관심·북마크·필터·신청추적 상태를 JSON으로 백업/복원할 수 있습니다. APK 업데이트 시 동일 서명과 로컬 저장소가 유지되면 그대로 이어집니다.</p></div>
     <div class="setting"><b>삭제 안전장치</b><p>추적에서 제거한 항목은 최근 제거 기록으로 임시 보관되어 바로 되돌릴 수 있습니다.</p></div>
     <div class="setting"><b>자료 구분</b><p>민간 집계·SNS·일정 이미지는 후보 발견용으로 표시하며, 최종 신청 판단은 공식 공고·공급표·임대조건표를 기준으로 합니다.</p></div>
     <button class="reload" id="reloadBtn">공고 데이터 다시 불러오기</button>
@@ -116,5 +117,6 @@
 <script src="assets/app-v3.js"></script>
 <script src="assets/app-v4.js"></script>
 <script src="assets/app-v5.js"></script>
+<script src="assets/app-v6.js"></script>
 </body>
 </html>
