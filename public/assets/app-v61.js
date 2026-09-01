@@ -49,8 +49,9 @@ function cyV61HappyHtml(){
   const screenKeys=new Set(screens.map(x=>x.rowKey).filter(Boolean));
   const extras=(CY_V61_HAPPY.rows||[]).filter(x=>!screenKeys.has(x.key)).sort((a,b)=>(b.supply||0)-(a.supply||0)||(b.reserve||0)-(a.reserve||0));
   const matched=screens.filter(x=>x.rowKey&&map.has(x.rowKey)).length;
+  const finalState=CY_V61_HAPPY.officialFinal===true?'✅ SH 공식 공급표 대조 완료':'🟠 SH 공식 PDF/공급표 최종대조 전';
   return `<div class="cy-v61-happy">
-    <div class="cy-v61-warning"><b>📊 현재회차 청년 검증 진행</b><span>사용자 화면 8곳 중 ${matched}곳 청년행 연결 · 추가 청년 후보 ${extras.length}곳 수집</span><small>${esc(CY_V61_HAPPY.warning||'')}</small></div>
+    <div class="cy-v61-warning"><b>📊 현재회차 청년 검증 진행</b><span>${finalState} · 사용자 화면 8곳 중 ${matched}곳 청년행 연결 · 추가 청년 후보 ${extras.length}곳 수집</span><small>${esc(CY_V61_HAPPY.warning||'')}</small></div>
     <details class="cy-v61-details" open><summary>사용자 화면 8곳 · 실제 청년 물량 대조</summary><div class="cy-v61-screen-list">${screens.map(x=>cyV61ScreenCandidateHtml(x,map)).join('')}</div></details>
     <details class="cy-v61-details"><summary>추가로 찾은 현재회차 청년 후보 ${extras.length}곳</summary><div class="cy-v61-extra-list">${extras.map(x=>cyV61ParsedRowHtml(x,{compact:true})).join('')}</div></details>
     <div class="cy-v61-final-warning">⚠️ 위 숫자는 현재 공고 파싱·교차확인 C단계입니다. SH 공식 PDF/공급표 대조가 끝나기 전에는 확정값으로 신청 판단하지 않습니다.</div>
