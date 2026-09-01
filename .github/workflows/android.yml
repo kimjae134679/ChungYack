@@ -10,6 +10,7 @@ on:
       - 'public/data/app.json'
       - 'public/data/current-opportunities.json'
       - 'public/data/discovery-extra.json'
+      - 'public/data/sh-happy-2026-2-youth.json'
       - 'public/data/sh-2026.csv'
       - 'public/data/report-overrides.json'
       - 'package.json'
@@ -28,6 +29,7 @@ on:
       - 'public/data/app.json'
       - 'public/data/current-opportunities.json'
       - 'public/data/discovery-extra.json'
+      - 'public/data/sh-happy-2026-2-youth.json'
       - 'public/data/sh-2026.csv'
       - 'public/data/report-overrides.json'
       - 'package.json'
@@ -89,17 +91,20 @@ jobs:
           node --check public/assets/app-v4.js
           node --check public/assets/app-v5.js
           node --check public/assets/app-v6.js
+          node --check public/assets/app-v61.js
           node --check public/sw.js
           node --check scripts/qa-app.mjs
           node --check scripts/apply-android-branding.mjs
-          node -e "JSON.parse(require('fs').readFileSync('public/data/hourly-report.json','utf8')); const x=JSON.parse(require('fs').readFileSync('public/data/current-opportunities.json','utf8')); const d=JSON.parse(require('fs').readFileSync('public/data/discovery-extra.json','utf8')); if(!x.items?.some(v=>v.id==='sh-happy-2026-2')) process.exit(2); if(!x.items?.some(v=>v.id==='sh-mirinae-8-2026')) process.exit(3); if(!d.items?.some(v=>v.id==='sns-gukmin-1973-duplicate-20260901')) process.exit(4);"
+          node -e "JSON.parse(require('fs').readFileSync('public/data/hourly-report.json','utf8')); const x=JSON.parse(require('fs').readFileSync('public/data/current-opportunities.json','utf8')); const d=JSON.parse(require('fs').readFileSync('public/data/discovery-extra.json','utf8')); const h=JSON.parse(require('fs').readFileSync('public/data/sh-happy-2026-2-youth.json','utf8')); if(!x.items?.some(v=>v.id==='sh-happy-2026-2')) process.exit(2); if(!x.items?.some(v=>v.id==='sh-mirinae-8-2026')) process.exit(3); if(!d.items?.some(v=>v.id==='sns-gukmin-1973-duplicate-20260901')) process.exit(4); if(h.officialFinal!==false||h.screenCandidates?.length!==8||!h.rows?.some(v=>v.key==='euntteulak-39'&&v.supply===25&&v.reserve===41)) process.exit(5);"
           test -s public/assets/app-v2.css
           test -s public/assets/app-v3.css
           test -s public/assets/app-v4.css
           test -s public/assets/app-v5.css
           test -s public/assets/app-v6.css
+          test -s public/assets/app-v61.css
           test -s public/data/current-opportunities.json
           test -s public/data/discovery-extra.json
+          test -s public/data/sh-happy-2026-2-youth.json
           test -s public/data/sh-2026.csv
           grep -q 'viewport-fit=cover' public/index.html
           grep -q 'safe-area-inset-bottom' public/assets/app.css
@@ -109,8 +114,10 @@ jobs:
           grep -q 'app-v4.js' public/index.html
           grep -q 'app-v5.js' public/index.html
           grep -q 'app-v6.js' public/index.html
+          grep -q 'app-v61.js' public/index.html
           grep -q 'app-v5.css' public/index.html
           grep -q 'app-v6.css' public/index.html
+          grep -q 'app-v61.css' public/index.html
           grep -q 'app-icon.svg' public/manifest.webmanifest
           grep -q 'exportLocalBtn' public/index.html
           grep -q '취소/추적중단' public/index.html
@@ -124,6 +131,8 @@ jobs:
           grep -q 'data-cy-interest' public/assets/app-v6.js
           grep -q 'data-cy-bookmark' public/assets/app-v6.js
           grep -q 'data-cy-saved' public/assets/app-v6.js
+          grep -q 'CY_V61_VERSION' public/assets/app-v61.js
+          grep -q 'sh-happy-2026-2-youth.json' public/assets/app-v61.js
           grep -q '4576036' public/data/current-opportunities.json
           grep -q 'SH 2026년 국민임대주택' public/data/current-opportunities.json
           grep -q '1,973세대' public/data/discovery-extra.json
@@ -172,7 +181,7 @@ jobs:
         run: |
           TAG="apk-v${{ steps.ver.outputs.version }}"
           APK="ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "공고 관심·북마크·신청추적 및 전용 필터, SH 행복주택 상세후보·소득표 근거, 최신 검토공고·내 조건 판정, 패스/절대불가 분리, 추적 수정/상태변경, 삭제 되돌리기, JSON 백업/복원을 포함한 APK"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "공고 관심·북마크·신청추적 및 전용 필터, SH 2026년 2차 행복주택 청년 현재회차 검증자료, 최신 검토공고·내 조건 판정, 패스/절대불가 분리, 추적 수정/상태변경, 삭제 되돌리기, JSON 백업/복원을 포함한 APK"
           gh release upload "$TAG" "$APK" --clobber
 
       - name: Record successful build
