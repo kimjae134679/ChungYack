@@ -68,18 +68,20 @@
 
 ## 6. APK 빌드 상태
 
-2026-09-01 v0.6 변경 후 GitHub Actions가 이전의 step-0 실패 패턴을 벗어나 **실제 runner에서 실행되기 시작함**.
+2026-09-01 v0.6 변경 후 GitHub Actions가 이전의 step-0 실패 패턴을 벗어나 실제 runner에서 실행되기 시작했다.
 
-확인된 run:
-- run `33457896504`
-- job `99701669847`
-- checkout 성공
-- VERSION 읽기 성공
-- build run pointer 기록 성공
-- Node/Java setup 성공
-- Android SDK setup 진행 확인
+최신 확인 run `33469626181`은 checkout, Node/Java/Android SDK 설정, npm install까지 성공한 뒤 `UI and data QA`에서 실패했다. 원인은 `public/assets/app.js` 검색 조건식의 닫는 괄호 하나가 중복된 문법 오류였다.
 
-따라서 기존 `runner_id=0 / steps=null` 고정 실패 상태는 적어도 이번 실행에서는 해소된 상태다. 최종 QA/Gradle/APK 결과는 해당 run 완료 후 확인한다.
+현재 작업에서:
+
+- 해당 문법 오류 수정
+- `npm run qa`에 app.js~app-v6.js, Service Worker, Android branding 스크립트 문법 검사 추가
+- 관심·북마크·신청추적·전용필터와 재실행 후 상태 유지 브라우저 실동작 확인
+- Service Worker 캐시를 `chungyack-radar-v0.6.0-r1`로 갱신
+- Android 내부 버전을 `VERSION`에서 자동 적용하도록 수정
+- 로컬 `assembleDebug` 성공
+- `ChungYack-Radar-v0.6.0-debug.apk` 생성
+- 내부 `versionName 0.6.0`, `versionCode 600`, APK v2 서명 검증 완료
 
 ## 7. 탐색 운영 규칙
 
@@ -97,4 +99,4 @@
 3. 비바힐스강변 2026-09-01 15:00 결과
 4. SH 2차 행복주택 공식 청년 공급표/임대조건표 추출
 5. LH 경기남부·인천부천 공급주택 XLSX 펼치기
-6. v0.6.0 Android build run `33457896504` 최종 결과와 APK artifact 확인
+6. v0.6.0 수정본 main 반영 및 `apk-v0.6.0` Release 자산 확인

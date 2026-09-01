@@ -37,4 +37,13 @@ public class MainActivity extends BridgeActivity {
   private void showExitConfirm(){if(exitDialogVisible||isFinishing())return;exitDialogVisible=true;runOnUiThread(()->new AlertDialog.Builder(this).setTitle("청약 레이더").setMessage("앱을 종료하시겠습니까?").setNegativeButton("취소",(d,w)->{exitDialogVisible=false;d.dismiss();}).setPositiveButton("종료",(d,w)->{exitDialogVisible=false;finishAffinity();}).setOnCancelListener(d->exitDialogVisible=false).show());}
 }
 `,'utf8');
-console.log('[branding] ChungYack beacon icon + native Back fallback applied.');
+
+const version=fs.readFileSync(path.join(root,'VERSION'),'utf8').trim();
+const match=version.match(/^(\d+)\.(\d+)\.(\d+)$/);
+if(!match)throw new Error(`Invalid VERSION: ${version}`);
+const versionCode=Number(match[1])*10000+Number(match[2])*100+Number(match[3]);
+const gradlePath=path.join(root,'android','app','build.gradle');
+let gradle=fs.readFileSync(gradlePath,'utf8');
+gradle=gradle.replace(/versionCode\s+\d+/,`versionCode ${versionCode}`).replace(/versionName\s+"[^"]+"/,`versionName "${version}"`);
+fs.writeFileSync(gradlePath,gradle,'utf8');
+console.log(`[branding] ChungYack beacon icon + native Back fallback + Android v${version} (${versionCode}) applied.`);

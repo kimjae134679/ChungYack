@@ -89,7 +89,7 @@ SH 국민임대 전용 HTML은 과거 검토 자료로 보존하되, 이번 회�
 
 ## 8. 청약 레이더 앱 — 현재 실제 파일
 
-현재 목표 버전: **v0.5.0**
+현재 목표 버전: **v0.6.0**
 
 - `public/index.html`
 - `public/assets/app.js`
@@ -97,11 +97,13 @@ SH 국민임대 전용 HTML은 과거 검토 자료로 보존하되, 이번 회�
 - `public/assets/app-v3.js`
 - `public/assets/app-v4.js`
 - `public/assets/app-v5.js`
+- `public/assets/app-v6.js`
 - `public/assets/app.css`
 - `public/assets/app-v2.css`
 - `public/assets/app-v3.css`
 - `public/assets/app-v4.css`
 - `public/assets/app-v5.css`
+- `public/assets/app-v6.css`
 - `public/data/app.json`
 - `public/data/hourly-report.json`
 - `public/data/current-opportunities.json`
@@ -120,10 +122,13 @@ SH 국민임대 전용 HTML은 과거 검토 자료로 보존하되, 이번 회�
 - v3: 삭제 되돌리기·백업/복원·Native Back
 - v4: 국민임대 중심 화면을 최신 검토공고 중심으로 전환
 - v5: SH 2차 행복주택 소득표 근거, 사용자 제공 8개 후보 상세, 민간자료 경고, 미리내집 하드불가 표시, v0.5 버전 보정
+- v6: 공고별 관심·북마크·신청함/추적 버튼, 관심만·북마크만·추적중만 필터, 로컬 저장 및 백업/복원
 
 ### 앱 UX 강제 규칙
 
 - 후보는 자동으로 추적에 넣지 않는다.
+- 관심과 북마크는 서로 독립된 저장 상태이며 실제 신청 여부와도 구분한다.
+- 관심만·북마크만·추적중만 필터는 저장한 공고가 자격 분류 필터에 가려지지 않도록 전체 자격군에서 찾는다.
 - 실제 신청 후 `신청했음 → 추적 추가`.
 - 추적 수정/삭제는 실제 신청 취소가 아니다.
 - 하드불가 이유는 기존 자격판정 영역을 빨간색으로 사용하고 별도 중복 위젯을 만들지 않는다.
@@ -132,25 +137,14 @@ SH 국민임대 전용 HTML은 과거 검토 자료로 보존하되, 이번 회�
 
 ## 9. APK 빌드 상태
 
-GitHub Actions가 반복적으로 runner step 시작 전에 실패하고 있음.
-
-관찰값:
-- run/job 생성
-- 수 초 내 failure
-- `steps=[]`
-- `runner_id=0`
-- `runner_name=""`
-- checkout조차 실행되지 않음
-
-따라서 지금 확인된 실패는 JS/Capacitor/Gradle 실행 후 오류가 아니다.
-
-Actions 정상화 후:
-1. v0.5.0 workflow 실행
-2. Node syntax / JSON / UI QA 확인
-3. Capacitor sync
-4. Gradle assembleDebug
-5. `ChungYack-Radar-v0.5.0-debug.apk` artifact
-6. `apk-v0.5.0` Release asset 확인
+- 과거 runner step-0 실패는 해소되어 checkout·Node/Java/Android SDK·npm install 단계가 실행된다.
+- 최신 확인 run `33469626181`은 `UI and data QA`에서 실패했다.
+- 원인은 `public/assets/app.js`의 검색 조건식에 닫는 괄호가 하나 더 있어 발생한 `SyntaxError: Unexpected token ')'`였다.
+- 해당 문법 오류를 수정했고 `npm run qa` 자체가 전체 JS 문법을 검사하도록 강화했다.
+- 로컬에서 v0.6.0 전체 절차(`npm install → QA → Capacitor → branding → Gradle assembleDebug`)를 통과했다.
+- 생성물: `dist/ChungYack-Radar-v0.6.0-debug.apk`
+- Android 내부 버전: `versionName 0.6.0`, `versionCode 600`
+- 관심·북마크·신청추적·전용필터·재실행 후 유지 동작을 로컬 브라우저에서 직접 확인했다.
 
 ## 10. 다음 작업자가 바로 할 일
 
@@ -161,4 +155,4 @@ Actions 정상화 후:
 5. 강남/판교 통근까지 비교
 6. LH 경기남부/인천부천 XLSX 실제 주택 단위 펼치기
 7. 신청완료 5건의 결과/서류 상태 갱신
-8. Actions runner 복구 여부 확인 후 APK 빌드
+8. v0.6.0 수정본 main 반영 및 `apk-v0.6.0` Release 자산 확인

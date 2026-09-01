@@ -1,0 +1,221 @@
+[ChungYack] Android local build
+Repo: C:\Users\user\.codex\.chatgpt-projects\g-p-6a8c88aef6f48191a3413d9db611bbee\ChungYack-v06
+Version: 0.6.0
+
+up to date in 10s
+
+> chungyack-radar@0.6.0 qa
+> node scripts/qa-app.mjs
+
+QA OK: trackingSeed=5, catalog=79, insights=5, version=0.6.0, backup+undo+interest+bookmark+tracking-filter=enabled
+√ Adding native android project in android in 119.73ms
+√ add in 120.12ms
+√ Copying web assets from public to android\app\src\main\assets\public in 11.37ms
+√ Creating capacitor.config.json in android\app\src\main\assets in 576.80μs
+√ copy android in 19.09ms
+√ Updating Android plugins in 607.60μs
+[info] Found 1 Capacitor plugin for android:
+       @capacitor/app@8.1.1
+√ update android in 57.43ms
+√ Syncing Gradle in 165.80μs
+[success] android platform added!
+Follow the Developer Workflow guide to get building:
+https://capacitorjs.com/docs/basics/workflow
+√ Copying web assets from public to android\app\src\main\assets\public in 14.32ms
+√ Creating capacitor.config.json in android\app\src\main\assets in 562.10μs
+√ copy android in 22.26ms
+√ Updating Android plugins in 357.20μs
+[info] Found 1 Capacitor plugin for android:
+       @capacitor/app@8.1.1
+√ update android in 25.58ms
+[info] Sync finished in 0.058s
+
+> chungyack-radar@0.6.0 android:brand
+> node scripts/apply-android-branding.mjs
+
+[branding] wrote values/chungyack_icon_colors.xml
+[branding] wrote drawable/chungyack_icon_foreground.xml
+[branding] wrote mipmap-anydpi-v26/ic_launcher.xml
+[branding] wrote mipmap-anydpi-v26/ic_launcher_round.xml
+[branding] ChungYack beacon icon + native Back fallback + Android v0.6.0 (600) applied.
+Starting a Gradle Daemon, 1 incompatible and 1 stopped Daemons could not be reused, use --status for details
+
+> Configure project :app
+WARNING: Using flatDir should be avoided because it doesn't support any meta-data formats.
+
+> Configure project :capacitor-cordova-android-plugins
+WARNING: Using flatDir should be avoided because it doesn't support any meta-data formats.
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :capacitor-android:preBuild UP-TO-DATE
+> Task :capacitor-android:preDebugBuild UP-TO-DATE
+> Task :capacitor-app:preBuild UP-TO-DATE
+> Task :capacitor-app:preDebugBuild UP-TO-DATE
+> Task :capacitor-android:writeDebugAarMetadata
+> Task :capacitor-cordova-android-plugins:preBuild UP-TO-DATE
+> Task :capacitor-cordova-android-plugins:preDebugBuild UP-TO-DATE
+> Task :capacitor-app:writeDebugAarMetadata
+> Task :app:javaPreCompileDebug
+> Task :capacitor-cordova-android-plugins:writeDebugAarMetadata
+> Task :capacitor-android:processDebugNavigationResources
+> Task :capacitor-app:processDebugNavigationResources
+> Task :app:checkDebugAarMetadata
+> Task :capacitor-cordova-android-plugins:processDebugNavigationResources
+> Task :app:processDebugNavigationResources
+> Task :app:generateDebugResValues
+> Task :app:compileDebugNavigationResources
+> Task :capacitor-android:generateDebugResValues
+> Task :capacitor-android:generateDebugResources
+> Task :capacitor-android:packageDebugResources
+> Task :capacitor-app:generateDebugResValues
+> Task :capacitor-app:generateDebugResources
+> Task :capacitor-app:packageDebugResources
+> Task :capacitor-cordova-android-plugins:generateDebugResValues
+> Task :capacitor-cordova-android-plugins:generateDebugResources
+> Task :capacitor-cordova-android-plugins:packageDebugResources
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :capacitor-android:extractDeepLinksDebug
+> Task :app:parseDebugLocalResources
+> Task :app:mergeDebugResources
+> Task :capacitor-app:extractDeepLinksDebug
+> Task :capacitor-android:processDebugManifest
+> Task :capacitor-cordova-android-plugins:extractDeepLinksDebug
+> Task :capacitor-app:processDebugManifest
+> Task :capacitor-cordova-android-plugins:processDebugManifest
+> Task :capacitor-android:compileDebugLibraryResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :capacitor-app:compileDebugLibraryResources
+> Task :app:processDebugManifestForPackage
+> Task :capacitor-android:parseDebugLocalResources
+> Task :capacitor-app:parseDebugLocalResources
+> Task :capacitor-cordova-android-plugins:compileDebugLibraryResources
+> Task :capacitor-android:javaPreCompileDebug
+> Task :capacitor-app:generateDebugRFile
+> Task :capacitor-android:generateDebugRFile
+> Task :capacitor-app:javaPreCompileDebug
+> Task :capacitor-cordova-android-plugins:parseDebugLocalResources
+
+> Task :capacitor-android:compileDebugJavaWithJavac
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :capacitor-cordova-android-plugins:generateDebugRFile
+> Task :capacitor-android:bundleLibCompileToJarDebug
+> Task :capacitor-app:compileDebugJavaWithJavac
+> Task :capacitor-cordova-android-plugins:javaPreCompileDebug
+> Task :capacitor-app:bundleLibCompileToJarDebug
+> Task :app:mergeDebugShaders
+> Task :capacitor-cordova-android-plugins:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :capacitor-cordova-android-plugins:bundleLibCompileToJarDebug
+> Task :capacitor-android:mergeDebugShaders
+> Task :capacitor-android:compileDebugShaders NO-SOURCE
+> Task :capacitor-android:generateDebugAssets UP-TO-DATE
+> Task :capacitor-android:mergeDebugAssets
+> Task :capacitor-app:mergeDebugShaders
+> Task :capacitor-app:compileDebugShaders NO-SOURCE
+> Task :capacitor-app:generateDebugAssets UP-TO-DATE
+> Task :capacitor-app:mergeDebugAssets
+> Task :capacitor-cordova-android-plugins:mergeDebugShaders
+> Task :capacitor-cordova-android-plugins:compileDebugShaders NO-SOURCE
+> Task :capacitor-cordova-android-plugins:generateDebugAssets UP-TO-DATE
+> Task :capacitor-cordova-android-plugins:mergeDebugAssets
+> Task :app:mergeDebugAssets
+> Task :capacitor-app:bundleLibRuntimeToJarDebug
+> Task :app:compressDebugAssets
+> Task :capacitor-cordova-android-plugins:bundleLibRuntimeToJarDebug
+> Task :app:desugarDebugFileDependencies
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :capacitor-android:processDebugJavaRes NO-SOURCE
+> Task :capacitor-app:processDebugJavaRes NO-SOURCE
+> Task :capacitor-cordova-android-plugins:processDebugJavaRes NO-SOURCE
+> Task :capacitor-android:bundleLibRuntimeToJarDebug
+> Task :capacitor-cordova-android-plugins:bundleLibRuntimeToDirDebug
+> Task :capacitor-app:bundleLibRuntimeToDirDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :capacitor-android:mergeDebugJniLibFolders
+> Task :app:checkDebugDuplicateClasses
+> Task :capacitor-android:mergeDebugNativeLibs NO-SOURCE
+> Task :capacitor-android:copyDebugJniLibsProjectOnly
+> Task :capacitor-app:mergeDebugJniLibFolders
+> Task :capacitor-app:mergeDebugNativeLibs NO-SOURCE
+> Task :capacitor-app:copyDebugJniLibsProjectOnly
+> Task :capacitor-cordova-android-plugins:mergeDebugJniLibFolders
+> Task :capacitor-cordova-android-plugins:mergeDebugNativeLibs NO-SOURCE
+> Task :capacitor-cordova-android-plugins:copyDebugJniLibsProjectOnly
+> Task :capacitor-android:bundleLibRuntimeToDirDebug
+> Task :app:processDebugResources
+> Task :app:validateSigningDebug
+> Task :app:mergeDebugJavaResource
+
+> Task :app:compileDebugJavaWithJavac
+Note: C:\Users\user\.codex\.chatgpt-projects\g-p-6a8c88aef6f48191a3413d9db611bbee\ChungYack-v06\android\app\src\main\java\com\kimjae134679\chungyack\MainActivity.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:mergeProjectDexDebug
+> Task :capacitor-android:stripDebugDebugSymbols NO-SOURCE
+> Task :capacitor-android:copyDebugJniLibsProjectAndLocalJars
+> Task :capacitor-android:checkDebugAarMetadata
+> Task :capacitor-android:extractDebugAnnotations
+> Task :capacitor-android:extractDeepLinksForAarDebug
+> Task :capacitor-android:mergeDebugGeneratedProguardFiles
+> Task :capacitor-android:mergeDebugConsumerProguardFiles
+> Task :capacitor-android:prepareDebugArtProfile
+> Task :capacitor-android:prepareLintJarForPublish
+> Task :capacitor-android:mergeDebugJavaResource
+> Task :capacitor-app:checkDebugAarMetadata
+> Task :capacitor-android:syncDebugLibJars
+> Task :capacitor-android:bundleDebugAar
+> Task :capacitor-android:assembleDebug
+> Task :capacitor-app:stripDebugDebugSymbols NO-SOURCE
+> Task :capacitor-app:copyDebugJniLibsProjectAndLocalJars
+> Task :capacitor-app:extractDebugAnnotations
+> Task :capacitor-app:extractDeepLinksForAarDebug
+> Task :capacitor-app:mergeDebugGeneratedProguardFiles
+> Task :capacitor-app:mergeDebugConsumerProguardFiles
+> Task :capacitor-app:prepareDebugArtProfile
+> Task :capacitor-app:prepareLintJarForPublish
+> Task :capacitor-app:mergeDebugJavaResource
+> Task :capacitor-cordova-android-plugins:checkDebugAarMetadata
+> Task :capacitor-app:syncDebugLibJars
+> Task :capacitor-app:bundleDebugAar
+> Task :capacitor-app:assembleDebug
+> Task :capacitor-cordova-android-plugins:stripDebugDebugSymbols NO-SOURCE
+> Task :capacitor-cordova-android-plugins:copyDebugJniLibsProjectAndLocalJars
+> Task :capacitor-cordova-android-plugins:extractDebugAnnotations
+> Task :capacitor-cordova-android-plugins:extractDeepLinksForAarDebug
+> Task :capacitor-cordova-android-plugins:mergeDebugGeneratedProguardFiles
+> Task :capacitor-cordova-android-plugins:mergeDebugConsumerProguardFiles
+> Task :capacitor-cordova-android-plugins:prepareDebugArtProfile
+> Task :capacitor-cordova-android-plugins:prepareLintJarForPublish
+> Task :capacitor-cordova-android-plugins:mergeDebugJavaResource
+> Task :capacitor-cordova-android-plugins:syncDebugLibJars
+> Task :capacitor-cordova-android-plugins:bundleDebugAar
+> Task :capacitor-cordova-android-plugins:assembleDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeLibDexDebug
+> Task :app:mergeExtDexDebug
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+
+[Incubating] Problems report is available at: file:///C:/Users/user/.codex/.chatgpt-projects/g-p-6a8c88aef6f48191a3413d9db611bbee/ChungYack-v06/android/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 18s
+123 actionable tasks: 123 executed
+
+BUILD OK
+C:\Users\user\.codex\.chatgpt-projects\g-p-6a8c88aef6f48191a3413d9db611bbee\ChungYack-v06\dist\ChungYack-Radar-v0.6.0-debug.apk

@@ -2,6 +2,25 @@
 
 최종 확인: 2026-09-01 KST
 
+## v0.6.0 최신 결론
+
+과거 GitHub-hosted runner가 step을 시작하지 못하던 문제는 해소됐다. 최신 run `33469626181`은 checkout, Node/Java/Android SDK 설정, npm install까지 실행됐고 `UI and data QA` 단계에서 실패했다.
+
+실패 원인은 `public/assets/app.js`의 검색 조건식에 닫는 괄호가 하나 더 있던 문법 오류(`SyntaxError: Unexpected token ')'`)였다. 이 오류 때문에 앱 초기화가 멈춰 v6 관심·북마크·신청추적 UI도 실제로 작동하지 않았다.
+
+현재 수정 완료 내용:
+
+- app.js 문법 오류 수정
+- `npm run qa`가 app.js~app-v6.js, Service Worker, Android branding 스크립트를 직접 문법 검사하도록 강화
+- v6 관심·북마크·신청함/추적 버튼과 관심만·북마크만·추적중만 필터 실동작 확인
+- 재실행 후 저장 상태 유지 확인
+- Service Worker 캐시 세대 `v0.6.0-r1` 적용
+- Android `versionName 0.6.0`, `versionCode 600` 자동 적용
+- 로컬 Gradle `assembleDebug` 성공
+- 최종 로컬 APK: `dist/ChungYack-Radar-v0.6.0-debug.apk`
+
+아래 v0.5 내용은 과거 장애 기록으로 보존한다.
+
 ## 현재 상태
 
 청약 레이더 **v0.5.0 소스/UI/데이터 변경은 GitHub main에 반영 완료**되어 있으나 GitHub Actions Android APK 빌드는 여전히 실제 step 실행 전에 실패한다.
