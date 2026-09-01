@@ -1,6 +1,6 @@
 # ChungYack Handoff
 
-최종 갱신: 2026-09-01 KST
+최종 갱신: 2026-09-02 KST
 
 새 대화·새 작업자·자동화가 이 프로젝트를 이어받을 때 이 문서를 먼저 읽는다.
 
@@ -16,8 +16,8 @@
 8. `public/data/current-opportunities.json`
 9. `reports/current_dashboard.html`
 10. 최신 `coverage/YYYY-MM-DD_local_hidden_scan.md`
-11. `ops/ANDROID_BUILD_BLOCKER.md`
-12. `ops/APP_V0.4_STATUS.md`는 과거 전환기 기록으로만 참고
+11. `ops/android-latest-run.json`
+12. 이 문서의 `앱 UI 재시작(v0.7.0)` 절을 반드시 확인
 
 ## 2. 현재 핵심 상태
 
@@ -33,7 +33,7 @@
 
 ## 3. 현재 신청 추적
 
-- 비바힐스강변 — ✅ 신청완료 / 2026-09-01 15:00 서류심사 대상자 발표 확인
+- 비바힐스강변 — ✅ 신청완료 / 개인 결과확인 필요
 - 센트레빌 웨스트온 청년형 특별공급 25형 — ✅ 신청완료 / 🎯 개인 결과확인 필요
 - 2026년 2차 청년안심주택(공공임대) 호반써밋 양재 — 📄⚠️ 대상자 여부 즉시 확인, 대상자라면 2026-09-02까지 등기우편
 - UNIT125 18A — ✅ 예비 80번대
@@ -84,79 +84,102 @@
 
 SH 국민임대 전용 HTML은 과거 검토 자료로 보존하되, 이번 회차 패스 이후 현재 행동판의 중심으로 쓰지 않는다.
 
-별도 최신 비교판:
-- `reports/청약_다른공고_검토대시보드_2026-09-01.html`
+## 8. 청약 레이더 앱 UI 재시작 — v0.7.0
 
-## 8. 청약 레이더 앱 — 현재 실제 파일
+### 사용자 최신 판단
 
-현재 목표 버전: **v0.6.0**
+2026-09-02 사용자가 최근 v0.5~v0.6.1 누적 UI에 대해 다음 문제를 명확히 지적했다.
 
+- 과거 `숨기기` 중심 버전이 훨씬 가독성이 좋았음
+- `좋아요`와 `북마크`가 역할이 중복됨
+- 현재 UI가 전반적으로 불편함
+- 기본 화면 정보량이 지나치게 많음
+- 접기/펼치기 계층이 이상하고 읽기 어려움
+- 옛날 단순한 UI를 기준으로 돌아가 필요한 좋은 기능만 다시 만들 것
+
+따라서 **v0.6.x UI에 기능을 추가하는 방식은 중단**한다.
+
+### 복구 안전장치
+
+기존 v0.6.1 main 상태는 브랜치에 보존했다.
+
+- `backup-v0.6.1-before-ui-reset`
+- 기준 commit: `f20727d48d3fff35769432a8b7c568e8e51d3cbb`
+
+필요하면 언제든 이 브랜치에서 과거 구현을 확인할 수 있지만, 새 UI 설계의 기준으로 다시 확장하지 않는다.
+
+### 현재 active UI
+
+현재 앱 버전: **v0.7.0**
+
+핵심 파일:
+
+- `public/assets/app-v7.js`
+- `public/assets/app-v7.css`
 - `public/index.html`
-- `public/assets/app.js`
-- `public/assets/app-v2-fixes.js`
-- `public/assets/app-v3.js`
-- `public/assets/app-v4.js`
-- `public/assets/app-v5.js`
-- `public/assets/app-v6.js`
-- `public/assets/app.css`
-- `public/assets/app-v2.css`
-- `public/assets/app-v3.css`
-- `public/assets/app-v4.css`
-- `public/assets/app-v5.css`
-- `public/assets/app-v6.css`
-- `public/data/app.json`
-- `public/data/hourly-report.json`
-- `public/data/current-opportunities.json`
-- `public/data/sh-2026.csv`
-- `public/sw.js`
 - `VERSION`
 - `package.json`
-- `.github/workflows/android.yml`
+- `public/sw.js`
 
-**중요:** 과거 HANDOFF에 언급됐던 `app-v4-remote.js`, 기존 `app-v5.js` 원격동기화 구조 등은 현재 main의 실제 파일 기준이 아니었다. 앞으로는 위 실제 파일 목록을 기준으로 한다.
+기존 `app-v4/v5/v6/v61` 파일은 현재 데이터/호환성 확인용 레거시 계층이며 **사용자에게 보이는 최종 렌더링은 v7이 마지막에 덮어쓴다.**
 
-### 앱 레이어
+### v0.7 UI 원칙
 
-- v1: 기존 SH 국민임대 카탈로그/필터/추적 기반
-- v2: 안정성·시간별보고·조건판정
-- v3: 삭제 되돌리기·백업/복원·Native Back
-- v4: 국민임대 중심 화면을 최신 검토공고 중심으로 전환
-- v5: SH 2차 행복주택 소득표 근거, 사용자 제공 8개 후보 상세, 민간자료 경고, 미리내집 하드불가 표시, v0.5 버전 보정
-- v6: 공고별 관심·북마크·신청함/추적 버튼, 관심만·북마크만·추적중만 필터, 로컬 저장 및 백업/복원
+1. 기본 카드에 반드시 필요한 정보만 표시
+   - 상태
+   - 공고명
+   - 기관/유형/지역
+   - 접수기간
+   - 모집수
+   - 내 조건 판정 요약
+   - 다음 행동
+   - 확인된 주소 1개 요약
+   - 공식 공고
+   - 신청했음 → 추적
+2. `좋아요`와 `북마크`는 active UI에서 제거.
+3. 공고 임시 정리는 **`숨기기` 하나로 통일**.
+4. 숨긴 공고는 `숨긴 공고 N` 화면에서 복원 가능.
+5. `숨김 모두 해제` 지원.
+6. 실제 신청한 공고만 추적에 추가.
+7. v5/v6.1의 대형 검증표·8개 후보 상세·추가 후보·중첩 details는 기본 카드에서 제거.
+8. 상세 검증 데이터 자체는 삭제하지 않는다. 데이터는 남기고 기본 UI에서만 감춘다.
+9. 홈의 시간별 보고도 `지금 볼 것` 형태로 압축해 공고명 + 짧은 상태만 우선 표시.
+10. 기능 추가보다 **읽기 쉬움, 한눈에 판단, 화면 밀도 억제**를 우선한다.
 
-### 앱 UX 강제 규칙
+### 로컬 상태
 
-- 후보는 자동으로 추적에 넣지 않는다.
-- 관심과 북마크는 서로 독립된 저장 상태이며 실제 신청 여부와도 구분한다.
-- 관심만·북마크만·추적중만 필터는 저장한 공고가 자격 분류 필터에 가려지지 않도록 전체 자격군에서 찾는다.
-- 실제 신청 후 `신청했음 → 추적 추가`.
-- 추적 수정/삭제는 실제 신청 취소가 아니다.
-- 하드불가 이유는 기존 자격판정 영역을 빨간색으로 사용하고 별도 중복 위젯을 만들지 않는다.
-- 조건부는 주황, 가능은 초록, 추가확인은 회색/파랑.
-- 민간자료는 `후보 발견용` 표기를 유지.
+- 추적: 기존 `TRACKING` 구조 유지
+- 삭제 되돌리기: 유지
+- JSON 백업/복원: 유지
+- 숨김: `chungyack.opportunity.hidden.v1`
+- 숨김 화면 상태: `chungyack.opportunity.view.v1`
+- 과거 관심/북마크 키는 v0.7 시작 시 제거
+  - `chungyack.opportunity.flags.v1`
+  - `chungyack.opportunity.savedview.v1`
 
-## 9. APK 빌드 상태
+### 중요 금지
 
-- 과거 runner step-0 실패는 해소되어 checkout·Node/Java/Android SDK·npm install 단계가 실행된다.
-- 최신 확인 run `33469626181`은 `UI and data QA`에서 실패했다.
-- 원인은 `public/assets/app.js`의 검색 조건식에 닫는 괄호가 하나 더 있어 발생한 `SyntaxError: Unexpected token ')'`였다.
-- 해당 문법 오류를 수정했고 `npm run qa` 자체가 전체 JS 문법을 검사하도록 강화했다.
-- 로컬에서 v0.6.0 전체 절차(`npm install → QA → Capacitor → branding → Gradle assembleDebug`)를 통과했다.
-- 생성물: `dist/ChungYack-Radar-v0.6.0-debug.apk`
-- Android 내부 버전: `versionName 0.6.0`, `versionCode 600`
-- 관심·북마크·신청추적·전용필터·재실행 후 유지 동작을 로컬 브라우저에서 직접 확인했다.
-- GitHub Actions run `33471150407`도 전체 24단계 성공 및 artifact 생성을 확인했다.
-- 최종 배포: `apk-v0.6.0` Release의 `ChungYack-Radar-v0.6.0-debug.apk`.
-- Release APK는 이전 로컬 설치본과의 업데이트 연속성을 위해 기존 로컬 debug 인증서 SHA-256 `00908CB5CBFD5B94C841AC8FC028AE28B329CB7B0A0101345FCD3453574A13EA`로 서명된 검증본이다.
-- Release APK SHA-256: `FE125E7FA3F64183EF02BC3EBE46D9B0CCA5A88A8E56243562252331E667DB25`.
+- 관심/좋아요/북마크를 다시 여러 개로 분리해서 추가하지 않는다.
+- 기본 카드에 검증용 원자료를 전부 쏟아붓지 않는다.
+- details/accordion을 여러 단계 중첩하지 않는다.
+- 한 공고에 같은 목적의 버튼을 여러 개 만들지 않는다.
+- 새 기능을 넣기 전에 기본 카드의 가독성을 해치지 않는지 먼저 판단한다.
+
+## 9. APK 빌드
+
+- v0.7.0은 `.github/workflows/android.yml`에서 전용 QA를 수행한다.
+- `app-v7.js` JS syntax, `app-v7.css`, 숨김 기능 marker, 백업의 `hiddenOpportunities`를 검사한다.
+- Release 설명도 관심/북마크 중심 문구를 제거하고 v0.7 단순 UI 기준으로 수정했다.
+- 기존 debug signing cache `chungyack-radar-debug-keystore-v1`은 유지해 업데이트 설치 연속성을 보존한다.
+- 현재 v0.7 최종 빌드 run: `33546293696` (2026-09-02 KST 시작, 완료 결과 확인 필요).
 
 ## 10. 다음 작업자가 바로 할 일
 
-1. SH 2차 행복주택 공식 공급표/PDF 확보
-2. `청년` 공급행 전체 추출
-3. 사용자 제공 8개 후보가 이번 회차 청년인지 각각 확인
-4. 공식 공급/예비 수·전용면적·보증금·월세·전환조건·정확주소 입력
-5. 강남/판교 통근까지 비교
-6. LH 경기남부/인천부천 XLSX 실제 주택 단위 펼치기
-7. 신청완료 5건의 결과/서류 상태 갱신
-8. 다음 앱 변경 시 강화된 `npm run qa`와 실제 관심·북마크·추적 회귀검사를 유지
+1. v0.7 APK build `33546293696` 성공 여부 확인 및 실패 시 즉시 수정
+2. 실제 APK에서 첫 화면/공고 탭 가독성 확인
+3. `숨기기 → 숨긴 공고 → 복원` 동작 확인
+4. `신청했음 → 추적`과 기존 추적 수정/삭제/되돌리기 회귀검사
+5. 좋아요/북마크 UI가 다시 노출되지 않는지 확인
+6. 기본 카드에 대량 SH 행복주택 검증 UI가 노출되지 않는지 확인
+7. 이후 기능은 한 번에 하나씩, 가독성 유지가 확인된 것만 추가
+8. 청약 데이터 업무는 계속: SH 2차 행복주택 공식 공급표 전체 청년행 검증, LH 경기남부/인천부천 XLSX 실제 주택 단위 비교, 신청완료 공고 후속 추적
