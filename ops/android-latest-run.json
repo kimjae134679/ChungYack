@@ -1,7 +1,7 @@
 {
   "version": "0.6.0",
   "run_id": 33466011860,
-  "status": "building",
+  "status": "failed",
   "artifact": "ChungYack-Radar-v0.6.0-debug-apk",
   "release_tag": "apk-v0.6.0"
 }
