@@ -20,9 +20,10 @@ function cyV7SetView(view){CY_V7_VIEW=view==='hidden'?'hidden':'active';localSto
 function cyV7ToggleHidden(id){
   if(!id)return;
   if(CY_V7_HIDDEN.has(id))CY_V7_HIDDEN.delete(id);else CY_V7_HIDDEN.add(id);
+  const nowHidden=CY_V7_HIDDEN.has(id);
   cyV7SaveHidden();
   renderRecommendations();
-  if(typeof cyToast==='function')cyToast(CY_V7_HIDDEN.has(id)?'공고를 숨겼습니다.':'숨김을 해제했습니다.');
+  if(typeof cyToast==='function')cyToast(nowHidden?'공고를 숨겼습니다.':'숨김을 해제했습니다.');
 }
 function cyV7ClearHidden(){CY_V7_HIDDEN.clear();cyV7SaveHidden();CY_V7_VIEW='active';localStorage.setItem(CY_V7_VIEW_KEY,'active');renderRecommendations()}
 
@@ -97,7 +98,10 @@ renderRecommendations=function(){
   document.querySelectorAll('[data-cy-v7-view]').forEach(b=>b.addEventListener('click',()=>cyV7SetView(b.dataset.cyV7View)));
   document.querySelectorAll('[data-cy-v7-hide]').forEach(b=>b.addEventListener('click',()=>cyV7ToggleHidden(b.dataset.cyV7Hide)));
   document.querySelectorAll('.cy-v7-track').forEach(b=>b.addEventListener('click',()=>cyV4AddTracking(b.dataset.opportunityId)));
-  const q=document.getElementById('cyV7Search');if(q)q.addEventListener('input',()=>{CY_V7_SEARCH=q.value;renderRecommendations()});
+  const q=document.getElementById('cyV7Search');if(q)q.addEventListener('input',()=>{
+    const value=q.value;CY_V7_SEARCH=value;renderRecommendations();
+    const fresh=document.getElementById('cyV7Search');if(fresh){fresh.focus({preventScroll:true});fresh.setSelectionRange(value.length,value.length)}
+  });
   const clear=document.querySelector('.cy-v7-clear-hidden');if(clear)clear.addEventListener('click',cyV7ClearHidden);
 };
 
@@ -129,9 +133,24 @@ cyImportBackup=async function(file){
   location.reload();
 };
 
+function cyV7WireBackupControls(){
+  const oldExport=document.getElementById('exportLocalBtn');
+  if(oldExport){const fresh=oldExport.cloneNode(true);oldExport.replaceWith(fresh);fresh.addEventListener('click',()=>{if(typeof cyExportBackup==='function')cyExportBackup()})}
+  const oldImport=document.getElementById('importLocalBtn');
+  const oldFile=document.getElementById('importLocalFile');
+  if(oldImport&&oldFile){
+    const freshImport=oldImport.cloneNode(true),freshFile=oldFile.cloneNode(true);
+    oldImport.replaceWith(freshImport);oldFile.replaceWith(freshFile);
+    freshImport.addEventListener('click',()=>freshFile.click());
+    freshFile.addEventListener('change',async()=>{await cyImportBackup(freshFile.files?.[0]);freshFile.value=''})
+  }
+}
 function cyV7Wire(){
+  // v0.6 interest/bookmark state is deliberately retired in the rebuilt UI.
+  localStorage.removeItem('chungyack.opportunity.flags.v1');localStorage.removeItem('chungyack.opportunity.savedview.v1');
   document.querySelector('.page[data-page="recommend"] .section-head h2')?.replaceChildren(document.createTextNode('현재 검토 공고'));
   const small=document.querySelector('.page[data-page="recommend"] .section-head small');if(small)small.textContent='핵심만 보고 · 필요 없으면 숨기기';
+  cyV7WireBackupControls();
   const reset=document.getElementById('resetLocalBtn');if(reset){const fresh=reset.cloneNode(true);reset.replaceWith(fresh);fresh.addEventListener('click',()=>{if(!confirm('이 기기의 필터·추적·숨김 기록을 전부 초기화할까요?\n실제 청약 신청에는 영향이 없습니다.'))return;localStorage.removeItem(FILTER_KEY);localStorage.removeItem(TRACK_KEY);localStorage.removeItem(CY_TRASH_KEY);localStorage.removeItem(CY_V7_HIDDEN_KEY);localStorage.removeItem(CY_V7_VIEW_KEY);localStorage.removeItem('chungyack.opportunity.flags.v1');localStorage.removeItem('chungyack.opportunity.savedview.v1');location.reload()})}
   const a=document.getElementById('appVersion');if(a)a.textContent='v'+CY_V7_VERSION;
   const b=document.getElementById('settingsVersion');if(b)b.textContent=CY_V7_VERSION;
