@@ -92,6 +92,7 @@ jobs:
           node --check public/assets/app-v5.js
           node --check public/assets/app-v6.js
           node --check public/assets/app-v61.js
+          node --check public/assets/app-v7.js
           node --check public/sw.js
           node --check scripts/qa-app.mjs
           node --check scripts/apply-android-branding.mjs
@@ -102,6 +103,7 @@ jobs:
           test -s public/assets/app-v5.css
           test -s public/assets/app-v6.css
           test -s public/assets/app-v61.css
+          test -s public/assets/app-v7.css
           test -s public/data/current-opportunities.json
           test -s public/data/discovery-extra.json
           test -s public/data/sh-happy-2026-2-youth.json
@@ -115,24 +117,22 @@ jobs:
           grep -q 'app-v5.js' public/index.html
           grep -q 'app-v6.js' public/index.html
           grep -q 'app-v61.js' public/index.html
+          grep -q 'app-v7.js' public/index.html
           grep -q 'app-v5.css' public/index.html
           grep -q 'app-v6.css' public/index.html
           grep -q 'app-v61.css' public/index.html
+          grep -q 'app-v7.css' public/index.html
           grep -q 'app-icon.svg' public/manifest.webmanifest
           grep -q 'exportLocalBtn' public/index.html
           grep -q '취소/추적중단' public/index.html
+          grep -q '공고 숨기기' public/index.html
           grep -q 'cyRestoreRemoved' public/assets/app-v3.js
           grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
           grep -q 'current-opportunities.json' public/assets/app-v4.js
-          grep -q 'discovery-extra.json' public/assets/app-v5.js
-          grep -q 'CY_V5_VERSION' public/assets/app-v5.js
-          grep -q 'CY_V6_VERSION' public/assets/app-v6.js
-          grep -q 'CY_V6_FLAGS_KEY' public/assets/app-v6.js
-          grep -q 'data-cy-interest' public/assets/app-v6.js
-          grep -q 'data-cy-bookmark' public/assets/app-v6.js
-          grep -q 'data-cy-saved' public/assets/app-v6.js
-          grep -q 'CY_V61_VERSION' public/assets/app-v61.js
-          grep -q 'sh-happy-2026-2-youth.json' public/assets/app-v61.js
+          grep -q 'CY_V7_VERSION' public/assets/app-v7.js
+          grep -q 'CY_V7_HIDDEN_KEY' public/assets/app-v7.js
+          grep -q 'data-cy-v7-hide' public/assets/app-v7.js
+          grep -q 'hiddenOpportunities' public/assets/app-v7.js
           grep -q '4576036' public/data/current-opportunities.json
           grep -q 'SH 2026년 국민임대주택' public/data/current-opportunities.json
           grep -q '1,973세대' public/data/discovery-extra.json
@@ -181,7 +181,7 @@ jobs:
         run: |
           TAG="apk-v${{ steps.ver.outputs.version }}"
           APK="ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "공고 관심·북마크·신청추적 및 전용 필터, SH 2026년 2차 행복주택 청년 현재회차 검증자료, 최신 검토공고·내 조건 판정, 패스/절대불가 분리, 추적 수정/상태변경, 삭제 되돌리기, JSON 백업/복원을 포함한 APK"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "가독성 중심으로 UI를 다시 구성한 버전. 핵심 공고 카드, 공고 숨기기/복원, 실제 신청 공고 추적, 추적 수정·상태변경, 삭제 되돌리기, JSON 백업/복원 기능을 포함합니다. 좋아요·북마크 중복 UI와 기본 화면의 대량 검증정보/중첩 접기 UI는 제거했습니다."
           gh release upload "$TAG" "$APK" --clobber
 
       - name: Record successful build
