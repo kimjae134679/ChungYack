@@ -158,7 +158,7 @@
 - 이전에 직접 전달한 로컬 서명 APK와 인증서 연속성 확인
 - 브라우저에서 저장/저장필터/새로고침 유지/신청추적 표시/추적필터/모바일 폭 검증 성공
 
-GitHub Actions/Release 최종 run 정보는 `ops/android-latest-run.json`을 따른다.
+GitHub Actions run `33658238577`도 전 단계 **SUCCESS**. Release `apk-v0.7.1`의 자동빌드 APK는 서명 불일치가 확인되어 같은 이름의 로컬 연속서명 APK로 교체했고, 다시 내려받아 SHA-256과 signer가 위 값과 동일함을 확인했다. 이후 같은 버전 자동빌드는 Release 자산을 덮어쓰지 않도록 workflow도 수정했다. 최종 run 원장은 `ops/android-latest-run.json`을 따른다.
 
 ## 이전 v0.7.0 자동빌드 기록
 

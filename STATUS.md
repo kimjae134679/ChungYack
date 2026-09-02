@@ -69,7 +69,7 @@ active 파일:
 - 저장/필터/신청표시/추적필터/새로고침 유지/모바일 폭 검증 성공
 - 로컬 빌드 스크립트가 Android SDK 위치를 자동 연결하도록 수정
 
-GitHub Actions와 Release 최종 결과는 `ops/android-latest-run.json`을 따른다.
+GitHub Actions run `33658238577` 전 단계 성공. Release `apk-v0.7.1`은 로컬 연속서명 APK로 교체 후 재다운로드 검증까지 완료했다. 같은 버전의 이후 자동빌드가 Release 자산을 덮어쓰지 않도록 workflow도 보강했다. 실행 원장은 `ops/android-latest-run.json`을 따른다.
 
 ### 이전 v0.7.0 자동빌드 기록
 
