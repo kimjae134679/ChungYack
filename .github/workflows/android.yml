@@ -126,12 +126,16 @@ jobs:
           grep -q 'exportLocalBtn' public/index.html
           grep -q '취소/추적중단' public/index.html
           grep -q '공고 숨기기' public/index.html
+          grep -q '공고 저장' public/index.html
           grep -q 'cyRestoreRemoved' public/assets/app-v3.js
           grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
           grep -q 'current-opportunities.json' public/assets/app-v4.js
           grep -q 'CY_V7_VERSION' public/assets/app-v7.js
           grep -q 'CY_V7_HIDDEN_KEY' public/assets/app-v7.js
+          grep -q 'CY_V7_SAVED_KEY' public/assets/app-v7.js
+          grep -q 'data-cy-v7-save' public/assets/app-v7.js
           grep -q 'data-cy-v7-hide' public/assets/app-v7.js
+          grep -q 'savedOpportunities' public/assets/app-v7.js
           grep -q 'hiddenOpportunities' public/assets/app-v7.js
           grep -q '4576036' public/data/current-opportunities.json
           grep -q 'SH 2026년 국민임대주택' public/data/current-opportunities.json
@@ -181,8 +185,12 @@ jobs:
         run: |
           TAG="apk-v${{ steps.ver.outputs.version }}"
           APK="ChungYack-Radar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "가독성 중심으로 UI를 다시 구성한 버전. 핵심 공고 카드, 공고 숨기기/복원, 실제 신청 공고 추적, 추적 수정·상태변경, 삭제 되돌리기, JSON 백업/복원 기능을 포함합니다. 좋아요·북마크 중복 UI와 기본 화면의 대량 검증정보/중첩 접기 UI는 제거했습니다."
-          gh release upload "$TAG" "$APK" --clobber
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${{ steps.ver.outputs.version }}" --notes "관심 공고 저장·모아보기, 신청했음·추적중 표시와 필터, 공고 숨기기/복원, 추적 수정·상태변경, 삭제 되돌리기, JSON 백업/복원을 포함합니다. 기존 관심·북마크는 하나의 저장 상태로 자동 이관합니다."
+          if gh release view "$TAG" --json assets --jq '.assets[].name' | grep -Fxq "$APK"; then
+            echo "Release asset already exists; preserving it for signing continuity."
+          else
+            gh release upload "$TAG" "$APK"
+          fi
 
       - name: Record successful build
         if: success() && github.event_name != 'pull_request'

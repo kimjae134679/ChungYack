@@ -36,6 +36,13 @@ if ($LASTEXITCODE -ne 0) { throw 'npx cap sync android failed' }
 npm run android:brand
 if ($LASTEXITCODE -ne 0) { throw 'Android branding failed' }
 
+$sdkPath = $env:ANDROID_HOME
+if (-not $sdkPath) { $sdkPath = Join-Path $env:LOCALAPPDATA 'Android\Sdk' }
+if (-not (Test-Path -LiteralPath $sdkPath)) { throw "Android SDK가 없습니다: $sdkPath" }
+$sdkPropertyPath = $sdkPath.Replace('\', '/')
+Set-Content -LiteralPath "$root\android\local.properties" -Value "sdk.dir=$sdkPropertyPath" -Encoding ascii
+Write-Host "[ChungYack] Android SDK: $sdkPath"
+
 Push-Location "$root\android"
 try {
   .\gradlew.bat assembleDebug

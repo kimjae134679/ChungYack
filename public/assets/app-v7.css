@@ -1,4 +1,4 @@
-/* v0.7.0 UI reset — simple, readable, card-first. */
+/* v0.7.1 UI — simple, readable, card-first. */
 :root{--cy7-line:rgba(17,24,39,.09);--cy7-soft:#f7f8fb;--cy7-text:#172033;--cy7-muted:#667085}
 
 /* Retire the accumulated v4-v6 visual layers from the active UI. */
@@ -8,7 +8,7 @@
 .page[data-page="recommend"] .section-head small{max-width:52%;text-align:right;line-height:1.35}
 
 .cy-v7-toolbar{display:grid;gap:10px;margin:4px 0 14px;padding:12px;border:1px solid var(--cy7-line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(17,24,39,.04)}
-.cy-v7-levels{display:flex;gap:6px;overflow-x:auto;padding-bottom:1px;scrollbar-width:none}.cy-v7-levels::-webkit-scrollbar{display:none}
+.cy-v7-views,.cy-v7-levels{display:flex;gap:6px;overflow-x:auto;padding-bottom:1px;scrollbar-width:none}.cy-v7-views::-webkit-scrollbar,.cy-v7-levels::-webkit-scrollbar{display:none}
 .cy-v7-levels button,.cy-v7-view,.cy-v7-clear-hidden{border:1px solid var(--cy7-line);background:#fff;border-radius:999px;padding:9px 12px;font-weight:750;font-size:13px;white-space:nowrap;color:var(--cy7-text)}
 .cy-v7-levels button.on,.cy-v7-view.active{background:#172554;color:#fff;border-color:#172554}
 .cy-v7-search-row,.cy-v7-toolbar-row{display:flex;gap:8px;align-items:center}
@@ -18,6 +18,7 @@
 
 .cy-v7-list{display:grid;gap:11px}
 .cy-v7-card{background:#fff;border:1px solid var(--cy7-line);border-radius:18px;padding:14px;box-shadow:0 7px 20px rgba(17,24,39,.045)}
+.cy-v7-card.is-saved{box-shadow:0 0 0 1px rgba(183,129,3,.18),0 7px 20px rgba(17,24,39,.045)}
 .cy-v7-card.action{border-left:5px solid #2b6f55}.cy-v7-card.conditional{border-left:5px solid #cf7a14}.cy-v7-card.hold{border-left:5px solid #7a8798}.cy-v7-card.impossible{border-left:5px solid #b94a48}.cy-v7-card.is-hidden{opacity:.7;background:#fafafa}
 .cy-v7-card-top{display:flex;gap:10px;align-items:flex-start}.cy-v7-title-wrap{min-width:0;flex:1}.cy-v7-status{font-size:12px;font-weight:800;color:#475467;margin-bottom:3px}.cy-v7-card h3{margin:0;font-size:17px;line-height:1.35;color:var(--cy7-text);letter-spacing:-.015em}.cy-v7-meta{font-size:12px;color:var(--cy7-muted);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cy-v7-hide{flex:0 0 auto;border:0;background:#f2f4f7;color:#475467;border-radius:10px;padding:8px 9px;font-size:12px;font-weight:750}
@@ -26,6 +27,7 @@
 .cy-v7-next{display:grid;grid-template-columns:auto 1fr;gap:8px;margin-top:9px;padding-top:9px;border-top:1px solid var(--cy7-line);font-size:12px;line-height:1.45}.cy-v7-next span{color:var(--cy7-muted);font-weight:700}.cy-v7-next b{color:var(--cy7-text);font-weight:750}
 .cy-v7-address{margin-top:7px;font-size:11.5px;color:var(--cy7-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cy-v7-address small{font-size:11px}
 .cy-v7-actions{display:flex;gap:7px;margin-top:11px}.cy-v7-actions .btn{flex:1;justify-content:center;text-align:center;padding:10px 8px;font-size:12.5px;border-radius:11px}
+.cy-v7-save.on{background:#fff7d6;border-color:#e3b934;color:#765500}.cy-v7-track.on{background:#e8f5ee!important;border-color:#75aa8e!important;color:#1d6748!important}
 
 /* Compact home report: no evidence walls, no nested detail accordions. */
 .cy-v7-hourly{margin:0 0 18px!important}.cy-v7-hourly-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.cy-v7-hourly-head h2{margin:0;font-size:19px}.cy-v7-hourly-head small{font-size:11px;color:var(--cy7-muted)}

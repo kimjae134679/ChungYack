@@ -63,7 +63,7 @@ if (rows.length !== 80) throw new Error(`SH catalog row count expected 79, got $
 if (!csv.includes(',59,')) throw new Error('59㎡ catalog rows missing: filters must be user-selectable, not hard-excluded');
 if (!csv.includes(',29,') || !csv.includes(',39,') || !csv.includes(',49,')) throw new Error('catalog type coverage missing');
 const html = fs.readFileSync('public/index.html','utf8');
-for (const marker of ['청약 레이더','bottom-nav','recommendList','trackingGrid','trackingEditor','typeFilter','regionFilter','viewport-fit=cover','app-v2.css','app-v3.css','app-v4.css','app-v5.css','app-v6.css','app-v61.css','app-v7.css','app-v2-fixes.js','app-v3.js','app-v4.js','app-v5.js','app-v6.js','app-v61.js','app-v7.js','exportLocalBtn','importLocalBtn','취소/추적중단','공고 숨기기']) {
+for (const marker of ['청약 레이더','bottom-nav','recommendList','trackingGrid','trackingEditor','typeFilter','regionFilter','viewport-fit=cover','app-v2.css','app-v3.css','app-v4.css','app-v5.css','app-v6.css','app-v61.css','app-v7.css','app-v2-fixes.js','app-v3.js','app-v4.js','app-v5.js','app-v6.js','app-v61.js','app-v7.js','exportLocalBtn','importLocalBtn','취소/추적중단','공고 숨기기','공고 저장']) {
   if (!html.includes(marker)) throw new Error(`index marker missing: ${marker}`);
 }
 const js = fs.readFileSync('public/assets/app.js','utf8');
@@ -85,7 +85,7 @@ for (const marker of ['CY_V61_VERSION','sh-happy-2026-2-youth.json','현재회�
   if (!v61.includes(marker)) throw new Error(`v0.6.1 compatibility marker missing: ${marker}`);
 }
 const v7 = fs.readFileSync('public/assets/app-v7.js','utf8');
-for (const marker of ['CY_V7_VERSION','CY_V7_HIDDEN_KEY','data-cy-v7-hide','숨긴 공고','renderHourlyReport','hiddenOpportunities']) {
+for (const marker of ['CY_V7_VERSION','CY_V7_SAVED_KEY','CY_V7_HIDDEN_KEY','data-cy-v7-save','data-cy-v7-hide','저장한 공고','신청 추적중','renderHourlyReport','savedOpportunities','hiddenOpportunities']) {
   if (!v7.includes(marker)) throw new Error(`v0.7 UI reset marker missing: ${marker}`);
 }
 if (!v7.includes(`CY_V7_VERSION='${version}'`)) throw new Error('v0.7 displayed version does not match VERSION');
@@ -96,9 +96,9 @@ for (const marker of ['safe-area-inset-top','safe-area-inset-bottom','overflow-x
 const css3 = fs.readFileSync('public/assets/app-v3.css','utf8');
 if (!css3.includes('safe-area-inset-bottom') || !css3.includes('.cy-toast')) throw new Error('v3 mobile recovery UI marker missing');
 const css7 = fs.readFileSync('public/assets/app-v7.css','utf8');
-for (const marker of ['.cy-v7-card','.cy-v7-hide','.cy-v7-hourly','.cy-v7-toolbar']) if (!css7.includes(marker)) throw new Error(`v0.7 style marker missing: ${marker}`);
+for (const marker of ['.cy-v7-card','.cy-v7-save','.cy-v7-hide','.cy-v7-hourly','.cy-v7-toolbar']) if (!css7.includes(marker)) throw new Error(`v0.7 style marker missing: ${marker}`);
 const manifest = fs.readFileSync('public/manifest.webmanifest','utf8');
 if (!manifest.includes('assets/app-icon.svg')) throw new Error('manifest icon missing');
 const sw = fs.readFileSync('public/sw.js','utf8');
 for (const marker of ['app-v2-fixes.js','app-v3.js','app-v3.css','app-v4.js','app-v4.css','app-v5.js','app-v5.css','app-v6.js','app-v6.css','app-v61.js','app-v61.css','app-v7.js','app-v7.css','current-opportunities.json','discovery-extra.json','sh-happy-2026-2-youth.json','sh-2026.csv','app-icon.svg']) if (!sw.includes(marker)) throw new Error(`service worker asset missing: ${marker}`);
-console.log(`QA OK: trackingSeed=${data.trackingSeed.length}, catalog=79, insights=${data.insights.length}, happyYouthRows=${happy.rows.length}, version=${version}, backup+undo+hide+tracking=enabled, legacy-v6-layers=compatibility-only`);
+console.log(`QA OK: trackingSeed=${data.trackingSeed.length}, catalog=79, insights=${data.insights.length}, happyYouthRows=${happy.rows.length}, version=${version}, backup+undo+save+hide+tracking=enabled, legacy-v6-layers=compatibility-only`);

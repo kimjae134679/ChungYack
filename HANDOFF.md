@@ -1,6 +1,6 @@
 # ChungYack Handoff
 
-최종 갱신: 2026-09-02 KST
+최종 갱신: 2026-09-03 KST
 
 새 대화·새 작업자·자동화는 이 문서와 `STATUS.md`를 먼저 읽고, 실제 앱 상태는 `VERSION` + main 최신 파일 + `ops/android-latest-run.json`을 최우선으로 본다.
 
@@ -53,7 +53,7 @@
 - 패스/절대불가 공고는 상세·지도 반복 금지.
 - 추천 숫자순위/별점 금지. 프로젝트 지정 상태 이모티콘 사용.
 
-# 6. 앱 UI 재시작 — v0.7.0
+# 6. 앱 UI — v0.7.1
 
 ## 사용자 최신 판단
 
@@ -83,9 +83,9 @@
 - `public/assets/app-v7.js`
 - `public/assets/app-v7.css`
 - `public/index.html`
-- `VERSION` = `0.7.0`
-- `package.json` = `0.7.0`
-- `public/sw.js` cache = `chungyack-radar-v0.7.0-r1`
+- `VERSION` = `0.7.1`
+- `package.json` = `0.7.1`
+- `public/sw.js` cache = `chungyack-radar-v0.7.1-r1`
 
 기존 `app-v4/v5/v6/v61`은 호환성/과거 구현 참고용. **최종 사용자 화면은 v7 렌더러가 마지막에 덮어쓴다.**
 
@@ -102,13 +102,14 @@
 - 주소 요약
 - 공식 공고
 - `신청했음 → 추적`
+- `☆ 저장 / ★ 저장됨`
 - `숨기기`
 
 저장/정리 기능:
-- 좋아요 제거
-- 북마크 제거
-- 관심만/북마크만 필터 제거
-- **숨기기 하나로 통일**
+- 좋아요/북마크처럼 겹치는 버튼은 하나의 **저장**으로 통일
+- `★ 저장`에서 저장한 공고만 모아보기
+- `✅ 추적중`에서 실제 신청한 현재 공고만 모아보기
+- 신청한 공고 카드는 `✅ 신청함 · 추적중`으로 표시
 - `숨긴 공고 N`에서 복원
 - `숨김 모두 해제` 지원
 
@@ -131,12 +132,11 @@
 
 ## 로컬 상태
 
+- 저장: `chungyack.opportunity.saved.v1`
 - 숨김: `chungyack.opportunity.hidden.v1`
-- 숨김 화면: `chungyack.opportunity.view.v1`
+- 현재 보기: `chungyack.opportunity.view.v1` (`active`/`saved`/`tracked`/`hidden`)
 - 추적/삭제복원은 기존 구조 유지
-- 과거 v6 관심/북마크 키는 v0.7 시작 시 제거
-  - `chungyack.opportunity.flags.v1`
-  - `chungyack.opportunity.savedview.v1`
+- 과거 v6의 관심/북마크는 v0.7.1 최초 시작 시 단일 저장 상태로 자동 이관한 뒤 구 키 제거
 
 ## 앞으로 UI 수정 시 금지
 
@@ -146,7 +146,21 @@
 - 한 공고에 같은 목적의 버튼을 여러 개 만들지 않는다.
 - 기능 수보다 가독성을 우선한다.
 
-# 7. v0.7 APK 빌드 완료
+# 7. v0.7.1 로컬 APK 빌드 완료
+
+2026-09-03 로컬 검증:
+- `npm install → QA → Capacitor add/sync → Android branding → Gradle assembleDebug` 성공
+- APK: `dist/ChungYack-Radar-v0.7.1-debug.apk`
+- Android: `versionName 0.7.1`, `versionCode 701`
+- application id: `com.kimjae134679.chungyack`
+- SHA-256: `101D10CF8143AF19F211A4AB0CA5474EC66EBA83650B0AF57E3EDA4FB5009F78`
+- signing certificate SHA-256: `00908CB5CBFD5B94C841AC8FC028AE28B329CB7B0A0101345FCD3453574A13EA`
+- 이전에 직접 전달한 로컬 서명 APK와 인증서 연속성 확인
+- 브라우저에서 저장/저장필터/새로고침 유지/신청추적 표시/추적필터/모바일 폭 검증 성공
+
+GitHub Actions/Release 최종 run 정보는 `ops/android-latest-run.json`을 따른다.
+
+## 이전 v0.7.0 자동빌드 기록
 
 GitHub Actions 최종 run:
 - run id: `33546293696`
@@ -170,10 +184,10 @@ GitHub Actions 최종 run:
 
 # 8. 다음 작업자가 바로 할 일
 
-1. 실제 v0.7 APK에서 공고 탭의 가독성을 최우선으로 확인
-2. `숨기기 → 숨긴 공고 → 복원` 확인
-3. 좋아요/북마크가 노출되지 않는지 확인
-4. `신청했음 → 추적`과 추적 수정/삭제/되돌리기 확인
+1. 실제 v0.7.1 APK에서 공고 탭의 가독성을 최우선으로 확인
+2. `★ 저장 → 저장한 공고`와 `숨기기 → 숨긴 공고 → 복원` 확인
+3. 과거 관심/북마크가 단일 저장으로 이관되는지 확인
+4. `신청했음 → 추적 → ✅ 신청함 · 추적중`과 추적 수정/삭제/되돌리기 확인
 5. 대량 행복주택 검증 UI가 기본 카드에 다시 나오지 않는지 확인
 6. 이후 기능은 한 번에 하나씩만 추가하고, 가독성이 좋아지는 경우에만 유지
 7. 청약 데이터 검증 업무는 별도로 계속 진행
