@@ -1,8 +1,7 @@
 {
-  "version": "0.7.0",
-  "run_id": 33654351261,
-  "status": "success",
-  "artifact": "ChungYack-Radar-v0.7.0-debug-apk",
-  "release_tag": "apk-v0.7.0",
-  "signing_cache": "chungyack-radar-debug-keystore-v1"
+  "version": "0.7.1",
+  "run_id": 33658238577,
+  "status": "building",
+  "artifact": "ChungYack-Radar-v0.7.1-debug-apk",
+  "release_tag": "apk-v0.7.1"
 }
