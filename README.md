@@ -4,6 +4,36 @@
 
 이 저장소는 청약2 프로젝트의 **단일 기준점(Single Source of Truth)** 이다. 새 대화·새 작업자·자동화·인수인계 시 이 저장소의 최신 상태를 우선 확인한다.
 
+## 0. 현재 배포 앱 — v0.8.0 라이브 셸
+
+2026-09-03부터 실제 배포 기준은 번들형 v0.7.1이 아니라 **한 번 설치하는 원격 HTML 셸 v0.8.0**이다.
+
+- 공개 라이브 HTML 기준점: `kimjae134679/stock/chungyack-apk/public/**`
+- 라이브 주소: `https://kimjae134679.github.io/stock/chungyack/`
+- APK release: `kimjae134679/stock` tag `chungyack-live-shell-v0.8.0`
+- APK 파일: `ChungYack-Radar-Live-Shell-v0.8.0.apk`
+- 소스 commit: `f9b8b0b979eb3b1a10a810615134c5d97a3ba103`
+- Pages run: `33661958687` SUCCESS
+- Android run: `33661958643` SUCCESS
+- APK SHA-256: `22F5897314237E8FC6643840B5B0FD97125DE954DD2826CAF01B889DC0060B3B`
+- Actions signing certificate SHA-256: `7BA627EE4C748015D8493DBED0E1623A39A0CA5FAE0042C34C74823FBA7E0543`
+
+강제 운영 원칙:
+
+- HTML/CSS/JS/공개 공고 데이터 수정은 `stock/chungyack-apk/public/**`만 바꾸고 Pages만 배포한다.
+- 일반 UI·데이터 수정으로 APK 버전을 올리거나 APK를 다시 빌드하지 않는다.
+- APK는 원격 URL, 패키지, 네이티브 브리지 자체가 바뀔 때만 재빌드한다.
+- 저장 `chungyack.opportunity.saved.v1`, 숨김 `chungyack.opportunity.hidden.v1`, 보기 `chungyack.opportunity.view.v1`, 필터, 추적, 삭제복원 키를 유지한다.
+- 공고 `id`는 사용자 기록의 연결키이므로 같은 공고에서 임의 변경하지 않는다.
+- 공개 Pages의 `app.json`은 `trackingSeed: []`을 유지하고, 개인 신청·결과·예비·서류 상태를 공개 배포하지 않는다.
+- 라이브 사이트에서 저장·숨김·추적을 만든 뒤 새로고침해도 세 상태가 모두 유지되는 것을 검증했다.
+
+전환 주의:
+
+- 최종 수동서명 v0.7.1 인증서(`00908CB5...`)와 v0.8.0 Actions 인증서(`7BA627EE...`)가 달라 Android가 기존 앱 위 덮어쓰기를 거부할 수 있다.
+- 기존 v0.7.1에 기록이 있다면 먼저 앱 설정의 JSON 백업을 만든 후 기존 앱 삭제 → v0.8.0 설치 → 백업 가져오기 순서로 1회 전환한다.
+- 원격 origin으로 바뀌므로 옛 번들형 `https://localhost` localStorage는 자동 이동하지 않는다. v0.8.0 설치 이후의 기록은 HTML 갱신과 무관하게 계속 유지된다.
+
 ## 1. 가장 먼저 읽을 것
 
 - 최상위 규칙 → `docs/MASTER_RULES.md`
