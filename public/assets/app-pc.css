@@ -1,0 +1,36 @@
+/* The toolbar and card grid are separate rows, at every viewport size. */
+#recommendList{display:block}
+.cy-v7-toolbar{align-content:start}
+.cy-v7-views,.cy-v7-levels{align-items:center;flex-wrap:wrap;overflow:visible}
+.cy-v7-views button,.cy-v7-levels button{min-height:40px;flex:0 0 auto}
+.cy-v7-list{align-items:start;grid-template-columns:minmax(0,1fr)}
+.cy-pc-title{border:0;background:none;padding:0;text-align:left;color:inherit;font:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:#b7c9df;text-underline-offset:4px}
+.cy-pc-title:hover{color:#145b91}
+.cy-pc-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.cy-pc-links .btn{padding:9px 12px;font-size:14px}
+.cy-pc-detail{width:min(900px,calc(100% - 24px));max-height:85dvh;padding:0;border:1px solid #d4deea;border-radius:18px;color:#172033;background:#fff;overflow:auto}
+.cy-pc-detail::backdrop{background:rgba(15,23,42,.55)}
+.cy-pc-detail header{position:sticky;top:0;display:flex;align-items:start;gap:16px;justify-content:space-between;background:#fff;padding:20px;border-bottom:1px solid #e0e7ef;z-index:1}
+.cy-pc-detail h2{font-size:21px;margin:0;line-height:1.5}
+.cy-pc-detail header button{flex-shrink:0;padding:9px 14px;border:1px solid #ccd8e5;border-radius:9px;background:#f3f6fa;cursor:pointer}
+.cy-pc-body{padding:20px;line-height:1.7;font-size:15px;overflow-wrap:anywhere}
+.cy-pc-body h3{margin:24px 0 8px;font-size:17px}
+.cy-pc-body p{white-space:pre-line}
+.cy-pc-body .cy-v61-happy{display:block!important}
+.cy-pc-body .cy-v61-happy *{font-size:inherit}
+.cy-pc-body .cy-v61-screen-list,.cy-pc-body .cy-v61-extra-list{grid-template-columns:1fr}
+.cy-pc-body li{margin:8px 0}
+.cy-pc-muted{color:#667085}
+.cy-pc-title:focus-visible,.cy-pc-links a:focus-visible{outline:3px solid #357cc1;outline-offset:3px}
+@media(min-width:900px){
+  .app{max-width:1280px}
+  .cy-v7-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .cy-v7-card{padding:20px}
+  .cy-v7-card h3{font-size:19px}
+  .cy-v7-meta,.cy-v7-facts b,.cy-v7-eligibility p,.cy-v7-next,.cy-v7-hourly-item span{font-size:14px}
+  .cy-v7-hourly-item strong{font-size:16px}
+  .cy-v7-hourly-item{padding:14px 0}
+  .cy-v7-hourly-item span{display:block}
+  .cy-v7-toolbar{gap:12px}
+  .cy-v7-search-row{max-width:600px}
+}
