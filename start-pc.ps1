@@ -1,15 +1,15 @@
 # ChungYack PC launcher.
-# The PC view now opens the same canonical live app used by the APK, so stale local public files cannot drift behind.
+# Opens the same canonical live app used by the APK; local legacy public files are not served.
 [CmdletBinding()]
 param(
     [switch]$NoBrowser
 )
 $ErrorActionPreference = 'Stop'
-$LiveUrl = 'https://kimjae134679.github.io/stock/chungyack/?pc=1'
+$LiveUrl = 'https://kimjae134679.github.io/stock/chungyack/?pc=1&v=1050'
 try {
-    Write-Host 'ChungYack PC - LIVE' -ForegroundColor Green
+    Write-Host 'ChungYack PC - LIVE v0.10.5' -ForegroundColor Green
     Write-Host "Opening: $LiveUrl"
-    Write-Host 'PC and APK now use the same live UI/data source.'
+    Write-Host 'PC and APK use the same live UI/data source.'
     if (-not $NoBrowser) {
         Start-Process $LiveUrl
     }
