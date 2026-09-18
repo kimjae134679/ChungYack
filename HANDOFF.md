@@ -1,6 +1,6 @@
 # ChungYack Handoff
 
-최종 갱신: 2026-09-07 KST
+최종 갱신: 2026-09-18 KST
 
 새 대화·새 작업자·자동화는 이 문서와 `STATUS.md`를 먼저 읽고, 실제 앱 상태는 `VERSION` + main 최신 파일 + `ops/android-latest-run.json`을 최우선으로 본다.
 
@@ -268,3 +268,15 @@ GitHub Actions 최종 run:
 7. 대량 행복주택 검증 UI가 기본 카드에 다시 나오지 않는지 확인.
 8. 이후 기능은 한 번에 하나씩만 추가하고, 가독성이 좋아지는 경우에만 유지.
 9. 청약 데이터 검증 업무는 별도로 계속 진행한다.
+
+
+# 9. 2026-09-18 신규공고 누락 사고 — 필수 인수인계
+
+- 2026-09-17 서울시 청년안심주택 신규·추가모집 10건이 라이브 후보 데이터에서 누락되는 사고가 있었다.
+- 원인은 기존 흐름이 '이미 알고 있는 공고 갱신' 중심이고 서울시 공식 게시판의 새 boardId를 독립적으로 감시하지 않았기 때문이다.
+- 실제 라이브 원장 `kimjae134679/stock/chungyack-apk/public/data/current-opportunities.json`, `hourly-report.json`, `app.json`에 10건 복구 완료.
+- 누락 단지: 비바힐스강변 / 이랜드PEER신촌 / 아임2030 / BX201 / 최강타워 / 루미노816 / 라봄성동 / 라온프라이빗 종암 / 퀸즈W / 하트리움.
+- `stock` repo에 `chungyack-apk/scripts/sync-soco-youth.py`와 `.github/workflows/chungyack-soco-watch.yml`을 추가했다.
+- 매시간 최근 공식 boardId를 스캔해 새 민간임대 청년안심주택 공고를 먼저 후보로 넣고, 이후 PDF 세부검증으로 보강한다.
+- 같은 단지의 새 모집회차는 과거 회차를 덮어쓰지 않는다. 회차별 id를 별도로 만든다.
+- 앞으로 매 실행 시 '기존 공고 일정 갱신' 전에 반드시 '공식 신규공고 누락 검사'를 먼저 수행한다.
