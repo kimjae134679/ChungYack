@@ -2,8 +2,12 @@
 
 서울·경기 주거/청약 공고를 많이 찾고, 공식 자료로 검증한 뒤 **실제 신청 가능한 후보와 신청 후 결과까지 끝까지 추적**하는 프로젝트입니다.
 
+## 2026-10-27 신청 이력 초기화
+- 이전 신청 전체는 비공개 보관본으로 이전하고 현재 신청·결과 추적은 빈 상태에서 시작한다.
+- 과거 신청은 양식·처리절차 참고 전용이며, 앞으로 새로 신청한 공고만 활성 추적에 등록한다.
+
 ## 현재 구조
-- 프로젝트 기준 저장소: `kimjae134679/ChungYack` (private)
+- 프로젝트 기준 저장소: `kimjae134679/ChungYack` (public, 개인 신청 상태는 비공개 Supabase에 보관)
 - 실제 라이브 HTML/APK shell 코드: `kimjae134679/stock/chungyack-apk/`
 - 라이브 사이트: `https://kimjae134679.github.io/stock/chungyack/`
 - 현재 live service-worker cache 확인값: `chungyack-live-v0.10.0-r1`
