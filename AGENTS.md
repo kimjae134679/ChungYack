@@ -1,10 +1,16 @@
 # AGENTS.md
 
+## Latest state: 2026-10-27 reset
+- 사용자가 기존 신청 내역 전부를 현재 신청/결과 화면에서 비우고 새 신청부터 기록하도록 요청했다. 과거 신청내역은 비공개 Supabase `chungyack_client_state.state.archivedTracking`에 보존한다.
+- 활성 `state.tracking`은 빈 배열에서 재시작한다. 과거 목록을 결과 발표·서류·계약 추적 또는 신규 추천 대상으로 되살리지 않는다.
+- `tracking_registry.md`, `STATUS.md`의 옛 신청 사례는 형식 참고 이력이다. 다음 작업의 현재 상태를 판단하는 근거로 쓰지 않는다.
+- 개인 앱 기기의 옛 기록은 `chungyack.tracking.archive.20261027.v1`에 보관되며 클라우드로 병합된다. 구현 원천은 stock repo의 `app-v88-sync.js`이다.
+
 ## Purpose
 이 파일은 청약/ChungYack 프로젝트를 다음 AI/Codex 세션에서 바로 이어가기 위한 작업 인수인계다. 사용자용 요약은 루트 `README.md`를 본다. 기존 `docs/`, `STATUS.md`, `HANDOFF.md` 등은 이미 존재하는 상세 원장/증거이므로 현재는 삭제하지 않지만, 앞으로 새 관리 문서를 계속 만들지 말고 장기 작업 기준은 이 파일과 `README.md`에 병합한다.
 
 ## Repositories / deployment split
-- Project hub / private source-of-truth repo: `kimjae134679/ChungYack`.
+- Project hub / public reference repo (private personal state is in Supabase): `kimjae134679/ChungYack`.
 - 실제 라이브 HTML/APK 셸 코드: `kimjae134679/stock/chungyack-apk/`.
 - 라이브 Pages: `https://kimjae134679.github.io/stock/chungyack/`.
 - 현재 `stock/chungyack-apk/public/sw.js`에서 확인되는 live cache: `chungyack-live-v0.10.0-r1`.
